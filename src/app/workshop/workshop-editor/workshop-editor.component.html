@@ -1,0 +1,44 @@
+<mat-toolbar>
+    <span>Édition atelier</span>
+</mat-toolbar>
+<form [formGroup]="workshopForm">
+    <mat-nav-list class="mat-typography" disableRipple="true">
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Nom de l'atelier</mat-label>
+                <input matInput placeholder="Nom de l'atelier" type="text" formControlName="name">
+                <mat-hint>{{fieldNameMaxLength}} caractères maxi</mat-hint>
+                <mat-error *ngIf="workshopForm.get('name').errors && 
+                    workshopForm.get('name').hasError('required')">
+                    Ce champ est requis.
+                </mat-error>
+                <mat-error *ngIf="workshopForm.get('name').errors && 
+                    workshopForm.get('name').hasError('maxlength')">
+                    Ce champ doit compter moins de {{fieldNameMaxLength}} caractères.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Description</mat-label>
+                <input matInput placeholder="Description" type="text" formControlName="description">
+                <mat-hint>{{fieldDescriptionMaxLength}} caractères maxi</mat-hint>
+                <mat-error *ngIf="workshopForm.get('description').errors && 
+                    workshopForm.get('description').hasError('maxlength')">
+                    Ce champ doit compter moins de {{fieldDescriptionMaxLength}} caractères.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item disableRipple="true">
+            <button mat-raised-button 
+                    matTooltip="Abandonner les modifications et fermer la fenêtre"
+                    (click)="cancel()">Annuler</button>
+            <span fxFlex></span>
+            <button mat-raised-button 
+                    color="primary" 
+                    [disabled]="workshopForm.invalid"
+                    matTooltip="Enregistrer les modifications et fermer la fenêtre"
+                    (click)="save()">Enregistrer</button>
+        </mat-list-item>
+    </mat-nav-list>
+</form>
