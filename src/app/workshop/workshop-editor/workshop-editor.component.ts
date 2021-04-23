@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Workshop } from '../../api/models/workshop';
 import { WorkshopControllerService } from '../../api/services/workshop-controller.service';
@@ -14,11 +13,11 @@ export class WorkshopEditorComponent implements OnInit {
   workshopForm: FormGroup;
   fieldNameMaxLength: number = 8;
   fieldDescriptionMaxLength: number = 32;
+  @Input() workshop: Workshop;
+  @Output() result: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private db: WorkshopControllerService,
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: Workshop,
-    private _bottomSheetRef: MatBottomSheetRef<WorkshopEditorComponent>,
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar
   ) { }
@@ -33,18 +32,18 @@ export class WorkshopEditorComponent implements OnInit {
         Validators.maxLength(this.fieldDescriptionMaxLength)
       ])
     });
-    if (this.data.name) {
-      this.workshopForm.controls.name.setValue(this.data.name);
-      this.workshopForm.controls.description.setValue(this.data.description);
+    if (this.workshop.name) {
+      this.workshopForm.controls.name.setValue(this.workshop.name);
+      this.workshopForm.controls.description.setValue(this.workshop.description);
     }else{
       this.workshopForm.reset();
     }
   }
 
-  cancel(): void {
-    this._bottomSheetRef.dismiss();
+  _cancel(): void {
+    this.result.emit(false);
   }
-  save(): void {
+  async _save() {
     if (!this.workshopForm.valid) return;
     const result: Workshop = {
       name: this.workshopForm.controls.name.value,
@@ -52,54 +51,41 @@ export class WorkshopEditorComponent implements OnInit {
     }
     const params = {
       filter: {
-        where: {
-          name: result.name
-        }
+        "filter[where][name]": result.name
       }
     }
-    console.log(params);
-    this.db.find(params).subscribe(
-      data => {
-        console.log(data);
-        console.log("save:", result);
-        // contrôle du nombre d'instances
-        if (data.length > 1) {
-          this._snackBar.open("Le nom existe déjà en plusieurs exemplaires... Faites du ménage !", "X", {
-            duration: 2000
-          });
-          return;
-        }
-        // mise à jour de l'instance
-        if (data.length === 1) {
-          this.db.updateById({id: data[0].id, body: result}).subscribe(
-            data => this._bottomSheetRef.dismiss(true),
-            err => {
-              console.log("updateById: ", err);
-              this._snackBar.open("Une erreur est apparue, veuillez reessayer...", "X", {
-                duration: 2000
-              });
-            }
-          )
-        }else{
-          // ou enregistrement d'une nouvelle instance
-          this.db.create({body: result}).subscribe(
-            data => this._bottomSheetRef.dismiss(true),
-            err => {
-              console.log("create: ", err);
-              this._snackBar.open("Une erreur est apparue, veuillez reessayer...", "X", {
-                duration: 2000
-              });
-            }
-          )
-        }
-      },
-      err => {
-        console.log("find result.name: ", err);
-        this._snackBar.open("Une erreur est apparue, veuillez reessayer...", "X", {
+    let msg = "";
+    try{
+      msg = "db lookup:";
+      const dbWorkshop = await this.db.find(params).toPromise();
+      // contrôle du nombre d'instances
+      if (dbWorkshop.length > 1) {
+        this._snackBar.open("Le nom existe déjà en plusieurs exemplaires... Faites du ménage !", "X", {
           duration: 2000
         });
+        return;
       }
-    )
+      let dbresult;
+      if (dbWorkshop.length === 1) {
+        // mise à jour de l'instance
+        msg = "db update:";
+        dbresult = await this.db.updateById({id: dbWorkshop[0].id, body: result}).toPromise();
+      }else{
+        msg = "db create:";
+        // création de l'instance
+        dbresult = await this.db.create({body: result}).toPromise();
+      }
+      this._snackBar.open("Données mise à jour avec succès :-)", "X", {
+        duration: 2000
+      });
+      this.result.emit(true);
+
+    }catch(e){
+      console.log(msg, e);
+      this._snackBar.open("Une erreur est apparue, veuillez reessayer...", "X", {
+        duration: 2000
+      });
+    }
   }
 
 }

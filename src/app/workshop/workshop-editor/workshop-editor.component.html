@@ -32,13 +32,13 @@
         <mat-list-item disableRipple="true">
             <button mat-raised-button 
                     matTooltip="Abandonner les modifications et fermer la fenêtre"
-                    (click)="cancel()">Annuler</button>
+                    (click)="_cancel()">Annuler</button>
             <span fxFlex></span>
             <button mat-raised-button 
                     color="primary" 
                     [disabled]="workshopForm.invalid"
                     matTooltip="Enregistrer les modifications et fermer la fenêtre"
-                    (click)="save()">Enregistrer</button>
+                    (click)="_save()">Enregistrer</button>
         </mat-list-item>
     </mat-nav-list>
 </form>

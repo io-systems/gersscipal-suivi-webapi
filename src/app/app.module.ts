@@ -16,6 +16,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
+import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
@@ -31,6 +32,8 @@ import { MessageStatusComponent } from './message-status/message-status.componen
 import { FabricationOrderComponent } from './fabrication-order/fabrication-order.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { WorkshopEditorComponent } from './workshop/workshop-editor/workshop-editor.component';
+import { WorkshopBottomsheetEditorComponent } from './workshop/workshop-bottomsheet-editor/workshop-bottomsheet-editor.component';
+import { WorkshopSelectorComponent } from './workshop/workshop-selector/workshop-selector.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,9 @@ import { WorkshopEditorComponent } from './workshop/workshop-editor/workshop-edi
     MessageStatusComponent,
     FabricationOrderComponent,
     PageNotFoundComponent,
-    WorkshopEditorComponent
+    WorkshopEditorComponent,
+    WorkshopBottomsheetEditorComponent,
+    WorkshopSelectorComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +64,7 @@ import { WorkshopEditorComponent } from './workshop/workshop-editor/workshop-edi
     MatIconModule,
     MatInputModule,
     MatListModule,
+    MatSelectModule,
     MatSidenavModule,
     MatSnackBarModule,
     MatTableModule,
