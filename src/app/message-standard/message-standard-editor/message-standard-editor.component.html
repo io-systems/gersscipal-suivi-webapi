@@ -1,0 +1,69 @@
+<mat-toolbar>
+    <span>Édition Aléa</span>
+</mat-toolbar>
+<form [formGroup]="messageStandardForm">
+    <mat-nav-list class="mat-typography" disableRipple="true">
+        <!-- [
+        //   'alea', 
+        //   'operation', 
+        //   'label', 
+        //   'description', 
+        //   'createdAt', 
+        //   'updatedAt', 
+        //   'functions'
+        // ]; -->
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Aléa</mat-label>
+                <input matInput placeholder="Aléa" type="text" formControlName="alea">
+                <mat-hint>{{fieldAleaMaxLength}} caractères maxi</mat-hint>
+                <mat-error *ngIf="messageStandardForm.get('alea').errors && 
+                messageStandardForm.get('alea').hasError('required')">
+                    Ce champ est requis.
+                </mat-error>
+                <mat-error *ngIf="messageStandardForm.get('alea').errors && 
+                    messageStandardForm.get('alea').hasError('maxlength')">
+                    Ce champ doit compter moins de {{fieldAleaMaxLength}} caractères.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item>
+            <app-operation-selector [selectedOperationName]="messageStandard.operation" 
+                                    fxFlex
+                                    (setOperationName)="updateOperation($event)"></app-operation-selector>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Libellé</mat-label>
+                <input matInput placeholder="Libellé" type="text" formControlName="label">
+                <mat-hint>{{fieldLabelMaxLength}} caractères maxi</mat-hint>
+                <mat-error *ngIf="messageStandardForm.get('label').errors && 
+                    messageStandardForm.get('label').hasError('maxlength')">
+                    Ce champ doit compter moins de {{fieldLabelMaxLength}} caractères.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Description</mat-label>
+                <input matInput placeholder="Description" type="text" formControlName="description">
+                <mat-hint>{{fieldDescriptionMaxLength}} caractères maxi</mat-hint>
+                <mat-error *ngIf="messageStandardForm.get('description').errors && 
+                    messageStandardForm.get('description').hasError('maxlength')">
+                    Ce champ doit compter moins de {{fieldDescriptionMaxLength}} caractères.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item disableRipple="true">
+            <button mat-raised-button 
+                    matTooltip="Abandonner les modifications et fermer la fenêtre"
+                    (click)="_cancel()">Annuler</button>
+            <span fxFlex></span>
+            <button mat-raised-button 
+                    color="primary" 
+                    [disabled]="messageStandardForm.invalid"
+                    matTooltip="Enregistrer les modifications et fermer la fenêtre"
+                    (click)="_save()">Enregistrer</button>
+        </mat-list-item>
+    </mat-nav-list>
+</form>

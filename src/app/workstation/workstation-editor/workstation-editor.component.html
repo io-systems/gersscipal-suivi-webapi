@@ -1,0 +1,96 @@
+<mat-toolbar>
+    <span>Édition poste de travail</span>
+</mat-toolbar>
+<form [formGroup]="workstationForm">
+    <mat-nav-list class="mat-typography" disableRipple="true">
+        <!-- [
+        //   'divaltoCode', 
+        //   'divaltoName', 
+        //   'aleaPrefix', 
+        //   'ipAddress', 
+        //   'localization', 
+        //   'description', 
+        //   'createdAt', 
+        //   'updatedAt', 
+        //   'functions'
+        // ]; -->
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Code divalto</mat-label>
+                <input matInput placeholder="Code Divalto" type="text" formControlName="divaltoCode">
+                <mat-hint>{{fieldDivaltoCodeMaxLength}} caractères maxi</mat-hint>
+                <mat-error *ngIf="workstationForm.get('divaltoCode').errors && 
+                    workstationForm.get('divaltoCode').hasError('required')">
+                    Ce champ est requis.
+                </mat-error>
+                <mat-error *ngIf="workstationForm.get('divaltoCode').errors && 
+                    workstationForm.get('divaltoCode').hasError('maxlength')">
+                    Ce champ doit compter moins de {{fieldDivaltoCodeMaxLength}} caractères.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Nom Divalto</mat-label>
+                <input matInput placeholder="Nom Divalto" type="text" formControlName="divaltoName">
+                <mat-hint>{{fieldDivaltoNameMaxLength}} caractères maxi</mat-hint>
+                <mat-error *ngIf="workstationForm.get('divaltoName').errors && 
+                    workstationForm.get('divaltoName').hasError('maxlength')">
+                    Ce champ doit compter moins de {{fieldDivaltoNameMaxLength}} caractères.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Préfixe aléa</mat-label>
+                <input matInput placeholder="Préfixe aléa" type="text" formControlName="aleaPrefix">
+                <mat-hint>{{fieldAleaPrefixMaxLength}} caractères maxi</mat-hint>
+                <mat-error *ngIf="workstationForm.get('aleaPrefix').errors && 
+                    workstationForm.get('aleaPrefix').hasError('maxlength')">
+                    Ce champ doit compter moins de {{fieldAleaPrefixMaxLength}} caractères.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Adresse IP Magelis</mat-label>
+                <input matInput placeholder="Adresse IP Magelis" type="text" formControlName="ipAddress">
+                <mat-hint>{{fieldIpAddressMaxLength}} caractères maxi</mat-hint>
+                <mat-error *ngIf="workstationForm.get('ipAddress').errors && 
+                    workstationForm.get('ipAddress').hasError('required')">
+                    Ce champ est requis.
+                </mat-error>
+                <mat-error *ngIf="workstationForm.get('ipAddress').errors && 
+                    workstationForm.get('ipAddress').hasError('maxlength')">
+                    Ce champ doit compter moins de {{fieldIpAddressMaxLength}} caractères.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item>
+            <app-workshop-selector [selectedWorkshopName]="workstation.localization" 
+                                    (setWorkshopName)="updateLocalization($event)"></app-workshop-selector>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Description</mat-label>
+                <input matInput placeholder="Description" type="text" formControlName="description">
+                <mat-hint>{{fieldDescriptionMaxLength}} caractères maxi</mat-hint>
+                <mat-error *ngIf="workstationForm.get('description').errors && 
+                    workstationForm.get('description').hasError('maxlength')">
+                    Ce champ doit compter moins de {{fieldDescriptionMaxLength}} caractères.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item disableRipple="true">
+            <button mat-raised-button 
+                    matTooltip="Abandonner les modifications et fermer la fenêtre"
+                    (click)="_cancel()">Annuler</button>
+            <span fxFlex></span>
+            <button mat-raised-button 
+                    color="primary" 
+                    [disabled]="workstationForm.invalid"
+                    matTooltip="Enregistrer les modifications et fermer la fenêtre"
+                    (click)="_save()">Enregistrer</button>
+        </mat-list-item>
+    </mat-nav-list>
+</form>

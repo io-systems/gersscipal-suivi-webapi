@@ -1,0 +1,7 @@
+<mat-form-field appearance="fill" fxFlex>
+    <mat-label>Choisir un code opération</mat-label>
+    <mat-select [(value)]="selected" (selectionChange)="selectionChange($event)">
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let ws of operations" [value]="ws.operation">{{ws.operation}}</mat-option>
+    </mat-select>
+</mat-form-field>

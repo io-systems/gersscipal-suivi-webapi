@@ -1,0 +1,77 @@
+<mat-toolbar>
+    <span>Édition Aléa</span>
+</mat-toolbar>
+<form [formGroup]="messageForm">
+    <mat-nav-list class="mat-typography" disableRipple="true">
+        <!-- [
+            'status',
+            'codem', 
+            'ofnr', 
+            'operation', 
+            'alea', 
+            'label', 
+            'timestamp', 
+            'value', 
+            'createdAt', 
+            'updatedAt', 
+            'functions'
+            ] -->
+        <mat-list-item disableRipple="true">
+            <app-message-status-selector [selectedMessageStatusValue]="message.status"
+                (setMessageStatusValue)="updateMessageStatus($event)"></app-message-status-selector>
+        </mat-list-item>
+        <mat-list-item disableRipple="true">
+            <app-workstation-selector [selectedWorkstationCode]="message.codem"
+                (setWorkstationCode)="updateMessageCodem($event)"></app-workstation-selector>
+        </mat-list-item>
+        <mat-list-item disableRipple="true">
+            <app-fabrication-order-selector [selectedFabricationOrderNumber]="message.ofnr"
+                (setFabricationOrderNumber)="updateMessageOfnr($event)"></app-fabrication-order-selector>
+        </mat-list-item>
+        <mat-list-item disableRipple="true">
+            <app-operation-selector [selectedOperationName]="message.operation"
+                (setOperationName)="updateMessageOperation($event)"></app-operation-selector>
+        </mat-list-item>
+        <mat-list-item disableRipple="true">
+            <app-message-standard-selector [selectedMessageStandardAlea]="message.alea"
+                (setMessageStandardAlea)="updateMessageAlea($event)"></app-message-standard-selector>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Libellé</mat-label>
+                <input matInput placeholder="Libellé" type="text" formControlName="label">
+                <mat-hint>{{fieldLabelMaxLength}} caractères maxi</mat-hint>
+                <mat-error *ngIf="messageForm.get('label').errors && 
+                messageForm.get('label').hasError('required')">
+                    Ce champ est requis.
+                </mat-error>
+                <mat-error *ngIf="messageForm.get('label').errors && 
+                    messageForm.get('label').hasError('maxlength')">
+                    Ce champ doit compter moins de {{fieldLabelMaxLength}} caractères.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Valeur</mat-label>
+                <input matInput placeholder="Valeur" type="number" formControlName="value">
+                <mat-hint>Valeur entière de 0 à 32765</mat-hint>
+                <mat-error *ngIf="messageForm.get('value').errors && 
+                    (messageForm.get('value').hasError('min') || messageForm.get('value').hasError('max'))">
+                    La valeur doit être comprise entre 0 et 32765.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item disableRipple="true">
+            <button mat-raised-button 
+                    matTooltip="Abandonner les modifications et fermer la fenêtre"
+                    (click)="_cancel()">Annuler</button>
+            <span fxFlex></span>
+            <button mat-raised-button 
+                    color="primary" 
+                    [disabled]="messageForm.invalid"
+                    matTooltip="Enregistrer les modifications et fermer la fenêtre"
+                    (click)="_save()">Enregistrer</button>
+        </mat-list-item>
+    </mat-nav-list>
+</form>

@@ -1,1 +1,151 @@
-<p>message-history works!</p>
+<mat-card>
+    <p>Filter</p>
+    <p>
+      <button mat-raised-button aria-label="créer" matTooltip="Nouvel enregistrement" (click)="create()" color="primary">
+        <mat-icon>add</mat-icon><span> Ajouter un message API</span>
+      </button>
+    </p>
+    <table mat-table [dataSource]="messages" class="mat-elevation-z8" style="width: 100%">
+    
+      <!-- WORKSHOPS ['name', 'description', 'createdAt', 'updatedAt', 'functions'] -->
+      <!-- WORKSTATIONS ['divaltoCode', 'divaltoName', 'aleaPrefix', 'ipAddress', 'localization', 'description', 'createdAt', 'updatedAt', 'functions'] -->
+      <!-- FABRICATIONORDER ['ofnr', 'codem', 'createdAt', 'updatedAt', 'functions'] -->
+      <!-- OPERATION ['operation', 'description', 'createdAt', 'updatedAt', 'functions'] -->
+      <!-- MESSAGE STANDARD ['alea', 'operation', 'label', 'description', 'createdAt', 'updatedAt', 'functions'] -->
+      <!-- MESSAGE STATUS ['status', 'description', 'createdAt', 'updatedAt', 'functions'] -->
+      <!-- MESSAGE HISTORY ['status', 'codem', 'ofnr', 'operation', 'alea', 'label', 'timestamp', 'value', 'createdAt', 'updatedAt', 'functions'] -->
+      
+      <!-- id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nom </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+    
+      <!-- alea Column -->
+      <ng-container matColumnDef="alea">
+        <th mat-header-cell *matHeaderCellDef> Aléa </th>
+        <td mat-cell *matCellDef="let element"> {{element.alea}} </td>
+      </ng-container>
+    
+      <!-- status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Statut </th>
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+      </ng-container>
+    
+      <!-- ofnr Column -->
+      <ng-container matColumnDef="ofnr">
+        <th mat-header-cell *matHeaderCellDef> Numéro d'OF </th>
+        <td mat-cell *matCellDef="let element"> {{element.ofnr}} </td>
+      </ng-container>
+    
+      <!-- codem Column -->
+      <ng-container matColumnDef="codem">
+        <th mat-header-cell *matHeaderCellDef> Code poste de travail Divalto </th>
+        <td mat-cell *matCellDef="let element"> {{element.codem}} </td>
+      </ng-container>
+    
+      <!-- operation Column -->
+      <ng-container matColumnDef="operation">
+        <th mat-header-cell *matHeaderCellDef> Code opération </th>
+        <td mat-cell *matCellDef="let element"> {{element.operation}} </td>
+      </ng-container>
+    
+      <!-- label Column -->
+      <ng-container matColumnDef="label">
+        <th mat-header-cell *matHeaderCellDef> Libellé </th>
+        <td mat-cell *matCellDef="let element"> {{element.label}} </td>
+      </ng-container>
+    
+      <!-- divaltoCode Column -->
+      <ng-container matColumnDef="divaltoCode">
+        <th mat-header-cell *matHeaderCellDef> Code Divalto </th>
+        <td mat-cell *matCellDef="let element"> {{element.divaltoCode}} </td>
+      </ng-container>
+    
+      <!-- divaltoName Column -->
+      <ng-container matColumnDef="divaltoName">
+        <th mat-header-cell *matHeaderCellDef> Nom Divalto </th>
+        <td mat-cell *matCellDef="let element"> {{element.divaltoName}} </td>
+      </ng-container>
+    
+      <!-- aleaPrefix Column -->
+      <ng-container matColumnDef="aleaPrefix">
+        <th mat-header-cell *matHeaderCellDef> Préfixe aléa </th>
+        <td mat-cell *matCellDef="let element"> {{element.aleaPrefix}} </td>
+      </ng-container>
+    
+      <!-- localization Column -->
+      <ng-container matColumnDef="localization">
+        <th mat-header-cell *matHeaderCellDef> Localisation </th>
+        <td mat-cell *matCellDef="let element"> {{element.localization}} </td>
+      </ng-container>
+    
+      <!-- timestamp Column -->
+      <ng-container matColumnDef="timestamp">
+        <th mat-header-cell *matHeaderCellDef> Horodatage API </th>
+        <td mat-cell *matCellDef="let element"> {{element.timestamp}} </td>
+      </ng-container>
+    
+      <!-- Value Column -->
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef> Valeur </th>
+        <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+      </ng-container>
+    
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+    
+      <!-- CreateAt Column -->
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef> Créé le </th>
+        <td mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd-LL-yyyy HH:mm:ss'}} </td>
+      </ng-container>
+    
+      <!-- updatedAt Column -->
+      <ng-container matColumnDef="updatedAt">
+        <th mat-header-cell *matHeaderCellDef> Modifié le </th>
+        <td mat-cell *matCellDef="let element"> {{element.updatedAt | date:'dd-LL-yyyy HH:mm:ss'}} </td>
+      </ng-container>
+    
+      <!-- functions Column -->
+      <ng-container matColumnDef="functions">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button 
+                  aria-label="Modifier" 
+                  matTooltip="Modifier cet enregistrement"
+                  (click)="update(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button 
+                  aria-label="Copier" 
+                  matTooltip="Copier cette ligne vers un nouvel enregistrement"
+                  (click)="copy(element)">
+            <mat-icon>content_copy</mat-icon>
+          </button>
+          <button mat-icon-button 
+                  aria-label="Supprimer" 
+                  matTooltip="Supprimer définitivement cet enregistrement"
+                  (click)="delete(element)" color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+          [ngClass]="{'selectedRow': selectedMessage.id === row.id}"
+          (click)="selectMessage(row)"></tr>
+    </table>
+  </mat-card>
+  

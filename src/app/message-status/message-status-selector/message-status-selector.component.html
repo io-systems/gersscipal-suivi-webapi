@@ -1,0 +1,7 @@
+<mat-form-field appearance="fill" fxFlex>
+    <mat-label>Choisir un statut</mat-label>
+    <mat-select [(value)]="selected" (selectionChange)="selectionChange($event)">
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let item of messagesStatuses" [value]="item.status">{{item.status}}</mat-option>
+    </mat-select>
+</mat-form-field>

@@ -1,0 +1,6 @@
+mat-list-item {
+    margin-bottom: 25px;
+}
+mat-list-item:last-child {
+    margin-bottom: inherit;
+}

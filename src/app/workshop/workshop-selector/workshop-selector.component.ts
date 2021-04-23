@@ -27,7 +27,7 @@ export class WorkshopSelectorComponent implements OnInit, OnChanges {
     if (s.hasOwnProperty("selectedWorkshopName")) this.updateSelectedName();
   }
 
-  selectionChange(event) {
+  selectionChange(event: any) {
     this.setWorkshopName.emit(event.value);
     const tmp = this.workshops.find(ws => ws.name === event.value);
     if (tmp) this.setWorkshop.emit(tmp);
@@ -37,6 +37,7 @@ export class WorkshopSelectorComponent implements OnInit, OnChanges {
     try{
       this.workshops = await this.db.find().toPromise();
       this.updateSelected();
+      this.updateSelectedName();
     }catch(e){
       console.log("WorkshopSelectorComponent: refresh error", e);
     }

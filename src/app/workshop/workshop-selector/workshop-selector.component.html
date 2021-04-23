@@ -1,8 +1,7 @@
-<mat-form-field appearance="fill">
-    <mat-label>Select an option</mat-label>
+<mat-form-field appearance="fill" fxFlex>
+    <mat-label>Choisir un atelier</mat-label>
     <mat-select [(value)]="selected" (selectionChange)="selectionChange($event)">
         <mat-option>None</mat-option>
         <mat-option *ngFor="let ws of workshops" [value]="ws.name">{{ws.name}}</mat-option>
     </mat-select>
 </mat-form-field>
-<p>{{selected}}</p>

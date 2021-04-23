@@ -1,0 +1,44 @@
+<mat-toolbar>
+    <span>Édition statut des messages</span>
+</mat-toolbar>
+<form [formGroup]="messageStatusForm">
+    <mat-nav-list class="mat-typography" disableRipple="true">
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Status</mat-label>
+                <input matInput placeholder="Status" type="number" formControlName="status">
+                <mat-hint>Valeur entière positive < 1000</mat-hint>
+                <mat-error *ngIf="messageStatusForm.get('status').errors && 
+                    messageStatusForm.get('status').hasError('required')">
+                    Ce champ est requis.
+                </mat-error>
+                <mat-error *ngIf="messageStatusForm.get('status').errors && 
+                    (messageStatusForm.get('status').hasError('min') || messageStatusForm.get('status').hasError('max'))">
+                    La valeur doit être comprise entre 0 et 999.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Description</mat-label>
+                <input matInput placeholder="Description" type="text" formControlName="description">
+                <mat-hint>{{fieldDescriptionMaxLength}} caractères maxi</mat-hint>
+                <mat-error *ngIf="messageStatusForm.get('description').errors && 
+                    messageStatusForm.get('description').hasError('maxlength')">
+                    Ce champ doit compter moins de {{fieldDescriptionMaxLength}} caractères.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item disableRipple="true">
+            <button mat-raised-button 
+                    matTooltip="Abandonner les modifications et fermer la fenêtre"
+                    (click)="_cancel()">Annuler</button>
+            <span fxFlex></span>
+            <button mat-raised-button 
+                    color="primary" 
+                    [disabled]="messageStatusForm.invalid"
+                    matTooltip="Enregistrer les modifications et fermer la fenêtre"
+                    (click)="_save()">Enregistrer</button>
+        </mat-list-item>
+    </mat-nav-list>
+</form>

@@ -1,0 +1,44 @@
+<mat-toolbar>
+    <span>Édition poste de travail</span>
+</mat-toolbar>
+<form [formGroup]="fabricationOrderForm">
+    <mat-nav-list class="mat-typography" disableRipple="true">
+        <!-- // [
+  //   'ofnr', 
+  //   'codem'
+  //   'createdAt', 
+  //   'updatedAt', 
+  //   'functions'
+  // ]; -->
+        <mat-list-item>
+            <mat-form-field fxFlex>
+                <mat-label>Numéro d'OF</mat-label>
+                <input matInput placeholder="Numéro d'OF" type="text" formControlName="ofnr">
+                <mat-hint>{{fieldofnrMaxLength}} caractères maxi</mat-hint>
+                <mat-error *ngIf="fabricationOrderForm.get('ofnr').errors && 
+                    fabricationOrderForm.get('ofnr').hasError('required')">
+                    Ce champ est requis.
+                </mat-error>
+                <mat-error *ngIf="fabricationOrderForm.get('ofnr').errors && 
+                    fabricationOrderForm.get('ofnr').hasError('maxlength')">
+                    Ce champ doit compter moins de {{fieldofnrMaxLength}} caractères.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item>
+            <app-workstation-selector [selectedWorkstationCode]="fabricationOrder.codem" 
+                                    (setWorkstationCode)="updateCodem($event)"></app-workstation-selector>
+        </mat-list-item>
+        <mat-list-item disableRipple="true">
+            <button mat-raised-button 
+                    matTooltip="Abandonner les modifications et fermer la fenêtre"
+                    (click)="_cancel()">Annuler</button>
+            <span fxFlex></span>
+            <button mat-raised-button 
+                    color="primary" 
+                    [disabled]="fabricationOrderForm.invalid"
+                    matTooltip="Enregistrer les modifications et fermer la fenêtre"
+                    (click)="_save()">Enregistrer</button>
+        </mat-list-item>
+    </mat-nav-list>
+</form>

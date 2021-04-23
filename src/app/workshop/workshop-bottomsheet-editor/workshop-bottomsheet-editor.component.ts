@@ -14,7 +14,6 @@ export class WorkshopBottomsheetEditorComponent {
     private _bottomSheetRef: MatBottomSheetRef<WorkshopBottomsheetEditorComponent>
   ) { }
 
-
   processResult(result: boolean = false): void {
     this._bottomSheetRef.dismiss();
   }
