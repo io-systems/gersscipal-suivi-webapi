@@ -1,5 +1,5 @@
 <mat-toolbar>
-    <span>Édition poste de travail</span>
+    <span>Édition ordre de fabrication</span>
 </mat-toolbar>
 <form [formGroup]="fabricationOrderForm">
     <mat-nav-list class="mat-typography" disableRipple="true">
@@ -10,7 +10,7 @@
   //   'updatedAt', 
   //   'functions'
   // ]; -->
-        <mat-list-item>
+        <mat-list-item class="margin-bottom">
             <mat-form-field fxFlex>
                 <mat-label>Numéro d'OF</mat-label>
                 <input matInput placeholder="Numéro d'OF" type="text" formControlName="ofnr">
@@ -25,8 +25,8 @@
                 </mat-error>
             </mat-form-field>
         </mat-list-item>
-        <mat-list-item>
-            <app-workstation-selector [selectedWorkstationCode]="fabricationOrder.codem" 
+        <mat-list-item disableRipple="true" style="height: auto;">
+            <app-workstation-selector [selectedWorkstationCode]="fabricationOrder.codem" fxFlex="1 1 auto"
                                     (setWorkstationCode)="updateCodem($event)"></app-workstation-selector>
         </mat-list-item>
         <mat-list-item disableRipple="true">

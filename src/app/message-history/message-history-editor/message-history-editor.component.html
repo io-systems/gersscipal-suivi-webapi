@@ -1,5 +1,5 @@
 <mat-toolbar>
-    <span>Édition Aléa</span>
+    <span>Édition message API</span>
 </mat-toolbar>
 <form [formGroup]="messageForm">
     <mat-nav-list class="mat-typography" disableRipple="true">
@@ -16,27 +16,29 @@
             'updatedAt', 
             'functions'
             ] -->
-        <mat-list-item disableRipple="true">
-            <app-message-status-selector [selectedMessageStatusValue]="message.status"
+        <mat-list-item disableRipple="true" style="height: auto;">
+            <app-message-status-selector [selectedMessageStatusValue]="message.status" fxFlex="1 1 auto"
                 (setMessageStatusValue)="updateMessageStatus($event)"></app-message-status-selector>
         </mat-list-item>
-        <mat-list-item disableRipple="true">
-            <app-workstation-selector [selectedWorkstationCode]="message.codem"
+        <mat-list-item disableRipple="true" style="height: auto;">
+            <app-workstation-selector [selectedWorkstationCode]="message.codem" fxFlex="1 1 auto"
                 (setWorkstationCode)="updateMessageCodem($event)"></app-workstation-selector>
         </mat-list-item>
-        <mat-list-item disableRipple="true">
-            <app-fabrication-order-selector [selectedFabricationOrderNumber]="message.ofnr"
-                (setFabricationOrderNumber)="updateMessageOfnr($event)"></app-fabrication-order-selector>
+        <mat-list-item disableRipple="true" style="height: auto;">
+            <app-fabrication-order-selector [selectedFabricationOrderNumber]="message.ofnr" fxFlex="1 1 auto"
+                (setFabricationOrderNumber)="updateMessageOfnr($event)"
+                [workstation]="message.codem"(setWorkstation)="updateMessageCodem($event)"></app-fabrication-order-selector>
         </mat-list-item>
-        <mat-list-item disableRipple="true">
-            <app-operation-selector [selectedOperationName]="message.operation"
+        <mat-list-item disableRipple="true" style="height: auto;">
+            <app-operation-selector [selectedOperationName]="message.operation" fxFlex="1 1 auto"
                 (setOperationName)="updateMessageOperation($event)"></app-operation-selector>
         </mat-list-item>
-        <mat-list-item disableRipple="true">
-            <app-message-standard-selector [selectedMessageStandardAlea]="message.alea"
-                (setMessageStandardAlea)="updateMessageAlea($event)"></app-message-standard-selector>
+        <mat-list-item disableRipple="true" style="height: auto;">
+            <app-message-standard-selector [selectedMessageStandardAlea]="message.alea" fxFlex="1 1 auto"
+                (setMessageStandardAlea)="updateMessageAlea($event)" 
+                [operation]="message.operation" (setOperation)="updateMessageOperation($event)"></app-message-standard-selector>
         </mat-list-item>
-        <mat-list-item>
+        <mat-list-item class="margin-bottom">
             <mat-form-field fxFlex>
                 <mat-label>Libellé</mat-label>
                 <input matInput placeholder="Libellé" type="text" formControlName="label">
@@ -51,7 +53,7 @@
                 </mat-error>
             </mat-form-field>
         </mat-list-item>
-        <mat-list-item>
+        <mat-list-item class="margin-bottom">
             <mat-form-field fxFlex>
                 <mat-label>Valeur</mat-label>
                 <input matInput placeholder="Valeur" type="number" formControlName="value">

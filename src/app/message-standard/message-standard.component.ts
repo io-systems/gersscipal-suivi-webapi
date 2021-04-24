@@ -87,8 +87,9 @@ export class MessageStandardComponent implements OnInit {
     )
   }
   copy(uw: MessageStandard): void {
-    let newWS: MessageStandard = uw;
-    newWS.alea = `_${uw.alea}`
+    let newWS: MessageStandard = Object.assign({}, uw);
+    newWS.operation = "";
+    delete newWS.id;
     const copyBottomSheet = this._bottomSheet.open(MessageStandardBottomsheetEditorComponent, {
       data: newWS
     });

@@ -12,7 +12,7 @@
         //   'updatedAt', 
         //   'functions'
         // ]; -->
-        <mat-list-item>
+        <mat-list-item class="margin-bottom">
             <mat-form-field fxFlex>
                 <mat-label>Aléa</mat-label>
                 <input matInput placeholder="Aléa" type="text" formControlName="alea">
@@ -27,12 +27,12 @@
                 </mat-error>
             </mat-form-field>
         </mat-list-item>
-        <mat-list-item>
-            <app-operation-selector [selectedOperationName]="messageStandard.operation" 
+        <mat-list-item disableRipple="true" style="height: auto;">
+            <app-operation-selector [selectedOperationName]="messageStandard.operation" fxFlex="1 1 auto"
                                     fxFlex
                                     (setOperationName)="updateOperation($event)"></app-operation-selector>
         </mat-list-item>
-        <mat-list-item>
+        <mat-list-item class="margin-bottom">
             <mat-form-field fxFlex>
                 <mat-label>Libellé</mat-label>
                 <input matInput placeholder="Libellé" type="text" formControlName="label">
@@ -43,7 +43,7 @@
                 </mat-error>
             </mat-form-field>
         </mat-list-item>
-        <mat-list-item>
+        <mat-list-item class="margin-bottom">
             <mat-form-field fxFlex>
                 <mat-label>Description</mat-label>
                 <input matInput placeholder="Description" type="text" formControlName="description">

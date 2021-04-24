@@ -3,7 +3,7 @@
 </mat-toolbar>
 <form [formGroup]="operationForm">
     <mat-nav-list class="mat-typography" disableRipple="true">
-        <mat-list-item>
+        <mat-list-item class="margin-bottom">
             <mat-form-field fxFlex>
                 <mat-label>Code opération</mat-label>
                 <input matInput placeholder="Code opération" type="text" formControlName="operation">
@@ -18,7 +18,7 @@
                 </mat-error>
             </mat-form-field>
         </mat-list-item>
-        <mat-list-item>
+        <mat-list-item class="margin-bottom">
             <mat-form-field fxFlex>
                 <mat-label>Description</mat-label>
                 <input matInput placeholder="Description" type="text" formControlName="description">

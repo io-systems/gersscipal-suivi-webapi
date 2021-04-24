@@ -70,9 +70,14 @@ export class MessageStandardEditorComponent implements OnInit {
       description: this.messageStandardForm.controls.description.value || ""
     }
     const params = {
-      filter: {
-        "filter[where][alea]": result.alea
-      }
+      filter: JSON.stringify({
+        where: {
+          and: [
+            {alea: result.alea},
+            {operation: result.operation}
+          ]
+        }
+      })
     }
     let msg = "db lookup:";
     try{

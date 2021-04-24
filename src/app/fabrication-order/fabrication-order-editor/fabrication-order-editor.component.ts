@@ -17,6 +17,8 @@ export class FabricationOrderEditorComponent implements OnInit {
   // [
   //   'ofnr', 
   //   'codem'
+  //   'startedAt'
+  //   'stoppedAt'
   //   'createdAt', 
   //   'updatedAt', 
   //   'functions'
@@ -57,9 +59,11 @@ export class FabricationOrderEditorComponent implements OnInit {
       codem: this.fabricationOrder.codem
     }
     const params = {
-      filter: {
-        "filter[where][ofnr]": result.ofnr
-      }
+      filter: JSON.stringify({
+        where: {
+          ofnr: result.ofnr
+        }
+      })
     }
     let msg = "db lookup:";
     try{

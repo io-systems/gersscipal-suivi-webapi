@@ -2,6 +2,6 @@
     <mat-label>Selectionner un aléa</mat-label>
     <mat-select [(value)]="selected" (selectionChange)="selectionChange($event)">
         <mat-option>None</mat-option>
-        <mat-option *ngFor="let item of messagesStandards" [value]="item.alea">{{item.alea}}</mat-option>
+        <mat-option *ngFor="let item of messagesStandards" [value]="item.alea">{{item.alea}} - {{item.label}}</mat-option>
     </mat-select>
 </mat-form-field>

@@ -50,9 +50,11 @@ export class MessageStatusEditorComponent implements OnInit {
       description: this.messageStatusForm.controls.description.value || ""
     }
     const params = {
-      filter: {
-        "filter[where][status]": result.status
-      }
+      filter: JSON.stringify({
+        where: {
+          status: result.status
+        }
+      })
     }
     let msg = "";
     try{

@@ -50,9 +50,11 @@ export class WorkshopEditorComponent implements OnInit {
       description: this.workshopForm.controls.description.value || ""
     }
     const params = {
-      filter: {
-        "filter[where][name]": result.name
-      }
+      filter: JSON.stringify({
+        where: {
+          name: result.name
+        }
+      })
     }
     let msg = "";
     try{

@@ -12,7 +12,7 @@ import { FabricationOrderControllerService } from '../api/services/fabrication-o
 })
 export class FabricationOrderComponent implements OnInit {
   fabricationOrders: FabricationOrder[] = [];
-  displayedColumns: string[] = ['ofnr', 'codem', 'createdAt', 'updatedAt', 'functions'];
+  displayedColumns: string[] = ['ofnr', 'codem', 'startedAt', 'stoppedAt', 'createdAt', 'updatedAt', 'functions'];
   filter: any = {};
   selectedWorkstation: FabricationOrder = {
     id: 0,
@@ -22,7 +22,7 @@ export class FabricationOrderComponent implements OnInit {
     updatedAt: ""
   };
   selectedWorkstationName: string = ""
-
+  dataCount: {count?: number} = {count: 0};
 
   constructor(
     private db: FabricationOrderControllerService,
@@ -42,18 +42,18 @@ export class FabricationOrderComponent implements OnInit {
     }
   }
 
-  refresh(): void {
-    this.db.find(this.filter).subscribe(
-      data => {
-        if (this.filter.offset === 0) {
-          this.fabricationOrders = data;
-        }else{
-          this.fabricationOrders.concat(data);
-        }
-      },
-      err => console.log(err),
-      () => {}
-    );
+  async refresh() {
+    try{
+      const data = await this.db.find(this.filter).toPromise();
+      this.dataCount = await this.db.count(this.filter).toPromise();
+      if (this.filter.offset === 0) {
+        this.fabricationOrders = data;
+      }else{
+        this.fabricationOrders = this.fabricationOrders.concat(data);
+      }
+    }catch(e){
+      console.log(e);
+    }
   }
 
   // *************************

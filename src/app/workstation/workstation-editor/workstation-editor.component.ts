@@ -86,9 +86,11 @@ export class WorkstationEditorComponent implements OnInit {
       description: this.workstationForm.controls.description.value || ""
     }
     const params = {
-      filter: {
-        "filter[where][divaltoCode]": result.divaltoCode
-      }
+      filter: JSON.stringify({
+        where: {
+          divaltoCode: result.divaltoCode
+        }
+      })
     }
     let msg = "db lookup:";
     try{

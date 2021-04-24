@@ -11,9 +11,12 @@ export class FabricationOrderSelectorComponent implements OnInit {
   fabricationOrders: FabricationOrder[] = []
   @Input() selectedFabricationOrder: FabricationOrder;
   @Input() selectedFabricationOrderNumber: string;
+  @Input() workstation: string = "";
   @Output() setFabricationOrder: EventEmitter<FabricationOrder> = new EventEmitter();
   @Output() setFabricationOrderNumber: EventEmitter<FabricationOrder> = new EventEmitter();
+  @Output() setWorkstation: EventEmitter<string> = new EventEmitter();
   selected = "";
+  filter: any = {};
 
   constructor(
     private db: FabricationOrderControllerService
@@ -25,22 +28,40 @@ export class FabricationOrderSelectorComponent implements OnInit {
   ngOnChanges(s: SimpleChanges) {
     if (s.hasOwnProperty("selectedFabricationOrder")) this.updateSelected();
     if (s.hasOwnProperty("selectedFabricationOrderNumber")) this.updateSelectedOfnr();
+    if (s.hasOwnProperty("workstation")) this.updateFilter();
   }
 
   selectionChange(event: any) {
     this.setFabricationOrderNumber.emit(event.value);
     const tmp = this.fabricationOrders.find(ws => ws.ofnr === event.value);
-    if (tmp) this.setFabricationOrder.emit(tmp);
+    if (tmp) {
+      this.setFabricationOrder.emit(tmp);
+      this.setWorkstation.emit(tmp.codem);
+    }
   }
 
   async refreshfabricationOrders() {
     try{
-      this.fabricationOrders = await this.db.find().toPromise();
+      this.fabricationOrders = await this.db.find(this.filter).toPromise();
       this.updateSelected();
       this.updateSelectedOfnr();
     }catch(e){
       console.log("fabricationOrderselectorComponent: refresh error", e);
     }
+  }
+  updateFilter() {
+    if (this.workstation) {
+      this.filter = {
+        filter: JSON.stringify({
+          where: {
+            codem: this.workstation
+          }
+        })
+      }
+    }else{
+      this.filter = {};
+    }
+    this.refreshfabricationOrders();
   }
   updateSelected(): void {
     if (this.selectedFabricationOrder && this.fabricationOrders.length > 0) {

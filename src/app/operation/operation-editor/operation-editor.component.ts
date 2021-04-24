@@ -50,9 +50,11 @@ export class OperationEditorComponent implements OnInit {
       description: this.operationForm.controls.description.value || ""
     }
     const params = {
-      filter: {
-        "filter[where][operation]": result.operation
-      }
+      filter: JSON.stringify({
+        where: {
+          operation: result.operation
+        }
+      })
     }
     let msg = "";
     try{

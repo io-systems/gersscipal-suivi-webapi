@@ -14,7 +14,7 @@
         //   'updatedAt', 
         //   'functions'
         // ]; -->
-        <mat-list-item>
+        <mat-list-item class="margin-bottom">
             <mat-form-field fxFlex>
                 <mat-label>Code divalto</mat-label>
                 <input matInput placeholder="Code Divalto" type="text" formControlName="divaltoCode">
@@ -29,7 +29,7 @@
                 </mat-error>
             </mat-form-field>
         </mat-list-item>
-        <mat-list-item>
+        <mat-list-item class="margin-bottom">
             <mat-form-field fxFlex>
                 <mat-label>Nom Divalto</mat-label>
                 <input matInput placeholder="Nom Divalto" type="text" formControlName="divaltoName">
@@ -40,7 +40,7 @@
                 </mat-error>
             </mat-form-field>
         </mat-list-item>
-        <mat-list-item>
+        <mat-list-item class="margin-bottom">
             <mat-form-field fxFlex>
                 <mat-label>Préfixe aléa</mat-label>
                 <input matInput placeholder="Préfixe aléa" type="text" formControlName="aleaPrefix">
@@ -51,7 +51,7 @@
                 </mat-error>
             </mat-form-field>
         </mat-list-item>
-        <mat-list-item>
+        <mat-list-item class="margin-bottom">
             <mat-form-field fxFlex>
                 <mat-label>Adresse IP Magelis</mat-label>
                 <input matInput placeholder="Adresse IP Magelis" type="text" formControlName="ipAddress">
@@ -66,8 +66,8 @@
                 </mat-error>
             </mat-form-field>
         </mat-list-item>
-        <mat-list-item>
-            <app-workshop-selector [selectedWorkshopName]="workstation.localization" 
+        <mat-list-item disableRipple="true" style="height: auto;">
+            <app-workshop-selector [selectedWorkshopName]="workstation.localization"  fxFlex="1 1 auto"
                                     (setWorkshopName)="updateLocalization($event)"></app-workshop-selector>
         </mat-list-item>
         <mat-list-item>
