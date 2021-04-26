@@ -4,6 +4,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { AngularDataFilterControllerService } from './services/angular-data-filter-controller.service';
 import { FabricationOrderControllerService } from './services/fabrication-order-controller.service';
 import { MessageHistoryControllerService } from './services/message-history-controller.service';
 import { MessageStandardControllerService } from './services/message-standard-controller.service';
@@ -21,6 +22,7 @@ import { WorkstationControllerService } from './services/workstation-controller.
   exports: [],
   declarations: [],
   providers: [
+    AngularDataFilterControllerService,
     FabricationOrderControllerService,
     MessageHistoryControllerService,
     MessageStandardControllerService,

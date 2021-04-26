@@ -1,3 +1,4 @@
+export { AngularDataFilterControllerService } from './services/angular-data-filter-controller.service';
 export { FabricationOrderControllerService } from './services/fabrication-order-controller.service';
 export { MessageHistoryControllerService } from './services/message-history-controller.service';
 export { MessageStandardControllerService } from './services/message-standard-controller.service';
