@@ -4,7 +4,7 @@
 <form [formGroup]="workstationForm">
     <mat-nav-list class="mat-typography" disableRipple="true">
         <!-- [
-        //   'divaltoCode', 
+        //   'codem', 
         //   'divaltoName', 
         //   'aleaPrefix', 
         //   'ipAddress', 
@@ -17,14 +17,14 @@
         <mat-list-item class="margin-bottom">
             <mat-form-field fxFlex>
                 <mat-label>Code divalto</mat-label>
-                <input matInput placeholder="Code Divalto" type="text" formControlName="divaltoCode">
+                <input matInput placeholder="Code Divalto" type="text" formControlName="codem">
                 <mat-hint>{{fieldDivaltoCodeMaxLength}} caractères maxi</mat-hint>
-                <mat-error *ngIf="workstationForm.get('divaltoCode').errors && 
-                    workstationForm.get('divaltoCode').hasError('required')">
+                <mat-error *ngIf="workstationForm.get('codem').errors && 
+                    workstationForm.get('codem').hasError('required')">
                     Ce champ est requis.
                 </mat-error>
-                <mat-error *ngIf="workstationForm.get('divaltoCode').errors && 
-                    workstationForm.get('divaltoCode').hasError('maxlength')">
+                <mat-error *ngIf="workstationForm.get('codem').errors && 
+                    workstationForm.get('codem').hasError('maxlength')">
                     Ce champ doit compter moins de {{fieldDivaltoCodeMaxLength}} caractères.
                 </mat-error>
             </mat-form-field>

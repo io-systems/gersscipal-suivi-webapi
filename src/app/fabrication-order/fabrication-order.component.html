@@ -1,11 +1,12 @@
 <mat-card>
-  <p>Filter</p>
-  <p>
+  <p fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="15px">
     <button mat-raised-button aria-label="créer" matTooltip="Nouvel enregistrement" (click)="create()" color="primary">
       <mat-icon>add</mat-icon><span> Ajouter un ordre de fabrication</span>
     </button>
+    <span fxFlex="1 1 auto"></span>
+    <small>Nombre de lignes : {{dataArray.length}} / {{dataCount.count}}</small>
   </p>
-  <table mat-table [dataSource]="fabricationOrders" class="mat-elevation-z8" style="width: 100%">
+  <table mat-table [dataSource]="dataArray" class="mat-elevation-z8" style="width: 100%" fixedLayout="true">
 
     <!-- WORKSHOPS ['name', 'description', 'createdAt', 'updatedAt', 'functions'] -->
     <!-- WORKSTATIONS ['divaltoCode', 'divaltoName', 'aleaPrefix', 'ipAddress', 'localization', 'description', 'createdAt', 'updatedAt', 'functions'] -->
@@ -126,5 +127,12 @@
         [ngClass]="{'selectedRow': selectedWorkstation.id === row.id}"
         (click)="selectWorkstation(row)"></tr>
   </table>
+  <mat-card-actions>
+    <span fxFlex></span>
+    <button mat-button *ngIf="dataArray.length < dataCount.count" (click)="more()">
+      <mat-icon>add</mat-icon> voir plus
+    </button>
+    <span fxFlex></span>
+  </mat-card-actions>
 </mat-card>
 

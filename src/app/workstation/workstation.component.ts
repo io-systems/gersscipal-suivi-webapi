@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { WorkstationBottomsheetEditorComponent } from './workstation-bottomsheet-editor/workstation-bottomsheet-editor.component';
 import { Workstation } from '../api/models/workstation';
 import { WorkstationControllerService } from '../api/services/workstation-controller.service';
+import { FilterService } from '../filter/filter.service';
+import { ConfigService } from '../config.service';
 
 @Component({
   selector: 'app-workstation',
@@ -11,12 +15,16 @@ import { WorkstationControllerService } from '../api/services/workstation-contro
   styleUrls: ['./workstation.component.scss']
 })
 export class WorkstationComponent implements OnInit {
-  workstations: Workstation[] = [];
-  displayedColumns: string[] = ['divaltoCode', 'divaltoName', 'aleaPrefix', 'ipAddress', 'localization', 'description', 'createdAt', 'updatedAt', 'functions'];
-  filter: any = {};
+  dataArray: Workstation[] = [];
+  displayedColumns: string[] = ['codem', 'divaltoName', 'aleaPrefix', 'ipAddress', 'localization', 'description', 'createdAt', 'updatedAt', 'functions'];
+  filter: any = {
+    offset: 0,
+    limit: 25,
+    where: {}
+  };
   selectedWorkstation: Workstation = {
     id: 0,
-    divaltoCode: "",
+    codem: "",
     divaltoName: "",
     aleaPrefix: "",
     localization: "",
@@ -25,13 +33,26 @@ export class WorkstationComponent implements OnInit {
     createdAt: "",
     updatedAt: ""
   };
-  selectedWorkstationName: string = ""
+  selectedWorkstationName: string = "";
+  dataCount: {count?: number} = {count: 0};
+  whereSubscription: Subscription;
 
   constructor(
     private db: WorkstationControllerService,
     private _bottomSheet: MatBottomSheet,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private _filter: FilterService,
+    private _config: ConfigService
+  ) {
+    this.whereSubscription = this._filter.where.pipe(
+      debounceTime(500)
+    ).subscribe((where: any) => {
+      this.updateWhereFilter(where);
+    });
+  }
+  ngOnDestroy() {
+    if (this.whereSubscription) this.whereSubscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.resetFilter();
@@ -39,24 +60,37 @@ export class WorkstationComponent implements OnInit {
   }
 
   resetFilter(): void {
-    this.filter = {
-      offset: 0,
-      limit: 25
-    }
+    this.filter.offset = 0;
+    this.filter.limit = this._config.REQUEST_LIMIT;
+    this.refresh();
+  }
+  updateWhereFilter(where: any): void {
+    this.filter.where = where;
+    this.refresh();
+  }
+  more() {
+    this.filter.offset = this.filter.offset + this._config.REQUEST_LIMIT;
+    this.refresh();
   }
 
-  refresh(): void {
-    this.db.find(this.filter).subscribe(
-      data => {
-        if (this.filter.offset === 0) {
-          this.workstations = data;
-        }else{
-          this.workstations.concat(data);
-        }
-      },
-      err => console.log(err),
-      () => {}
-    );
+  async refresh() {
+    const fil = {
+      filter: JSON.stringify(this.filter)
+    }
+    const countFil = {
+      where: this.filter.where
+    }
+    try{
+      const data = await this.db.find(fil).toPromise();
+      this.dataCount = await this.db.count(countFil).toPromise();
+      if (this.filter.offset === 0) {
+        this.dataArray = data;
+      }else{
+        this.dataArray = this.dataArray.concat(data);
+      }
+    }catch(e){
+      console.log(e);
+    }
   }
 
   // *************************
@@ -64,7 +98,7 @@ export class WorkstationComponent implements OnInit {
   // *************************
   create(): void {
     let newWS: Workstation = {
-      divaltoCode: "",
+      codem: "",
       divaltoName: "",
       aleaPrefix: "",
       localization: "",
@@ -92,7 +126,7 @@ export class WorkstationComponent implements OnInit {
   }
   copy(uw: Workstation): void {
     let newWS: Workstation = uw;
-    newWS.divaltoCode = `_${uw.divaltoCode}`
+    newWS.codem = `_${uw.codem}`
     const copyBottomSheet = this._bottomSheet.open(WorkstationBottomsheetEditorComponent, {
       data: newWS
     });
@@ -104,11 +138,11 @@ export class WorkstationComponent implements OnInit {
   }
   async delete(dw: Workstation) {
     if (!dw.id) return;
-    const result = confirm(`Voulez-vous vraiment supprimer définitivement le poste ${dw.divaltoCode} ?`);
+    const result = confirm(`Voulez-vous vraiment supprimer définitivement le poste ${dw.codem} ?`);
     if (result) {
       try{
         const deleteResult = await this.db.deleteById({id: dw.id}).toPromise();
-        this._snackBar.open(`Atelier ${dw.divaltoCode} supprimé définitivement.`, "X", {
+        this._snackBar.open(`Atelier ${dw.codem} supprimé définitivement.`, "X", {
           duration: 2000
         });
       }catch(e){
@@ -127,7 +161,7 @@ export class WorkstationComponent implements OnInit {
     this.selectedWorkstation = row;
   }
   selectWorkstationName(row: Workstation) {
-    this.selectedWorkstationName = row.divaltoCode;
+    this.selectedWorkstationName = row.codem;
   }
 
 }

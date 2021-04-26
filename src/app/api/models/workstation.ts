@@ -2,12 +2,12 @@
 /* eslint-disable */
 export interface Workstation {
   aleaPrefix?: string;
+  codem: string;
   createdAt?: string;
   description?: string;
-  divaltoCode: string;
   divaltoName?: string;
   id?: number;
-  ipAddress: string;
+  ipAddress?: string;
   localization?: string;
   updatedAt?: string;
 }

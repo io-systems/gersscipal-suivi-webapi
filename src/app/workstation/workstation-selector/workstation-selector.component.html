@@ -2,6 +2,6 @@
     <mat-label>Choisir un poste de travail</mat-label>
     <mat-select [(value)]="selected" (selectionChange)="selectionChange($event)">
         <mat-option>None</mat-option>
-        <mat-option *ngFor="let item of workstations" [value]="item.divaltoCode">{{item.divaltoCode}}</mat-option>
+        <mat-option *ngFor="let item of workstations" [value]="item.codem">{{item.codem}}</mat-option>
     </mat-select>
 </mat-form-field>

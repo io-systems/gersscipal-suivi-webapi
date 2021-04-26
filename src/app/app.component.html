@@ -1,39 +1,22 @@
 <div fxLayout="row wrap" fxFlexFill  class="mat-typography">
 
   <mat-toolbar color="primary">
+    <button mat-icon-button aria-label="menu" (click)="sideNavOpened = !sideNavOpened" fxShow fxHide.lt-sm>
+      <mat-icon>menu</mat-icon>
+   </button>
     <span fxShow fxHide.lt-sm>Gers Sci Pal - Suivi de production</span>
     <span fxHide fxShow.lt-sm>GSP - Suivi prod</span>
   </mat-toolbar>
 
   <mat-sidenav-container style="height: calc(100vh - 64px); width: 100%;">
 
-    <mat-sidenav mode="side" opened>
-      <mat-list>
-        <mat-list-item>
-          <a href="/workshop" mat-button>Atelier</a>
-        </mat-list-item>
-        <mat-list-item>
-          <a href="/workstation" mat-button>Poste de travail</a>
-        </mat-list-item>
-        <mat-list-item>
-          <a href="/operation" mat-button>Opération</a>
-        </mat-list-item>
-        <mat-list-item>
-          <a href="/message-standard" mat-button>Aléa</a>
-        </mat-list-item>
-        <mat-list-item>
-          <a href="/message-history" mat-button>Message</a>
-        </mat-list-item>
-        <mat-list-item>
-          <a href="/message-status" mat-button>Etat des messages</a>
-        </mat-list-item>
-        <mat-list-item>
-          <a href="/fabrication-order" mat-button>Ordres de fabrication</a>
-        </mat-list-item>
-      </mat-list>
+    <mat-sidenav mode="side" [opened]="sideNavOpened">
+      <app-nav-menu></app-nav-menu>
     </mat-sidenav>
-
+    
     <mat-sidenav-content>
+      <app-nav-menu fxHide fxShow.lt-sm></app-nav-menu>
+      <app-filter-editor></app-filter-editor>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
 

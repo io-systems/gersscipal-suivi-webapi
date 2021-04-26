@@ -20,7 +20,7 @@ export class WorkstationEditorComponent implements OnInit {
   @Input() workstation: Workstation;
   @Output() result: EventEmitter<boolean> = new EventEmitter();
   // [
-  //   'divaltoCode', 
+  //   'codem', 
   //   'divaltoName', 
   //   'aleaPrefix', 
   //   'ipAddress', 
@@ -39,7 +39,7 @@ export class WorkstationEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.workstationForm = this.formBuilder.group({
-      divaltoCode: new FormControl('', [
+      codem: new FormControl('', [
         Validators.required,
         Validators.maxLength(this.fieldDivaltoCodeMaxLength)
       ]),
@@ -58,7 +58,7 @@ export class WorkstationEditorComponent implements OnInit {
       ])
     });
     if (this.workstation.divaltoName) {
-      this.workstationForm.controls.divaltoCode.setValue(this.workstation.divaltoCode);
+      this.workstationForm.controls.codem.setValue(this.workstation.codem);
       this.workstationForm.controls.divaltoName.setValue(this.workstation.divaltoName);
       this.workstationForm.controls.aleaPrefix.setValue(this.workstation.aleaPrefix);
       this.workstationForm.controls.ipAddress.setValue(this.workstation.ipAddress);
@@ -78,7 +78,7 @@ export class WorkstationEditorComponent implements OnInit {
   async _save() {
     if (!this.workstationForm.valid) return;
     const result: Workstation = {
-      divaltoCode: this.workstationForm.controls.divaltoCode.value,
+      codem: this.workstationForm.controls.codem.value,
       divaltoName: this.workstationForm.controls.divaltoName.value || "",
       aleaPrefix: this.workstationForm.controls.aleaPrefix.value || "",
       ipAddress: this.workstationForm.controls.ipAddress.value,
@@ -88,7 +88,7 @@ export class WorkstationEditorComponent implements OnInit {
     const params = {
       filter: JSON.stringify({
         where: {
-          divaltoCode: result.divaltoCode
+          codem: result.codem
         }
       })
     }

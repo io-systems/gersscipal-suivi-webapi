@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MessageStandardBottomsheetEditorComponent } from './message-standard-bottomsheet-editor/message-standard-bottomsheet-editor.component';
 import { MessageStandard } from '../api/models/message-standard';
 import { MessageStandardControllerService } from '../api/services/message-standard-controller.service';
+import { FilterService } from '../filter/filter.service';
+import { ConfigService } from '../config.service';
 
 @Component({
   selector: 'app-message-standard',
@@ -11,9 +15,13 @@ import { MessageStandardControllerService } from '../api/services/message-standa
   styleUrls: ['./message-standard.component.scss']
 })
 export class MessageStandardComponent implements OnInit {
-  messagesStandards: MessageStandard[] = [];
+  dataArray: MessageStandard[] = [];
   displayedColumns: string[] = ['alea', 'operation', 'label', 'description', 'createdAt', 'updatedAt', 'functions'];
-  filter: any = {};
+  filter: any = {
+    offset: 0,
+    limit: 25,
+    where: {}
+  };
   selectedMessageStandard: MessageStandard = {
     id: 0,
     alea: "",
@@ -23,13 +31,26 @@ export class MessageStandardComponent implements OnInit {
     createdAt: "",
     updatedAt: ""
   };
-  selectedMessageStandardName: string = ""
+  selectedMessageStandardName: string = "";
+  dataCount: {count?: number} = {count: 0};
+  whereSubscription: Subscription;
 
   constructor(
     private db: MessageStandardControllerService,
     private _bottomSheet: MatBottomSheet,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private _filter: FilterService,
+    private _config: ConfigService
+  ) {
+    this.whereSubscription = this._filter.where.pipe(
+      debounceTime(500)
+    ).subscribe((where: any) => {
+      this.updateWhereFilter(where);
+    });
+  }
+  ngOnDestroy() {
+    if (this.whereSubscription) this.whereSubscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.resetFilter();
@@ -37,24 +58,37 @@ export class MessageStandardComponent implements OnInit {
   }
 
   resetFilter(): void {
-    this.filter = {
-      offset: 0,
-      limit: 25
-    }
+    this.filter.offset = 0;
+    this.filter.limit = this._config.REQUEST_LIMIT;
+    this.refresh();
+  }
+  updateWhereFilter(where: any): void {
+    this.filter.where = where;
+    this.refresh();
+  }
+  more() {
+    this.filter.offset = this.filter.offset + this._config.REQUEST_LIMIT;
+    this.refresh();
   }
 
-  refresh(): void {
-    this.db.find(this.filter).subscribe(
-      data => {
-        if (this.filter.offset === 0) {
-          this.messagesStandards = data;
-        }else{
-          this.messagesStandards.concat(data);
-        }
-      },
-      err => console.log(err),
-      () => {}
-    );
+  async refresh() {
+    const fil = {
+      filter: JSON.stringify(this.filter)
+    }
+    const countFil = {
+      where: this.filter.where
+    }
+    try{
+      const data = await this.db.find(fil).toPromise();
+      this.dataCount = await this.db.count(countFil).toPromise();
+      if (this.filter.offset === 0) {
+        this.dataArray = data;
+      }else{
+        this.dataArray = this.dataArray.concat(data);
+      }
+    }catch(e){
+      console.log(e);
+    }
   }
 
   // *************************

@@ -1,3 +1,14 @@
 .selectedRow {
     background-color: #f0f0f0; 
 }
+mat-card {
+    overflow: auto;
+}
+table {
+    min-width: 1024px;
+}
+td, th {
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 220px;
+}

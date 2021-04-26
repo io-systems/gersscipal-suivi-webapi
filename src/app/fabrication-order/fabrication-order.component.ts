@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FabricationOrderBottomsheetEditorComponent } from './fabrication-order-bottomsheet-editor/fabrication-order-bottomsheet-editor.component';
 import { FabricationOrder } from '../api/models/fabrication-order';
 import { FabricationOrderControllerService } from '../api/services/fabrication-order-controller.service';
+import { FilterService } from '../filter/filter.service';
+import { ConfigService } from '../config.service';
 
 @Component({
   selector: 'app-fabrication-order',
@@ -11,7 +15,7 @@ import { FabricationOrderControllerService } from '../api/services/fabrication-o
   styleUrls: ['./fabrication-order.component.scss']
 })
 export class FabricationOrderComponent implements OnInit {
-  fabricationOrders: FabricationOrder[] = [];
+  dataArray: FabricationOrder[] = [];
   displayedColumns: string[] = ['ofnr', 'codem', 'startedAt', 'stoppedAt', 'createdAt', 'updatedAt', 'functions'];
   filter: any = {};
   selectedWorkstation: FabricationOrder = {
@@ -23,33 +27,57 @@ export class FabricationOrderComponent implements OnInit {
   };
   selectedWorkstationName: string = ""
   dataCount: {count?: number} = {count: 0};
+  whereSubscription: Subscription;
 
   constructor(
     private db: FabricationOrderControllerService,
     private _bottomSheet: MatBottomSheet,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private _filter: FilterService,
+    private _config: ConfigService
+  ) {
+    this.whereSubscription = this._filter.where.pipe(
+      debounceTime(500)
+    ).subscribe((where: any) => {
+      this.updateWhereFilter(where);
+    });
+  }
+  ngOnDestroy() {
+    if (this.whereSubscription) this.whereSubscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.resetFilter();
     this.refresh();
   }
-
   resetFilter(): void {
-    this.filter = {
-      offset: 0,
-      limit: 25
-    }
+    this.filter.offset = 0;
+    this.filter.limit = this._config.REQUEST_LIMIT;
+    this.refresh();
+  }
+  updateWhereFilter(where: any): void {
+    this.filter.where = where;
+    this.refresh();
+  }
+  more() {
+    this.filter.offset = this.filter.offset + this._config.REQUEST_LIMIT;
+    this.refresh();
   }
 
   async refresh() {
+    const fil = {
+      filter: JSON.stringify(this.filter)
+    }
+    const countFil = {
+      where: this.filter.where
+    }
     try{
-      const data = await this.db.find(this.filter).toPromise();
-      this.dataCount = await this.db.count(this.filter).toPromise();
+      const data = await this.db.find(fil).toPromise();
+      this.dataCount = await this.db.count(countFil).toPromise();
       if (this.filter.offset === 0) {
-        this.fabricationOrders = data;
+        this.dataArray = data;
       }else{
-        this.fabricationOrders = this.fabricationOrders.concat(data);
+        this.dataArray = this.dataArray.concat(data);
       }
     }catch(e){
       console.log(e);

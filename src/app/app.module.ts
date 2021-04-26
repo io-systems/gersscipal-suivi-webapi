@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -23,22 +23,15 @@ import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
-import { WorkshopComponent } from './workshop/workshop.component';
-import { WorkshopEditorComponent } from './workshop/workshop-editor/workshop-editor.component';
-import { WorkshopBottomsheetEditorComponent } from './workshop/workshop-bottomsheet-editor/workshop-bottomsheet-editor.component';
-import { WorkshopSelectorComponent } from './workshop/workshop-selector/workshop-selector.component';
-import { WorkstationEditorComponent } from './workstation/workstation-editor/workstation-editor.component';
-import { WorkstationBottomsheetEditorComponent } from './workstation/workstation-bottomsheet-editor/workstation-bottomsheet-editor.component';
-import { WorkstationSelectorComponent } from './workstation/workstation-selector/workstation-selector.component';
-import { WorkstationComponent } from './workstation/workstation.component';
 import { FabricationOrderComponent } from './fabrication-order/fabrication-order.component';
 import { FabricationOrderEditorComponent } from './fabrication-order/fabrication-order-editor/fabrication-order-editor.component';
 import { FabricationOrderBottomsheetEditorComponent } from './fabrication-order/fabrication-order-bottomsheet-editor/fabrication-order-bottomsheet-editor.component';
 import { FabricationOrderSelectorComponent } from './fabrication-order/fabrication-order-selector/fabrication-order-selector.component';
-import { OperationComponent } from './operation/operation.component';
-import { OperationEditorComponent } from './operation/operation-editor/operation-editor.component';
-import { OperationBottomsheetEditorComponent } from './operation/operation-bottomsheet-editor/operation-bottomsheet-editor.component';
-import { OperationSelectorComponent } from './operation/operation-selector/operation-selector.component';
+import { FilterEditorComponent } from './filter/filter-editor/filter-editor.component';
+import { MessageHistoryComponent } from './message-history/message-history.component';
+import { MessageHistoryBottomsheetEditorComponent } from './message-history/message-history-bottomsheet-editor/message-history-bottomsheet-editor.component';
+import { MessageHistoryEditorComponent } from './message-history/message-history-editor/message-history-editor.component';
+import { MessageHistorySelectorComponent } from './message-history/message-history-selector/message-history-selector.component';
 import { MessageStandardComponent } from './message-standard/message-standard.component';
 import { MessageStandardBottomsheetEditorComponent } from './message-standard/message-standard-bottomsheet-editor/message-standard-bottomsheet-editor.component';
 import { MessageStandardEditorComponent } from './message-standard/message-standard-editor/message-standard-editor.component';
@@ -47,31 +40,33 @@ import { MessageStatusComponent } from './message-status/message-status.componen
 import { MessageStatusBottomsheetEditorComponent } from './message-status/message-status-bottomsheet-editor/message-status-bottomsheet-editor.component';
 import { MessageStatusEditorComponent } from './message-status/message-status-editor/message-status-editor.component';
 import { MessageStatusSelectorComponent } from './message-status/message-status-selector/message-status-selector.component';
-import { MessageHistoryComponent } from './message-history/message-history.component';
-import { MessageHistoryBottomsheetEditorComponent } from './message-history/message-history-bottomsheet-editor/message-history-bottomsheet-editor.component';
-import { MessageHistoryEditorComponent } from './message-history/message-history-editor/message-history-editor.component';
-import { MessageHistorySelectorComponent } from './message-history/message-history-selector/message-history-selector.component';
+import { OperationComponent } from './operation/operation.component';
+import { OperationEditorComponent } from './operation/operation-editor/operation-editor.component';
+import { OperationBottomsheetEditorComponent } from './operation/operation-bottomsheet-editor/operation-bottomsheet-editor.component';
+import { OperationSelectorComponent } from './operation/operation-selector/operation-selector.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { WorkshopComponent } from './workshop/workshop.component';
+import { WorkshopEditorComponent } from './workshop/workshop-editor/workshop-editor.component';
+import { WorkshopBottomsheetEditorComponent } from './workshop/workshop-bottomsheet-editor/workshop-bottomsheet-editor.component';
+import { WorkshopSelectorComponent } from './workshop/workshop-selector/workshop-selector.component';
+import { WorkstationEditorComponent } from './workstation/workstation-editor/workstation-editor.component';
+import { WorkstationBottomsheetEditorComponent } from './workstation/workstation-bottomsheet-editor/workstation-bottomsheet-editor.component';
+import { WorkstationSelectorComponent } from './workstation/workstation-selector/workstation-selector.component';
+import { WorkstationComponent } from './workstation/workstation.component';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WorkshopComponent,
-    WorkshopEditorComponent,
-    WorkshopBottomsheetEditorComponent,
-    WorkshopSelectorComponent,
-    WorkstationComponent,
-    WorkstationEditorComponent,
-    WorkstationBottomsheetEditorComponent,
-    WorkstationSelectorComponent,
     FabricationOrderComponent,
     FabricationOrderEditorComponent,
     FabricationOrderBottomsheetEditorComponent,
     FabricationOrderSelectorComponent,
-    OperationComponent,
-    OperationEditorComponent,
-    OperationBottomsheetEditorComponent,
-    OperationSelectorComponent,
+    FilterEditorComponent,
+    MessageHistoryComponent,
+    MessageHistoryBottomsheetEditorComponent,
+    MessageHistoryEditorComponent,
+    MessageHistorySelectorComponent,
     MessageStandardComponent,
     MessageStandardBottomsheetEditorComponent,
     MessageStandardEditorComponent,
@@ -80,16 +75,26 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MessageStatusBottomsheetEditorComponent,
     MessageStatusEditorComponent,
     MessageStatusSelectorComponent,
-    MessageHistoryComponent,
-    MessageHistoryBottomsheetEditorComponent,
-    MessageHistoryEditorComponent,
-    MessageHistorySelectorComponent,
-    PageNotFoundComponent
+    OperationComponent,
+    OperationEditorComponent,
+    OperationBottomsheetEditorComponent,
+    OperationSelectorComponent,
+    PageNotFoundComponent,
+    WorkshopComponent,
+    WorkshopEditorComponent,
+    WorkshopBottomsheetEditorComponent,
+    WorkshopSelectorComponent,
+    WorkstationComponent,
+    WorkstationEditorComponent,
+    WorkstationBottomsheetEditorComponent,
+    WorkstationSelectorComponent,
+    NavMenuComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
     AppRoutingModule,

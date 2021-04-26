@@ -6,11 +6,11 @@
  */
 export interface NewWorkstation {
   aleaPrefix?: string;
+  codem: string;
   createdAt?: string;
   description?: string;
-  divaltoCode: string;
   divaltoName?: string;
-  ipAddress: string;
+  ipAddress?: string;
   localization?: string;
   updatedAt?: string;
 }

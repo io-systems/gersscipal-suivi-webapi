@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MediaObserver } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'io-suivi-webapp';
+  title = 'GSP - Suivi de production';
+  sideNavOpened = true;
+  
+  constructor(
+    public mediaObserver: MediaObserver
+  ) {
+    mediaObserver.asObservable().subscribe(data => {
+      this.sideNavOpened = !mediaObserver.isActive('xs');
+    });
+  }
 }

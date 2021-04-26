@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MessageStatusBottomsheetEditorComponent } from './message-status-bottomsheet-editor/message-status-bottomsheet-editor.component';
 import { MessageStatus } from '../api/models/message-status';
 import { MessageStatusControllerService } from '../api/services/message-status-controller.service';
+import { FilterService } from '../filter/filter.service';
+import { ConfigService } from '../config.service';
 
 @Component({
   selector: 'app-message-status',
@@ -11,21 +15,38 @@ import { MessageStatusControllerService } from '../api/services/message-status-c
   styleUrls: ['./message-status.component.scss']
 })
 export class MessageStatusComponent implements OnInit {
-  messagesStatuses: MessageStatus[] = [];
+  dataArray: MessageStatus[] = [];
   displayedColumns: string[] = ['status', 'description', 'createdAt', 'updatedAt', 'functions'];
-  filter: any = {};
+  filter: any = {
+    offset: 0,
+    limit: 25,
+    where: {}
+  };
   selectedMessageStatus: MessageStatus = {
     id: 0,
     status: 0,
     description: ""
   };
   selectedMessageStatusName: number = 0;
+  dataCount: {count?: number} = {count: 0};
+  whereSubscription: Subscription;
 
   constructor(
     private db: MessageStatusControllerService,
     private _bottomSheet: MatBottomSheet,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private _filter: FilterService,
+    private _config: ConfigService
+  ) {
+    this.whereSubscription = this._filter.where.pipe(
+      debounceTime(500)
+    ).subscribe((where: any) => {
+      this.updateWhereFilter(where);
+    });
+  }
+  ngOnDestroy() {
+    if (this.whereSubscription) this.whereSubscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.resetFilter();
@@ -33,24 +54,37 @@ export class MessageStatusComponent implements OnInit {
   }
 
   resetFilter(): void {
-    this.filter = {
-      offset: 0,
-      limit: 25
-    }
+    this.filter.offset = 0;
+    this.filter.limit = this._config.REQUEST_LIMIT;
+    this.refresh();
+  }
+  updateWhereFilter(where: any): void {
+    this.filter.where = where;
+    this.refresh();
+  }
+  more() {
+    this.filter.offset = this.filter.offset + this._config.REQUEST_LIMIT;
+    this.refresh();
   }
 
-  refresh(): void {
-    this.db.find(this.filter).subscribe(
-      data => {
-        if (this.filter.offset === 0) {
-          this.messagesStatuses = data;
-        }else{
-          this.messagesStatuses.concat(data);
-        }
-      },
-      err => console.log(err),
-      () => {}
-    );
+  async refresh() {
+    const fil = {
+      filter: JSON.stringify(this.filter)
+    }
+    const countFil = {
+      where: this.filter.where
+    }
+    try{
+      const data = await this.db.find(fil).toPromise();
+      this.dataCount = await this.db.count(countFil).toPromise();
+      if (this.filter.offset === 0) {
+        this.dataArray = data;
+      }else{
+        this.dataArray = this.dataArray.concat(data);
+      }
+    }catch(e){
+      console.log(e);
+    }
   }
 
   // *************************

@@ -6,9 +6,9 @@
  */
 export interface WorkstationPartial {
   aleaPrefix?: string;
+  codem?: string;
   createdAt?: string;
   description?: string;
-  divaltoCode?: string;
   divaltoName?: string;
   id?: number;
   ipAddress?: string;

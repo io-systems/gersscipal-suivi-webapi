@@ -29,7 +29,7 @@ export class WorkstationSelectorComponent implements OnInit {
 
   selectionChange(event: any) {
     this.setWorkstationCode.emit(event.value);
-    const tmp = this.workstations.find(ws => ws.divaltoCode === event.value);
+    const tmp = this.workstations.find(ws => ws.codem === event.value);
     if (tmp) this.setWorkstation.emit(tmp);
   }
 
@@ -44,14 +44,14 @@ export class WorkstationSelectorComponent implements OnInit {
   }
   updateSelected(): void {
     if (this.selectedWorkstation && this.workstations.length > 0) {
-      const tmp = this.workstations.find(ws => ws.divaltoCode === this.selectedWorkstation.divaltoCode);
-      this.selected = (tmp && tmp.divaltoCode) ? tmp.divaltoCode : "";
+      const tmp = this.workstations.find(ws => ws.codem === this.selectedWorkstation.codem);
+      this.selected = (tmp && tmp.codem) ? tmp.codem : "";
     }
   }
   updateSelectedCode(): void {
     if (this.selectedWorkstationCode && this.workstations.length > 0) {
-      const tmp = this.workstations.find(ws => ws.divaltoCode === this.selectedWorkstationCode);
-      this.selected = (tmp && tmp.divaltoCode) ? tmp.divaltoCode : "";
+      const tmp = this.workstations.find(ws => ws.codem === this.selectedWorkstationCode);
+      this.selected = (tmp && tmp.codem) ? tmp.codem : "";
     }
   }
 
