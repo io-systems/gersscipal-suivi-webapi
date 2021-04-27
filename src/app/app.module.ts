@@ -9,9 +9,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
@@ -31,6 +33,8 @@ import { FabricationOrderEditorComponent } from './fabrication-order/fabrication
 import { FabricationOrderBottomsheetEditorComponent } from './fabrication-order/fabrication-order-bottomsheet-editor/fabrication-order-bottomsheet-editor.component';
 import { FabricationOrderSelectorComponent } from './fabrication-order/fabrication-order-selector/fabrication-order-selector.component';
 import { FilterEditorComponent } from './filter/filter-editor/filter-editor.component';
+import { FilterHelperComponent } from './filter/filter-helper/filter-helper.component';
+import { FilterHelperDialogComponent } from './filter/filter-helper-dialog/filter-helper-dialog.component';
 import { MessageHistoryComponent } from './message-history/message-history.component';
 import { MessageHistoryBottomsheetEditorComponent } from './message-history/message-history-bottomsheet-editor/message-history-bottomsheet-editor.component';
 import { MessageHistoryEditorComponent } from './message-history/message-history-editor/message-history-editor.component';
@@ -68,6 +72,8 @@ import { ProgressBarComponent } from './indicators/progress-bar/progress-bar.com
     FabricationOrderBottomsheetEditorComponent,
     FabricationOrderSelectorComponent,
     FilterEditorComponent,
+    FilterHelperComponent,
+    FilterHelperDialogComponent,
     MessageHistoryComponent,
     MessageHistoryBottomsheetEditorComponent,
     MessageHistoryEditorComponent,
@@ -104,9 +110,11 @@ import { ProgressBarComponent } from './indicators/progress-bar/progress-bar.com
     ReactiveFormsModule,
     FlexLayoutModule,
     AppRoutingModule,
+    MatAutocompleteModule,
     MatBottomSheetModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,

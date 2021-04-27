@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import { FilterService } from '../filter.service';
+import { FilterHelperDialogComponent } from '../filter-helper-dialog/filter-helper-dialog.component';
 
 @Component({
   selector: 'app-filter-editor',
@@ -34,7 +36,8 @@ export class FilterEditorComponent {
   }
 
   constructor(
-    private _filter: FilterService
+    private _filter: FilterService,
+    public _dialog: MatDialog
   ) {
     this.filterDB = this._filter.filters.subscribe(
       data => this.storedFilters  = data.content
@@ -47,7 +50,14 @@ export class FilterEditorComponent {
 
   // FILTER HELPER MANAGEMENT
   openHelper(): void {
-    alert("yeah !");
+    const dialogRef = this._dialog.open(FilterHelperDialogComponent, {
+      data: {filterString: this.filterString, whereFilter: this.where}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
   }
   
   // STORED FILTERS MANAGEMENT

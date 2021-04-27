@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ConfigService } from '../../config.service';
 
 @Component({
   selector: 'app-progress-bar',
@@ -11,7 +12,9 @@ export class ProgressBarComponent implements OnChanges {
   toutReset;
   @Input() loading: boolean = false;
 
-  constructor() {
+  constructor(
+    private appConfig: ConfigService
+  ) {
     this.showProgress();
   }
 
@@ -36,7 +39,7 @@ export class ProgressBarComponent implements OnChanges {
     if (this.toutReset) clearTimeout(this.toutReset);
     this.toutReset = setTimeout(() => {
       this.recheckLoadingStatus();
-    }, 2000);
+    }, this.appConfig.PROGRESS_TIMEOUT_TIME || 2000);
   }
   hideProgress(): void {
     this.value = 0;
