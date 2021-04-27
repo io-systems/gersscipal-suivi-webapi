@@ -22,12 +22,6 @@ export class WorkshopComponent implements OnInit {
     limit: 25,
     where: {}
   };
-  selectedWorkshop: Workshop = {
-    id: 0,
-    name: "",
-    description: ""
-  };
-  selectedWorkshopName: string = "";
   dataCount: {count?: number} = {count: 0};
   whereSubscription: Subscription;
 
@@ -72,7 +66,7 @@ export class WorkshopComponent implements OnInit {
       filter: JSON.stringify(this.filter)
     }
     const countFil = {
-      where: this.filter.where
+      where: JSON.stringify(this.filter.where)
     }
     try{
       const data = await this.db.find(fil).toPromise();
@@ -143,14 +137,5 @@ export class WorkshopComponent implements OnInit {
       this.refresh();
     }
   }
-
-  // *************************
-  // FONCTIONS DE SELECTION
-  // *************************
-  selectWorkshop(row: Workshop) {
-    this.selectedWorkshop = row;
-  }
-  selectWorkshopName(row: Workshop) {
-    this.selectedWorkshopName = row.name;
-  }
+  
 }

@@ -22,20 +22,6 @@ export class MessageHistoryComponent implements OnInit {
     limit: 25,
     where: {}
   };
-  selectedMessage: MessageHistory = {
-    id: 0,
-    idAPI: 0,
-    status: 0,
-    codem: "",
-    operation: "",
-    alea: "",
-    label: "",
-    timestamp: "",
-    value: 0,
-    createdAt: "",
-    updatedAt: ""
-  };
-  selectedMessageId: number = 0;
   dataCount: {count?: number} = {count: 0};
   whereSubscription: Subscription;
 
@@ -80,7 +66,7 @@ export class MessageHistoryComponent implements OnInit {
       filter: JSON.stringify(this.filter)
     }
     const countFil = {
-      where: this.filter.where
+      where: JSON.stringify(this.filter.where)
     }
     try{
       const data = await this.db.find(fil).toPromise();
@@ -157,16 +143,6 @@ export class MessageHistoryComponent implements OnInit {
       }
       this.refresh();
     }
-  }
-
-  // *************************
-  // FONCTIONS DE SELECTION
-  // *************************
-  selectMessage(row: MessageHistory) {
-    this.selectedMessage = row;
-  }
-  selectMessageId(row: MessageHistory) {
-    this.selectedMessageId = row.id;
   }
 
 }

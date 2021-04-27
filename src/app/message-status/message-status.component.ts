@@ -22,12 +22,6 @@ export class MessageStatusComponent implements OnInit {
     limit: 25,
     where: {}
   };
-  selectedMessageStatus: MessageStatus = {
-    id: 0,
-    status: 0,
-    description: ""
-  };
-  selectedMessageStatusName: number = 0;
   dataCount: {count?: number} = {count: 0};
   whereSubscription: Subscription;
 
@@ -72,7 +66,7 @@ export class MessageStatusComponent implements OnInit {
       filter: JSON.stringify(this.filter)
     }
     const countFil = {
-      where: this.filter.where
+      where: JSON.stringify(this.filter.where)
     }
     try{
       const data = await this.db.find(fil).toPromise();
@@ -142,16 +136,6 @@ export class MessageStatusComponent implements OnInit {
       }
       this.refresh();
     }
-  }
-
-  // *************************
-  // FONCTIONS DE SELECTION
-  // *************************
-  selectMessageStatus(row: MessageStatus) {
-    this.selectedMessageStatus = row;
-  }
-  selectMessageStatusName(row: MessageStatus) {
-    this.selectedMessageStatusName = row.status;
   }
 
 }

@@ -18,14 +18,6 @@ export class FabricationOrderComponent implements OnInit {
   dataArray: FabricationOrder[] = [];
   displayedColumns: string[] = ['ofnr', 'codem', 'startedAt', 'stoppedAt', 'createdAt', 'updatedAt', 'functions'];
   filter: any = {};
-  selectedWorkstation: FabricationOrder = {
-    id: 0,
-    ofnr: "",
-    codem: "",
-    createdAt: "",
-    updatedAt: ""
-  };
-  selectedWorkstationName: string = ""
   dataCount: {count?: number} = {count: 0};
   whereSubscription: Subscription;
 
@@ -69,7 +61,7 @@ export class FabricationOrderComponent implements OnInit {
       filter: JSON.stringify(this.filter)
     }
     const countFil = {
-      where: this.filter.where
+      where: JSON.stringify(this.filter.where)
     }
     try{
       const data = await this.db.find(fil).toPromise();
@@ -139,16 +131,6 @@ export class FabricationOrderComponent implements OnInit {
       }
       this.refresh();
     }
-  }
-
-  // *************************
-  // FONCTIONS DE SELECTION
-  // *************************
-  selectWorkstation(row: FabricationOrder) {
-    this.selectedWorkstation = row;
-  }
-  selectWorkstationName(row: FabricationOrder) {
-    this.selectedWorkstationName = row.ofnr;
   }
 
 }

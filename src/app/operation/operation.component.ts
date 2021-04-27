@@ -22,12 +22,6 @@ export class OperationComponent implements OnInit {
     limit: 25,
     where: {}
   };
-  selectedOperation: Operation = {
-    id: 0,
-    operation: "",
-    description: ""
-  };
-  selectedOperationName: string = "";
   dataCount: {count?: number} = {count: 0};
   whereSubscription: Subscription;
 
@@ -72,7 +66,7 @@ export class OperationComponent implements OnInit {
       filter: JSON.stringify(this.filter)
     }
     const countFil = {
-      where: this.filter.where
+      where: JSON.stringify(this.filter.where)
     }
     try{
       const data = await this.db.find(fil).toPromise();
@@ -142,16 +136,6 @@ export class OperationComponent implements OnInit {
       }
       this.refresh();
     }
-  }
-
-  // *************************
-  // FONCTIONS DE SELECTION
-  // *************************
-  selectOperation(row: Operation) {
-    this.selectedOperation = row;
-  }
-  selectOperationName(row: Operation) {
-    this.selectedOperationName = row.operation;
   }
 
 }

@@ -22,16 +22,6 @@ export class MessageStandardComponent implements OnInit {
     limit: 25,
     where: {}
   };
-  selectedMessageStandard: MessageStandard = {
-    id: 0,
-    alea: "",
-    operation: "",
-    label: "",
-    description: "",
-    createdAt: "",
-    updatedAt: ""
-  };
-  selectedMessageStandardName: string = "";
   dataCount: {count?: number} = {count: 0};
   whereSubscription: Subscription;
 
@@ -76,7 +66,7 @@ export class MessageStandardComponent implements OnInit {
       filter: JSON.stringify(this.filter)
     }
     const countFil = {
-      where: this.filter.where
+      where: JSON.stringify(this.filter.where)
     }
     try{
       const data = await this.db.find(fil).toPromise();
@@ -149,16 +139,6 @@ export class MessageStandardComponent implements OnInit {
       }
       this.refresh();
     }
-  }
-
-  // *************************
-  // FONCTIONS DE SELECTION
-  // *************************
-  selectMessageStandard(row: MessageStandard) {
-    this.selectedMessageStandard = row;
-  }
-  selectMessageStandardName(row: MessageStandard) {
-    this.selectedMessageStandardName = row.alea;
   }
 
 }

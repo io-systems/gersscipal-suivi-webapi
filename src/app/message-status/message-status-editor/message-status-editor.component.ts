@@ -32,7 +32,7 @@ export class MessageStatusEditorComponent implements OnInit {
         Validators.maxLength(this.fieldDescriptionMaxLength)
       ])
     });
-    if (this.messageStatus.status) {
+    if (this.messageStatus) {
       this.messageStatusForm.controls.status.setValue(this.messageStatus.status);
       this.messageStatusForm.controls.description.setValue(this.messageStatus.description);
     }else{

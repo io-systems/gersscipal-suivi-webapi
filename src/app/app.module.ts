@@ -23,6 +23,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
+import { DataTableEditorComponent } from './data-table-editor/data-table-editor.component';
 import { FabricationOrderComponent } from './fabrication-order/fabrication-order.component';
 import { FabricationOrderEditorComponent } from './fabrication-order/fabrication-order-editor/fabrication-order-editor.component';
 import { FabricationOrderBottomsheetEditorComponent } from './fabrication-order/fabrication-order-bottomsheet-editor/fabrication-order-bottomsheet-editor.component';
@@ -40,6 +41,7 @@ import { MessageStatusComponent } from './message-status/message-status.componen
 import { MessageStatusBottomsheetEditorComponent } from './message-status/message-status-bottomsheet-editor/message-status-bottomsheet-editor.component';
 import { MessageStatusEditorComponent } from './message-status/message-status-editor/message-status-editor.component';
 import { MessageStatusSelectorComponent } from './message-status/message-status-selector/message-status-selector.component';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { OperationComponent } from './operation/operation.component';
 import { OperationEditorComponent } from './operation/operation-editor/operation-editor.component';
 import { OperationBottomsheetEditorComponent } from './operation/operation-bottomsheet-editor/operation-bottomsheet-editor.component';
@@ -53,11 +55,11 @@ import { WorkstationEditorComponent } from './workstation/workstation-editor/wor
 import { WorkstationBottomsheetEditorComponent } from './workstation/workstation-bottomsheet-editor/workstation-bottomsheet-editor.component';
 import { WorkstationSelectorComponent } from './workstation/workstation-selector/workstation-selector.component';
 import { WorkstationComponent } from './workstation/workstation.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    DataTableEditorComponent,
     FabricationOrderComponent,
     FabricationOrderEditorComponent,
     FabricationOrderBottomsheetEditorComponent,
@@ -75,6 +77,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
     MessageStatusBottomsheetEditorComponent,
     MessageStatusEditorComponent,
     MessageStatusSelectorComponent,
+    NavMenuComponent,
     OperationComponent,
     OperationEditorComponent,
     OperationBottomsheetEditorComponent,
@@ -87,8 +90,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
     WorkstationComponent,
     WorkstationEditorComponent,
     WorkstationBottomsheetEditorComponent,
-    WorkstationSelectorComponent,
-    NavMenuComponent
+    WorkstationSelectorComponent
   ],
   imports: [
     BrowserModule,

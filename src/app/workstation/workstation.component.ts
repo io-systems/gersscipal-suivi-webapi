@@ -22,18 +22,6 @@ export class WorkstationComponent implements OnInit {
     limit: 25,
     where: {}
   };
-  selectedWorkstation: Workstation = {
-    id: 0,
-    codem: "",
-    divaltoName: "",
-    aleaPrefix: "",
-    localization: "",
-    ipAddress: "",
-    description: "",
-    createdAt: "",
-    updatedAt: ""
-  };
-  selectedWorkstationName: string = "";
   dataCount: {count?: number} = {count: 0};
   whereSubscription: Subscription;
 
@@ -78,7 +66,7 @@ export class WorkstationComponent implements OnInit {
       filter: JSON.stringify(this.filter)
     }
     const countFil = {
-      where: this.filter.where
+      where: JSON.stringify(this.filter.where)
     }
     try{
       const data = await this.db.find(fil).toPromise();
@@ -152,16 +140,6 @@ export class WorkstationComponent implements OnInit {
       }
       this.refresh();
     }
-  }
-
-  // *************************
-  // FONCTIONS DE SELECTION
-  // *************************
-  selectWorkstation(row: Workstation) {
-    this.selectedWorkstation = row;
-  }
-  selectWorkstationName(row: Workstation) {
-    this.selectedWorkstationName = row.codem;
   }
 
 }
