@@ -15,11 +15,15 @@ export class DataTableEditorComponent {
   @Output() update: EventEmitter<any> = new EventEmitter();
   @Output() copy: EventEmitter<any> = new EventEmitter();
   @Output() delete: EventEmitter<any> = new EventEmitter();
+  @Output() reload: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
   _more(): void {
     this.more.emit();
+  }
+  _reload(): void {
+    this.reload.emit();
   }
   _create(): void {
     this.create.emit();

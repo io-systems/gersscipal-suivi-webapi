@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { fakeAsync } from '@angular/core/testing';
-import { filter } from 'rxjs/operators';
+import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { FilterService } from '../filter.service';
 
 @Component({
@@ -8,8 +7,10 @@ import { FilterService } from '../filter.service';
   templateUrl: './filter-editor.component.html',
   styleUrls: ['./filter-editor.component.scss']
 })
-export class FilterEditorComponent implements OnInit {
+export class FilterEditorComponent {
   filterString: string = "";
+  storedFilters: any[] = [];
+  filterDB: Subscription;
   _where: any = {};
   get where(): any {
     return this._where;
@@ -18,22 +19,66 @@ export class FilterEditorComponent implements OnInit {
     this._where = val;
     this._filter.updateWhere(this._where);
   }
+  isRecordable(): boolean {
+    return this._where && Object.keys(this._where).length > 0;
+  }
+  getCurrentFilterIndex(): number {
+    return this.storedFilters.findIndex((fil: any) => fil.content === this.filterString);
+  }
+  isStored(): boolean {
+    return this.getCurrentFilterIndex() > -1;
+  }
+
+  preventDefault(event): void {
+    event.stopPropagation();
+  }
 
   constructor(
     private _filter: FilterService
-  ) { }
-
-  ngOnInit(): void {
+  ) {
+    this.filterDB = this._filter.filters.subscribe(
+      data => this.storedFilters  = data.content
+    );
   }
 
+  ngOnDestroy(): void {
+    if (this.filterDB) this.filterDB.unsubscribe();
+  }
+
+  // FILTER HELPER MANAGEMENT
+  openHelper(): void {
+    alert("yeah !");
+  }
+  
+  // STORED FILTERS MANAGEMENT
+  saveFilter(): void {
+    if (Object.keys(this._where).length <= 0) return;
+    const filterName = prompt("Quel est le nom de ce filtre ?", "");
+    if (filterName && filterName.length > 0) {
+      this._filter.saveFilter(filterName, this.filterString);
+    }
+  }
+  selectFilter(event: any): void {
+    if (!event || !event.value || !event.value.content || event.value.content.length <= 0) return;
+    this.filterString = event.value.content;
+    this.updateFilter();
+  }
+  deleteFilter(): void {
+    if (!this.isStored()) return;
+    this._filter.deleteFilter(this.storedFilters[this.getCurrentFilterIndex()].name);
+  }
+
+  // EDIT FILTER MANAGEMENT
   resetFilter() {
     this.filterString = "";
     this.updateFilter();
   }
-  filterChange(event) {
+  filterChange(event: any) {
+    this.preventDefault(event);
     this.updateFilter();
   }
 
+  // PARSE FILTER
   updateFilter() {
     let tmp: any;
     const filters = this.filterString.split(";").map(fil => fil.trim());
@@ -51,7 +96,7 @@ export class FilterEditorComponent implements OnInit {
     return field.length > 1 && field.length <= 2 && field[1].length > 2
   }
   parseFilter(stringValue: string = ""): any {
-    let tmp = {};
+    let tmp: any;
     if (!this.checkFilter(stringValue)) return {};
     const values = stringValue.split(":").map(val => val.trim()).filter(val => val.length > 2);
     if (values.length < 2) return {};
@@ -78,12 +123,16 @@ export class FilterEditorComponent implements OnInit {
 
       default:
         if (filters.length < 2) {
+          tmp = {};
           tmp[field] = {like: (filters[0].includes('%')) ? filters[0] : `%${filters[0]}%`};
         }else{
-          tmp[field] = {or: []};
-          tmp[field].or = filters.map(val => ({like: (val.includes('%')) ? val : `%${val}%`}));
+          tmp = {
+            or: filters.filter((val: string) => val.length > 2)
+            .map((val: string) => ({ [field]: {like: (val.includes('%')) ? val : `%${val}%`}}))
+          };
+          if (tmp.or && tmp.or.length < 2) tmp = tmp.or[0];
         }
-        if (tmp[field].or && tmp[field].or.length < 2) tmp[field] = tmp[field].or[0];
+        break;
     }
     return tmp;
   }

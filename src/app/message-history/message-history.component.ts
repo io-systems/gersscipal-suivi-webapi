@@ -20,10 +20,12 @@ export class MessageHistoryComponent implements OnInit {
   filter: any = {
     offset: 0,
     limit: 25,
+    order: "id DESC",
     where: {}
   };
   dataCount: {count?: number} = {count: 0};
   whereSubscription: Subscription;
+  loading: boolean = false;
 
   constructor(
     private db: MessageHistoryControllerService,
@@ -60,8 +62,14 @@ export class MessageHistoryComponent implements OnInit {
     this.filter.offset = this.filter.offset + this._config.REQUEST_LIMIT;
     this.refresh();
   }
+  reload(): void {
+    this.filter.limit = this.filter.limit + this.filter.offset;
+    this.filter.offset = 0;
+    this.refresh();
+  }
 
   async refresh() {
+    this.loading = true;
     const fil = {
       filter: JSON.stringify(this.filter)
     }
@@ -79,6 +87,7 @@ export class MessageHistoryComponent implements OnInit {
     }catch(e){
       console.log(e);
     }
+    this.loading = false;
   }
 
   // *************************

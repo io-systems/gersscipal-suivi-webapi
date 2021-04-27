@@ -22,6 +22,55 @@ export class AngularDataFilterControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation angularDataFilterControllerDeleteFilter
+   */
+  static readonly AngularDataFilterControllerDeleteFilterPath = '/angular-data-filters/{hash}/{name}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteFilter()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteFilter$Response(params: {
+    hash: string;
+    name: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, AngularDataFilterControllerService.AngularDataFilterControllerDeleteFilterPath, 'delete');
+    if (params) {
+      rb.path('hash', params.hash, {});
+      rb.path('name', params.name, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `deleteFilter$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteFilter(params: {
+    hash: string;
+    name: string;
+  }): Observable<void> {
+
+    return this.deleteFilter$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation angularDataFilterControllerGet
    */
   static readonly AngularDataFilterControllerGetPath = '/angular-data-filters/{hash}';
@@ -120,6 +169,52 @@ export class AngularDataFilterControllerService extends BaseService {
   }): Observable<void> {
 
     return this.create$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation angularDataFilterControllerDelete
+   */
+  static readonly AngularDataFilterControllerDeletePath = '/angular-data-filters/{hash}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `delete()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  delete$Response(params: {
+    hash: string;
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, AngularDataFilterControllerService.AngularDataFilterControllerDeletePath, 'delete');
+    if (params) {
+      rb.path('hash', params.hash, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `delete$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  delete(params: {
+    hash: string;
+  }): Observable<void> {
+
+    return this.delete$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }

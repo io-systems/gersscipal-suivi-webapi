@@ -1,3 +1,4 @@
+<app-progress-bar [loading]="loading"></app-progress-bar>
 <app-data-table-editor
 [dataArray]="dataArray"
 [dataCount]="dataCount"
@@ -8,4 +9,5 @@ addButtonText="Ajouter un poste de fabrication"
 (update)="update($event)"
 (copy)="copy($event)"
 (delete)="delete($event)"
+(reload)="reload()"
 ></app-data-table-editor>

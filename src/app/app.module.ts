@@ -12,10 +12,12 @@ import { AppComponent } from './app.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -55,6 +57,7 @@ import { WorkstationEditorComponent } from './workstation/workstation-editor/wor
 import { WorkstationBottomsheetEditorComponent } from './workstation/workstation-bottomsheet-editor/workstation-bottomsheet-editor.component';
 import { WorkstationSelectorComponent } from './workstation/workstation-selector/workstation-selector.component';
 import { WorkstationComponent } from './workstation/workstation.component';
+import { ProgressBarComponent } from './indicators/progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +93,8 @@ import { WorkstationComponent } from './workstation/workstation.component';
     WorkstationComponent,
     WorkstationEditorComponent,
     WorkstationBottomsheetEditorComponent,
-    WorkstationSelectorComponent
+    WorkstationSelectorComponent,
+    ProgressBarComponent
   ],
   imports: [
     BrowserModule,
@@ -103,10 +107,12 @@ import { WorkstationComponent } from './workstation/workstation.component';
     MatBottomSheetModule,
     MatButtonModule,
     MatCardModule,
+    MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
+    MatProgressBarModule,
     MatSelectModule,
     MatSidenavModule,
     MatSnackBarModule,

@@ -17,9 +17,15 @@ import { ConfigService } from '../config.service';
 export class FabricationOrderComponent implements OnInit {
   dataArray: FabricationOrder[] = [];
   displayedColumns: string[] = ['ofnr', 'codem', 'startedAt', 'stoppedAt', 'createdAt', 'updatedAt', 'functions'];
-  filter: any = {};
+  filter: any = {
+    offset: 0,
+    limit: 25,
+    order: "id DESC",
+    where: {}
+  };
   dataCount: {count?: number} = {count: 0};
   whereSubscription: Subscription;
+  loading: boolean = false;
 
   constructor(
     private db: FabricationOrderControllerService,
@@ -55,8 +61,14 @@ export class FabricationOrderComponent implements OnInit {
     this.filter.offset = this.filter.offset + this._config.REQUEST_LIMIT;
     this.refresh();
   }
+  reload(): void {
+    this.filter.limit = this.filter.limit + this.filter.offset;
+    this.filter.offset = 0;
+    this.refresh();
+  }
 
   async refresh() {
+    this.loading = true;
     const fil = {
       filter: JSON.stringify(this.filter)
     }
@@ -74,6 +86,7 @@ export class FabricationOrderComponent implements OnInit {
     }catch(e){
       console.log(e);
     }
+    this.loading = false;
   }
 
   // *************************

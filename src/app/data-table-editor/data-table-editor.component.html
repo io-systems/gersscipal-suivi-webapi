@@ -3,6 +3,9 @@
       <button mat-raised-button aria-label="créer" matTooltip="Nouvel enregistrement" (click)="_create()" color="primary">
         <mat-icon>add</mat-icon><span> {{addButtonText}}</span>
       </button>
+      <button mat-button aria-label="Racfraichir" matTooltip="Rafraichir les données" (click)="_reload()">
+        <mat-icon>refresh</mat-icon><span> Rafraichir</span>
+      </button>
       <span fxFlex="1 1 auto"></span>
       <small>Nombre de lignes : {{dataArray.length}} / {{dataCount.count}}</small>
     </p>
