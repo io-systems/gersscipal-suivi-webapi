@@ -6,9 +6,11 @@
    </button>
     <span fxShow fxHide.lt-sm>Gers Sci Pal - Suivi de production</span>
     <span fxHide fxShow.lt-sm>GSP - Suivi prod</span>
+    <span fxFlex="1 1 auto"></span>
+    <app-links fxShow fxHide.lt-sm></app-links>
   </mat-toolbar>
 
-  <mat-sidenav-container style="height: calc(100vh - 64px); width: 100%;">
+  <mat-sidenav-container style="height: calc(100vh - 64px - 33px); width: 100%;">
 
     <mat-sidenav mode="side" [opened]="sideNavOpened">
       <app-nav-menu></app-nav-menu>
@@ -21,5 +23,15 @@
     </mat-sidenav-content>
 
   </mat-sidenav-container>
+
+  <mat-toolbar style="height: auto; font-size: inherit;">
+    <div>
+      <small>&copy; Copyright {{copyrightYears}}, IO Systems </small>
+    </div>
+    <span fxFlex="1 1 auto"></span>
+    <div>
+      <small>Codé sous <a href="/licence">Licence MIT</a></small>
+    </div>
+  </mat-toolbar>
 
 </div>

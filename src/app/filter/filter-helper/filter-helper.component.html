@@ -1,105 +1,50 @@
-<form fxLayout="column nowrap" fxLayoutAlign="center stretch" fxLayoutGap="12px">
-    
-    <!-- FABRICATION ORDER -->
-    <mat-form-field fxFlex="1 1 auto">
-        <mat-label>{{fieldList.ofnr.label}}</mat-label>
-        <input type="text"
-                [placeholder]="fieldList.ofnr.placeholder"
-                aria-label="Sélecteur d'OF"
-                matInput
-                [formControl]="fieldList.ofnr.control"
-                [matAutocomplete]="autoOFNR">
-        <mat-autocomplete #autoOFNR="matAutocomplete">
-            <mat-option *ngFor="let option of fieldList.ofnr.filteredOptions | async" [value]="option">
-            {{option}}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
-    <!-- FABRICATION ORDER -->
-    
-    <!-- ALEA -->
-    <mat-form-field fxFlex="1 1 auto">
-        <mat-label>{{fieldList.alea.label}}</mat-label>
-        <input type="text"
-               [placeholder]="fieldList.alea.placeholder"
-               aria-label="Sélecteur d'aléa"
-               matInput
-               [formControl]="fieldList.alea.control"
-               [matAutocomplete]="autoALEA">
-        <mat-autocomplete #autoALEA="matAutocomplete">
-            <mat-option *ngFor="let option of fieldList.alea.filteredOptions | async" [value]="option">
-                {{option}}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
-    <!-- ALEA -->
-    
-    <!-- STATUS -->
-    <mat-form-field fxFlex="1 1 auto">
-        <mat-label>{{fieldList.status.label}}</mat-label>
-        <input type="text"
-               [placeholder]="fieldList.status.placeholder"
-               aria-label="Sélecteur d'état"
-               matInput
-               [formControl]="fieldList.status.control"
-               [matAutocomplete]="autoSTATUS">
-        <mat-autocomplete #autoSTATUS="matAutocomplete">
-            <mat-option *ngFor="let option of fieldList.status.filteredOptions | async" [value]="option">
-                {{option}}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
-    <!-- STATUS -->
-    
-    <!-- OPERATION -->
-    <mat-form-field fxFlex="1 1 auto">
-        <mat-label>{{fieldList.operation.label}}</mat-label>
-        <input type="text"
-               [placeholder]="fieldList.operation.placeholder"
-               aria-label="Sélecteur d'opération"
-               matInput
-               [formControl]="fieldList.operation.control"
-               [matAutocomplete]="autoOPERATION">
-        <mat-autocomplete #autoOPERATION="matAutocomplete">
-            <mat-option *ngFor="let option of fieldList.operation.filteredOptions | async" [value]="option">
-                {{option}}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
-    <!-- OPERATION -->
-
-    <!-- WORKSHOP -->
-    <mat-form-field fxFlex="1 1 auto">
-      <mat-label>{{fieldList.localization.label}}</mat-label>
-      <input type="text"
-             [placeholder]="fieldList.localization.placeholder"
-             aria-label="Sélecteur d'atelier"
-             matInput
-             [formControl]="fieldList.localization.control"
-             [matAutocomplete]="autoWORKSHOP">
-      <mat-autocomplete #autoWORKSHOP="matAutocomplete">
-        <mat-option *ngFor="let option of fieldList.localization.filteredOptions | async" [value]="option">
-          {{option}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <!-- WORKSHOP -->
-
-    <!-- WORKSTATION -->
-    <mat-form-field fxFlex="1 1 auto">
-        <mat-label>{{fieldList.codem.label}}</mat-label>
-        <input type="text"
-               [placeholder]="fieldList.codem.placeholder"
-               aria-label="Sélecteur de poste de travail"
-               matInput
-               [formControl]="fieldList.codem.control"
-               [matAutocomplete]="autoCODEM">
-        <mat-autocomplete #autoCODEM="matAutocomplete">
-            <mat-option *ngFor="let option of fieldList.codem.filteredOptions | async" [value]="option">
-                {{option}}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
-    <!-- WORKSTATION -->
-              
-  </form>
+<span fxLayout="row wrap" fxLayoutAlign="center stretch">
+    <mat-card fxFlex="1 1 auto">
+        <mat-card-title>Liste des champs disponibles</mat-card-title>
+        <mat-card-content>
+            <ul>
+                <li><strong>status</strong> : état des messages</li>
+                <li><strong>ofnr</strong> : numéro d'ordre de fabrication</li>
+                <li><strong>codem</strong> : code du poste de travail</li>
+                <li><strong>alea</strong> : Code aléa</li>
+                <li><strong>operation</strong> : code opération</li>
+                <li><strong>horodatages</strong> : voir pavé horodatages</li>
+            </ul>
+        </mat-card-content>
+    </mat-card>
+    <mat-card fxFlex="1 1 auto">
+        <mat-card-title>Horodatages</mat-card-title>
+        <mat-card-content>
+            <p>Pour filtrer les données sur un jour particulier :</p>
+            <ul>
+                <li>jour: 24/04/2021</li>
+                <li>jour: today</li>
+                <li>jour: hier</li>
+            </ul>
+            <p>Pour filtrer les données sur une période :</p>
+            <ul>
+                <li>période: 24/04/2021 08:00:00, 26/04/2021 12:00:00</li>
+            </ul>
+        </mat-card-content>
+    </mat-card>
+    <mat-card fxFlex="1 1 auto">
+        <mat-card-title>Langage du filtre</mat-card-title>
+        <mat-card-content>
+            <p>Liste des caractères spéciaux :</p>
+            <ul>
+                <li><strong>:</strong> (deux points) = "CONTIENT", succède toujours à un champ</li>
+                <li><strong>,</strong> (virgule) = "OU", est toujours placé entre deux valeurs</li>
+                <li><strong>;</strong> (point-virgule) = "ET", précède toujours un champ</li>
+            </ul>
+        </mat-card-content>
+    </mat-card>
+    <mat-card fxFlex="1 1 auto">
+        <mat-card-title>Exemple</mat-card-title>
+        <mat-card-content>
+            <p>Le filtre :</p>
+            <ul><li>"alea: 02, 04; jour: hier"</li></ul>
+            <p>se traduit par :</p>
+            <ul><li>"Filtrer les données dont le champ <strong>Code aléa</strong> <i> CONTIENT </i> "02" <i> OU </i> "04" <i> ET </i> dont le champ <strong>horodatage API</strong> <i> CONTIENT</i> <i> "la date d'hier"</i>"</li></ul>
+        </mat-card-content>
+    </mat-card>
+</span>

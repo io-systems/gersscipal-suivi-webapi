@@ -1,0 +1,6 @@
+
+<span fxLayout="row nowrap" fxLayoutAlign="end center" fxLayoutGap="12px">
+    <a *ngFor="let app of apps" [href]="app.href" [matTooltip]="app.app" fxFlex>
+        <img [src]="app.icon">
+    </a>
+</span>

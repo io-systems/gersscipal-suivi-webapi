@@ -9,12 +9,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
-import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
@@ -62,6 +60,8 @@ import { WorkstationBottomsheetEditorComponent } from './workstation/workstation
 import { WorkstationSelectorComponent } from './workstation/workstation-selector/workstation-selector.component';
 import { WorkstationComponent } from './workstation/workstation.component';
 import { ProgressBarComponent } from './indicators/progress-bar/progress-bar.component';
+import { AppLinksComponent } from './indicators/app-links/app-links.component';
+import { MitLicenceComponent } from './mit-licence/mit-licence.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +100,9 @@ import { ProgressBarComponent } from './indicators/progress-bar/progress-bar.com
     WorkstationEditorComponent,
     WorkstationBottomsheetEditorComponent,
     WorkstationSelectorComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    AppLinksComponent,
+    MitLicenceComponent
   ],
   imports: [
     BrowserModule,
@@ -110,12 +112,10 @@ import { ProgressBarComponent } from './indicators/progress-bar/progress-bar.com
     ReactiveFormsModule,
     FlexLayoutModule,
     AppRoutingModule,
-    MatAutocompleteModule,
     MatBottomSheetModule,
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
-    MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,

@@ -40,7 +40,7 @@ export class FilterEditorComponent {
     public _dialog: MatDialog
   ) {
     this.filterDB = this._filter.filters.subscribe(
-      data => this.storedFilters  = data.content
+      data => this.storedFilters  = data.content || []
     );
   }
 
@@ -55,8 +55,8 @@ export class FilterEditorComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
+      // console.log('The dialog was closed');
+      // console.log(result);
     });
   }
   
@@ -124,11 +124,15 @@ export class FilterEditorComponent {
         const _period = this.getPeriod(filters);
         if (!_period) return;
         const _periodJSON = _period.map((per: string) => new Date(per).toJSON())
-        tmp = {or: [
-          {"timestamp": {between: _periodJSON}},
-          {"createdAt": {between: _periodJSON}},
-          {"updatedAt": {between: _periodJSON}}
-        ]};
+        tmp = {"timestamp": {between: _periodJSON}};
+        break;
+      
+      case 'CREATEDAT':
+      case 'UPDATEDAT':
+        const _periodAt = this.getPeriod(filters);
+        if (!_period) return;
+        const _periodJSONAt = _periodAt.map((per: string) => new Date(per).toJSON())
+        tmp = {[field]: {between: _periodJSONAt}};
         break;
 
       default:
@@ -148,6 +152,27 @@ export class FilterEditorComponent {
   }
   parseDate(dateString: string = ""): string | boolean {
     const _day = dateString.split("/");
+    if (_day.length === 1) {
+      // traitement d'un mot : today ou hier
+      let _dateLookedUp: Date;
+      switch(dateString.toUpperCase()) {
+        case "AUJOURD'HUI":
+        case "AUJOURDHUI":
+        case 'TODAY':
+          _dateLookedUp  =new Date();
+          break;
+        
+        case "HIER":
+        case "YESTERDAY":
+          _dateLookedUp  =new Date();
+          _dateLookedUp.setDate(_dateLookedUp.getDate() - 1);
+          break;
+
+        default: 
+          return false;
+      }
+      return _dateLookedUp.toJSON().split("T")[0];
+    }
     if (_day.length < 3 || _day[0].length < 2 || _day[1].length < 2 || _day[2].length < 4) return false;
     const _dayReversed = [
       _day[2],
@@ -162,11 +187,10 @@ export class FilterEditorComponent {
     return _hours.join(":");
   }
   parseUserTimestamp(dateString: string = ""): any | boolean {
-    // on reçoit ici en paramètre : soit une date JJ/MM/AAAA
+    // on reçoit ici en paramètre : 
+    // soit une date JJ/MM/AAAA
     // soit un horodatage JJ/MM/AAAA HH-MM-SS
-    // option : {mode: number} = traitement de l'heure si non renseignée dans l'horodatage fourni en paramètre
-    // mode = 1 : début de journée (par défaut)
-    // mode = 2 : fin de journée
+    // soit un mot : 'today', 'hier' ?
     const _timestampFields = dateString.split(" ").map(val => val.trim()).filter(val => val.length === 8 || val.length === 10);
     let _parsedDate: string | boolean = false;
     let _parsedTime: string | boolean = false;

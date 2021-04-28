@@ -9,6 +9,7 @@ import { MessageHistoryComponent } from './message-history/message-history.compo
 import { MessageStatusComponent } from './message-status/message-status.component';
 import { FabricationOrderComponent } from './fabrication-order/fabrication-order.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MitLicenceComponent } from './mit-licence/mit-licence.component';
 
 const routes: Routes = [
   {path: "workshop", component: WorkshopComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: "message-history", component: MessageHistoryComponent},
   {path: "message-status", component: MessageStatusComponent},
   {path: "fabrication-order", component: FabricationOrderComponent},
+  {path: "licence", component: MitLicenceComponent},
   {path: '', redirectTo: 'message-history', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];

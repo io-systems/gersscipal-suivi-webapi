@@ -1,9 +1,8 @@
 <mat-card fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 1 auto" fxLayoutGap="15px" class="mat-typography">
   <span fxFlex="0 0 auto">
-    <!--button mat-raised-button (click)="openHelper()">
+    <button mat-raised-button (click)="openHelper()">
       Filtre
-    </button-->
-    Filtre
+    </button>
   </span>
   <mat-form-field fxFlex="1 1 auto">
     <mat-label></mat-label>
@@ -26,7 +25,7 @@
             aria-label="Clear" (click)="resetFilter()">
       <mat-icon>close</mat-icon>
     </button>
-    <mat-hint>Format: "champ1:valeur1, valeur2; champ2: valeur3;" - Liste des champs : codem (Code machine), ofnr (numéro d'OF), operation (opération), alea (aléa) - Format dates et heures : "jour: JJ/MM/AAAA", "période: JJ/MM/AAAA HH-MM-SS, JJ/MM/AAAA HH-MM-SS"</mat-hint>
+    <mat-hint>Format: "champ1:valeur1, valeur2; champ2: valeur3;" - Liste des champs : codem (Code machine), ofnr (numéro d'OF), operation (opération), alea (aléa) - Format dates et heures : "jour: JJ/MM/AAAA", "période: JJ/MM/AAAA HH-MM-SS, JJ/MM/AAAA HH-MM-SS", "jour: hier"</mat-hint>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Filtres enregistrés</mat-label>

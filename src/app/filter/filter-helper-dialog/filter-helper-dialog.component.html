@@ -1,9 +1,10 @@
-<h1 mat-dialog-title>Éditeur de filtres</h1>
+<h1 mat-dialog-title>Aide aux filtres</h1>
 <div mat-dialog-content>
     <app-filter-helper [(filterString)]="data.filterString"
                        [(whereFilter)]="data.whereFilter"></app-filter-helper>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="cancel()">Annuler</button>
-  <button mat-button [mat-dialog-close]="data">Appliquer</button>
+  <span fxFlex="1 1 auto"></span>
+  <button mat-button (click)="cancel()">Ok</button>
+  <!--button mat-button [mat-dialog-close]="data">Appliquer</button-->
 </div>
