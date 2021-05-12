@@ -8,6 +8,7 @@ import { Workshop } from '../api/models/workshop';
 import { WorkshopControllerService } from '../api/services/workshop-controller.service';
 import { FilterService } from '../filter/filter.service';
 import { ConfigService } from '../config.service';
+import { ProgressBarService } from '../progress-bar.service';
 
 @Component({
   selector: 'app-workshop',
@@ -25,14 +26,14 @@ export class WorkshopComponent implements OnInit {
   };
   dataCount: {count?: number} = {count: 0};
   whereSubscription: Subscription;
-  loading: boolean = false;
 
   constructor(
     private db: WorkshopControllerService,
     private _bottomSheet: MatBottomSheet,
     private _snackBar: MatSnackBar,
     private _filter: FilterService,
-    private _config: ConfigService
+    private _config: ConfigService,
+    private _progressBar: ProgressBarService
   ) {
     this.whereSubscription = this._filter.where.pipe(
       debounceTime(500)
@@ -69,7 +70,7 @@ export class WorkshopComponent implements OnInit {
   }
 
   async refresh() {
-    this.loading = true;
+    this._progressBar.setLoadingState(true);
     const fil = {
       filter: JSON.stringify(this.filter)
     }
@@ -87,7 +88,7 @@ export class WorkshopComponent implements OnInit {
     }catch(e){
       console.log(e);
     }
-    this.loading = false;
+    this._progressBar.setLoadingState(false);
   }
 
   // *************************

@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ConfigService } from '../../config.service';
+import { ProgressBarService } from '../../progress-bar.service';
 
 @Component({
   selector: 'app-progress-bar',
@@ -11,11 +13,23 @@ export class ProgressBarComponent implements OnChanges {
   mode: string = "determinate";
   toutReset;
   @Input() loading: boolean = false;
+  show: boolean = false;
+  ls: Subscription;
 
   constructor(
-    private appConfig: ConfigService
+    private appConfig: ConfigService,
+    private _progressBar: ProgressBarService
   ) {
     this.showProgress();
+    this.ls = this._progressBar.loading.subscribe(
+      data => {
+        this.loading = data;
+        this.checkLoadingStatus();
+      }
+    );
+  }
+  ngOnDestroy() {
+    if (this.ls) this.ls.unsubscribe();
   }
 
   ngOnChanges(s: SimpleChanges) {
@@ -35,6 +49,7 @@ export class ProgressBarComponent implements OnChanges {
     }
   }
   showProgress(): void {
+    this.show = true;
     this.mode = "query";
     if (this.toutReset) clearTimeout(this.toutReset);
     this.toutReset = setTimeout(() => {
@@ -42,6 +57,7 @@ export class ProgressBarComponent implements OnChanges {
     }, this.appConfig.PROGRESS_TIMEOUT_TIME || 2000);
   }
   hideProgress(): void {
+    this.show = false;
     this.value = 0;
     this.mode = "determinate";
   }

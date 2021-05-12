@@ -11,6 +11,7 @@ export class OperationSelectorComponent implements OnInit {
   operations: Operation[] = []
   @Input() selectedOperation: Operation;
   @Input() selectedOperationName: string;
+  @Output() selectedOperationNameChange: EventEmitter<string> = new EventEmitter();
   @Output() setOperation: EventEmitter<Operation> = new EventEmitter();
   @Output() setOperationName: EventEmitter<Operation> = new EventEmitter();
   selected = "";
@@ -29,6 +30,7 @@ export class OperationSelectorComponent implements OnInit {
 
   selectionChange(event: any) {
     this.setOperationName.emit(event.value);
+    this.selectedOperationNameChange.emit(event.value);
     const tmp = this.operations.find(ws => ws.operation === event.value);
     if (tmp) this.setOperation.emit(tmp);
   }
@@ -46,12 +48,16 @@ export class OperationSelectorComponent implements OnInit {
     if (this.selectedOperation && this.operations.length > 0) {
       const tmp = this.operations.find(ws => ws.operation === this.selectedOperation.operation);
       this.selected = (tmp && tmp.operation) ? tmp.operation : "";
+    }else{
+      this.selected = "";
     }
   }
   updateSelectedName(): void {
     if (this.selectedOperationName && this.operations.length > 0) {
       const tmp = this.operations.find(ws => ws.operation === this.selectedOperationName);
       this.selected = (tmp && tmp.operation) ? tmp.operation : "";
+    }else{
+      this.selected = "";
     }
   }
 

@@ -11,10 +11,14 @@ export class MessageStandardSelectorComponent implements OnInit {
   messagesStandards: MessageStandard[] = []
   @Input() selectedMessageStandard: MessageStandard;
   @Input() selectedMessageStandardAlea: string;
+  @Output() selectedMessageStandardAleaChange: EventEmitter<string> = new EventEmitter();
   @Input() operation: string = ""
+  @Input() label: string = "";
+  @Output() labelChange: EventEmitter<string> = new EventEmitter();
   @Output() setMessageStandard: EventEmitter<MessageStandard> = new EventEmitter();
   @Output() setMessageStandardAlea: EventEmitter<MessageStandard> = new EventEmitter();
   @Output() setOperation: EventEmitter<string> = new EventEmitter();
+  @Input() codem: string = "";
   selected = "";
   filter: any = {};
 
@@ -33,10 +37,12 @@ export class MessageStandardSelectorComponent implements OnInit {
 
   selectionChange(event: any) {
     this.setMessageStandardAlea.emit(event.value);
+    this.selectedMessageStandardAleaChange.emit(event.value);
     const tmp = this.messagesStandards.find(ws => ws.alea === event.value);
     if (tmp) {
       this.setMessageStandard.emit(tmp);
       this.setOperation.emit(tmp.operation);
+      this.labelChange.emit(tmp.label);
     }
   }
 
@@ -46,7 +52,7 @@ export class MessageStandardSelectorComponent implements OnInit {
       this.updateSelected();
       this.updateSelectedAlea();
     }catch(e){
-      console.log("WorkshopSelectorComponent: refresh error", e);
+      console.log("MessageStandardSelectorComponent: refresh error", e);
     }
   }
   updateFilter(): void {
@@ -67,12 +73,16 @@ export class MessageStandardSelectorComponent implements OnInit {
     if (this.selectedMessageStandard && this.messagesStandards.length > 0) {
       const tmp = this.messagesStandards.find(ws => ws.alea === this.selectedMessageStandard.alea);
       this.selected = (tmp && tmp.alea) ? tmp.alea : "";
+    }else{
+      this.selected = "";
     }
   }
   updateSelectedAlea(): void {
     if (this.selectedMessageStandardAlea && this.messagesStandards.length > 0) {
       const tmp = this.messagesStandards.find(ws => ws.alea === this.selectedMessageStandardAlea);
       this.selected = (tmp && tmp.alea) ? tmp.alea : "";
+    }else{
+      this.selected = "";
     }
   }
 

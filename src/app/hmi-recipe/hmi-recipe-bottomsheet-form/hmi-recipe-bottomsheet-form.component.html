@@ -1,0 +1,19 @@
+<mat-toolbar>
+  <span>{{data.workstation}} - {{addresses[data.edit.index]}}</span>
+  <span fxFlex="1 1 auto"></span>
+  <span>
+    <button mat-icon-button (click)="navLeft(true)" [disabled]="data.edit.index <= 0">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <button mat-icon-button (click)="navRight(true)" [disabled]="data.edit.index >= 31">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+    <button mat-icon-button (click)="close()">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </span>
+</mat-toolbar>
+<app-hmi-recipe-form [(hmiRecipe)]="data.edit" 
+            [codem]="data.workstation"
+            (next)="navRight(true)"
+            (close)="close()"></app-hmi-recipe-form>

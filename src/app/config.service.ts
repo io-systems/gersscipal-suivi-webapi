@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class ConfigService {
   public REQUEST_LIMIT: number = 25;
   public PROGRESS_TIMEOUT_TIME: number = 1600;
+  public SNACKBAR_TIMEOUT_TIME: number = 1600;
   public APP_CREATION_YEAR: number = 2021;
   public APP_LINKS: any[] = [
     {
@@ -27,6 +28,40 @@ export class ConfigService {
       target: "_blank"
     }
   ]
+  public PLC_ADDRESSES: string[] = [
+    "%IX0.0",
+    "%IX0.1",
+    "%IX0.2",
+    "%IX0.3",
+    "%IX0.4",
+    "%IX0.5",
+    "%IX0.6",
+    "%IX0.7",
+    "%IX1.0",
+    "%IX1.1",
+    "%IX1.2",
+    "%IX1.3",
+    "%IX1.4",
+    "%IX1.5",
+    "%IX1.6",
+    "%IX1.7",
+    "ihmButton[0]",
+    "ihmButton[1]",
+    "ihmButton[2]",
+    "ihmButton[3]",
+    "ihmButton[4]",
+    "ihmButton[5]",
+    "ihmButton[6]",
+    "ihmButton[7]",
+    "ihmButton[8]",
+    "ihmButton[9]",
+    "ihmButton[10]",
+    "ihmButton[11]",
+    "ihmButton[12]",
+    "ihmButton[13]",
+    "ihmButton[14]",
+    "ihmButton[15]"
+  ];
 
   constructor() { }
 

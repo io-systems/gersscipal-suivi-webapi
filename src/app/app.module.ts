@@ -9,6 +9,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
@@ -22,6 +23,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
+import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
@@ -62,6 +64,12 @@ import { WorkstationComponent } from './workstation/workstation.component';
 import { ProgressBarComponent } from './indicators/progress-bar/progress-bar.component';
 import { AppLinksComponent } from './indicators/app-links/app-links.component';
 import { MitLicenceComponent } from './mit-licence/mit-licence.component';
+import { HmiRecipeComponent } from './hmi-recipe/hmi-recipe.component';
+import { HmiRecipeEditorComponent } from './hmi-recipe/hmi-recipe-editor/hmi-recipe-editor.component';
+import { OperationCachedAutocompleteComponent } from './operation/operation-cached-autocomplete/operation-cached-autocomplete.component';
+import { MessageStandardCachedAutocompleteComponent } from './message-standard/message-standard-cached-autocomplete/message-standard-cached-autocomplete.component';
+import { HmiRecipeFormComponent } from './hmi-recipe/hmi-recipe-form/hmi-recipe-form.component';
+import { HmiRecipeBottomsheetFormComponent } from './hmi-recipe/hmi-recipe-bottomsheet-form/hmi-recipe-bottomsheet-form.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +110,13 @@ import { MitLicenceComponent } from './mit-licence/mit-licence.component';
     WorkstationSelectorComponent,
     ProgressBarComponent,
     AppLinksComponent,
-    MitLicenceComponent
+    MitLicenceComponent,
+    HmiRecipeComponent,
+    HmiRecipeEditorComponent,
+    OperationCachedAutocompleteComponent,
+    MessageStandardCachedAutocompleteComponent,
+    HmiRecipeFormComponent,
+    HmiRecipeBottomsheetFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,6 +126,7 @@ import { MitLicenceComponent } from './mit-licence/mit-licence.component';
     ReactiveFormsModule,
     FlexLayoutModule,
     AppRoutingModule,
+    MatAutocompleteModule,
     MatBottomSheetModule,
     MatButtonModule,
     MatCardModule,
@@ -125,6 +140,7 @@ import { MitLicenceComponent } from './mit-licence/mit-licence.component';
     MatSidenavModule,
     MatSnackBarModule,
     MatTableModule,
+    MatTabsModule,
     MatToolbarModule,
     MatTooltipModule
   ],

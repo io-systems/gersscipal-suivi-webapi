@@ -6,6 +6,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AngularDataFilterControllerService } from './services/angular-data-filter-controller.service';
 import { FabricationOrderControllerService } from './services/fabrication-order-controller.service';
+import { HmiRecipeControllerService } from './services/hmi-recipe-controller.service';
 import { MessageHistoryControllerService } from './services/message-history-controller.service';
 import { MessageStandardControllerService } from './services/message-standard-controller.service';
 import { MessageStatusControllerService } from './services/message-status-controller.service';
@@ -24,6 +25,7 @@ import { WorkstationControllerService } from './services/workstation-controller.
   providers: [
     AngularDataFilterControllerService,
     FabricationOrderControllerService,
+    HmiRecipeControllerService,
     MessageHistoryControllerService,
     MessageStandardControllerService,
     MessageStatusControllerService,

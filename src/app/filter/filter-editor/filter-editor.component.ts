@@ -40,7 +40,7 @@ export class FilterEditorComponent {
     public _dialog: MatDialog
   ) {
     this.filterDB = this._filter.filters.subscribe(
-      data => this.storedFilters  = data.content || []
+      data => this.storedFilters  = (data && data.content) ? data.content || [] : []
     );
   }
 

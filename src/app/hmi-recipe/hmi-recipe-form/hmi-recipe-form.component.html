@@ -1,0 +1,19 @@
+<mat-nav-list class="mat-typography" disableRipple="true">
+  <mat-list-item disableRipple="true" style="height: auto;">
+    <app-operation-selector [(selectedOperationName)]="hmiRecipe.operation" fxFlex="1 1 auto"></app-operation-selector>
+  </mat-list-item>
+  <mat-list-item disableRipple="true" style="height: auto;">
+    <app-message-standard-selector [(selectedMessageStandardAlea)]="hmiRecipe.alea" [operation]="hmiRecipe.operation" [(label)]="hmiRecipe.label" fxFlex="1 1 auto"></app-message-standard-selector>
+  </mat-list-item>
+  <mat-list-item disableRipple="true">
+    <button mat-raised-button 
+            matTooltip="Abandonner les modifications et fermer la fenêtre"
+            (click)="_cancel()">Annuler</button>
+    <span fxFlex></span>
+    <button mat-raised-button 
+            color="primary" 
+            matTooltip="Enregistrer les modifications et fermer la fenêtre"
+            [disabled]="hmiRecipe.operation.length <= 0 || hmiRecipe.alea.length <= 0"
+            (click)="save()">Enregistrer</button>
+  </mat-list-item>
+</mat-nav-list>

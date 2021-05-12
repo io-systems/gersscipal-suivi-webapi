@@ -1,0 +1,16 @@
+<mat-toolbar>
+  <span>Éditeur du fichier recette</span>
+  <span fxFlex="1 1 auto"></span>
+  <button mat-icon-button
+          matTooltip="générer et télécharger le fichier csv"
+          (click)="downloadCSV()">
+    <mat-icon>save</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-tab-group>
+  <mat-tab *ngFor="let ws of workstations" [label]="ws.codem">
+    <app-hmi-recipe-editor [workstation]="ws.codem">
+    </app-hmi-recipe-editor>
+  </mat-tab>
+</mat-tab-group>
+

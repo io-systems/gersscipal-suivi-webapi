@@ -8,6 +8,7 @@ import { FabricationOrder } from '../api/models/fabrication-order';
 import { FabricationOrderControllerService } from '../api/services/fabrication-order-controller.service';
 import { FilterService } from '../filter/filter.service';
 import { ConfigService } from '../config.service';
+import { ProgressBarService } from '../progress-bar.service';
 
 @Component({
   selector: 'app-fabrication-order',
@@ -32,7 +33,8 @@ export class FabricationOrderComponent implements OnInit {
     private _bottomSheet: MatBottomSheet,
     private _snackBar: MatSnackBar,
     private _filter: FilterService,
-    private _config: ConfigService
+    private _config: ConfigService,
+    private _progressBar: ProgressBarService
   ) {
     this.whereSubscription = this._filter.where.pipe(
       debounceTime(500)
@@ -68,7 +70,7 @@ export class FabricationOrderComponent implements OnInit {
   }
 
   async refresh() {
-    this.loading = true;
+    this._progressBar.setLoadingState(true);
     const fil = {
       filter: JSON.stringify(this.filter)
     }
@@ -86,7 +88,7 @@ export class FabricationOrderComponent implements OnInit {
     }catch(e){
       console.log(e);
     }
-    this.loading = false;
+    this._progressBar.setLoadingState(false);
   }
 
   // *************************

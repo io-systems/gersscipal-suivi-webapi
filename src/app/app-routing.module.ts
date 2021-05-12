@@ -10,6 +10,7 @@ import { MessageStatusComponent } from './message-status/message-status.componen
 import { FabricationOrderComponent } from './fabrication-order/fabrication-order.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MitLicenceComponent } from './mit-licence/mit-licence.component';
+import { HmiRecipeComponent } from './hmi-recipe/hmi-recipe.component';
 
 const routes: Routes = [
   {path: "workshop", component: WorkshopComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: "message-status", component: MessageStatusComponent},
   {path: "fabrication-order", component: FabricationOrderComponent},
   {path: "licence", component: MitLicenceComponent},
+  {path: "hmi-recipe", component: HmiRecipeComponent},
   {path: '', redirectTo: 'message-history', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];
