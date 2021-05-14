@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-action-list>
+    <mat-list-item *ngFor="let file of files" disableRipple="true">
+      <span>{{file}}</span>
+      <span fxFlex="1 1 auto"></span>
+      <button mat-icon-button
+              color="warn"
+              matTooltip="Supprimer définitivement le fichier {{file}}"
+              (click)="deleteFile(file)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <a mat-icon-button
+         matTooltip="Télécharger le fichier {{file}}"
+         href="{{this.url}}/hmi-recipe-file/{{file}}"
+         download="{{file}}">
+        <mat-icon>download</mat-icon>
+      </a>
+    </mat-list-item>
+  </mat-action-list>
+</mat-card>
+

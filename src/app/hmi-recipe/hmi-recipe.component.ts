@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfigService } from '../config.service';
+import { HmiRecipeFileControllerService } from '../api/services';
 import { Workstation } from '../api/models/workstation';
 import { WorkstationControllerService } from '../api/services/workstation-controller.service';
 
@@ -9,9 +12,13 @@ import { WorkstationControllerService } from '../api/services/workstation-contro
 })
 export class HmiRecipeComponent implements OnInit {
   workstations: Workstation[] = [];
+  mode: number = 0;
 
   constructor(
-    private db: WorkstationControllerService
+    private db: WorkstationControllerService,
+    private hmiFile: HmiRecipeFileControllerService,
+    private _snackBar: MatSnackBar,
+    private _config: ConfigService
   ) { }
 
   ngOnInit(): void {
@@ -27,8 +34,18 @@ export class HmiRecipeComponent implements OnInit {
     }
   }
 
-  downloadCSV() {
-    console.log("hep !!!");
+  async downloadCSV() {
+    try{
+      const result = await this.hmiFile.createCsvFile().toPromise();
+      this._snackBar.open(`Fichier ${result.filename} créé`, 'X', {
+        duration: this._config.SNACKBAR_TIMEOUT_TIME
+      });
+    }catch(e){
+      console.log(e);
+      this._snackBar.open(`Erreur serveur`, 'X', {
+        duration: this._config.SNACKBAR_TIMEOUT_TIME
+      });
+    }
   }
 
 }

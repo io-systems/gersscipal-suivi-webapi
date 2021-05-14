@@ -2,15 +2,30 @@
   <span>Éditeur du fichier recette</span>
   <span fxFlex="1 1 auto"></span>
   <button mat-icon-button
-          matTooltip="générer et télécharger le fichier csv"
+          matTooltip="générer et compiler en un fichier csv"
+          color="warn"
+          *ngIf="mode === 0"
           (click)="downloadCSV()">
     <mat-icon>save</mat-icon>
   </button>
+  <mat-divider vertical style="height: 32px;"></mat-divider>
+  <button mat-icon-button
+          matTooltip="éditer les fichiers csv"
+          color="primary"
+          (click)="mode = 0">
+    <mat-icon>description</mat-icon>
+  </button>
+  <button mat-icon-button
+          matTooltip="gérer les fichiers csv"
+          color="primary"
+          (click)="mode = 1">
+    <mat-icon>folder</mat-icon>
+  </button>
 </mat-toolbar>
-<mat-tab-group>
+<mat-tab-group *ngIf="mode === 0">
   <mat-tab *ngFor="let ws of workstations" [label]="ws.codem">
     <app-hmi-recipe-editor [workstation]="ws.codem">
     </app-hmi-recipe-editor>
   </mat-tab>
 </mat-tab-group>
-
+<app-recipe-file-manager *ngIf="mode === 1"></app-recipe-file-manager>
