@@ -72,6 +72,8 @@ import { MessageStandardCachedAutocompleteComponent } from './message-standard/m
 import { HmiRecipeFormComponent } from './hmi-recipe/hmi-recipe-form/hmi-recipe-form.component';
 import { HmiRecipeBottomsheetFormComponent } from './hmi-recipe/hmi-recipe-bottomsheet-form/hmi-recipe-bottomsheet-form.component';
 import { RecipeFileManagerComponent } from './hmi-recipe/recipe-file-manager/recipe-file-manager.component';
+import { SchemaInfoComponent } from './indicators/schema-info/schema-info.component';
+import { SchemaInfoDialogComponent } from './indicators/schema-info-dialog/schema-info-dialog.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +122,8 @@ import { RecipeFileManagerComponent } from './hmi-recipe/recipe-file-manager/rec
     HmiRecipeFormComponent,
     HmiRecipeBottomsheetFormComponent,
     RecipeFileManagerComponent,
+    SchemaInfoComponent,
+    SchemaInfoDialogComponent,
   ],
   imports: [
     BrowserModule,

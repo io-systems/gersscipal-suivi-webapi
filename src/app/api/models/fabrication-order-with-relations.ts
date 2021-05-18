@@ -7,6 +7,10 @@
 export interface FabricationOrderWithRelations {
   codem?: string;
   createdAt?: string;
+
+  /**
+   * identifiant unique
+   */
   id?: number;
   ofnr: string;
   startedAt?: string;

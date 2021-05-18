@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SchemaInfoDialogComponent } from '../indicators/schema-info-dialog/schema-info-dialog.component';
 
 @Component({
   selector: 'app-data-table-editor',
@@ -10,6 +12,7 @@ export class DataTableEditorComponent {
   @Input() dataCount: any = {count: 0}
   @Input() displayedColumns: string[];
   @Input() addButtonText: string = "";
+  @Input() schemaName: string = "";
   @Output() more: EventEmitter<void> = new EventEmitter();
   @Output() create: EventEmitter<void> = new EventEmitter();
   @Output() update: EventEmitter<any> = new EventEmitter();
@@ -17,8 +20,16 @@ export class DataTableEditorComponent {
   @Output() delete: EventEmitter<any> = new EventEmitter();
   @Output() reload: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog
+  ) { }
 
+  _info(): void {
+    this.dialog.open(SchemaInfoDialogComponent, {
+      width: '65vw',
+      data: {schemaName: this.schemaName}
+    });
+  }
   _more(): void {
     this.more.emit();
   }

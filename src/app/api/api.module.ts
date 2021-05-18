@@ -13,6 +13,7 @@ import { MessageStandardControllerService } from './services/message-standard-co
 import { MessageStatusControllerService } from './services/message-status-controller.service';
 import { OperationControllerService } from './services/operation-controller.service';
 import { PingControllerService } from './services/ping-controller.service';
+import { SchemaControllerService } from './services/schema-controller.service';
 import { WorkshopControllerService } from './services/workshop-controller.service';
 import { WorkstationControllerService } from './services/workstation-controller.service';
 
@@ -33,6 +34,7 @@ import { WorkstationControllerService } from './services/workstation-controller.
     MessageStatusControllerService,
     OperationControllerService,
     PingControllerService,
+    SchemaControllerService,
     WorkshopControllerService,
     WorkstationControllerService,
     ApiConfiguration

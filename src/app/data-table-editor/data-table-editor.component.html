@@ -3,7 +3,13 @@
       <button mat-raised-button aria-label="créer" matTooltip="Nouvel enregistrement" (click)="_create()" color="primary">
         <mat-icon>add</mat-icon><span> {{addButtonText}}</span>
       </button>
-      <button mat-button aria-label="Racfraichir" matTooltip="Rafraichir les données" (click)="_reload()">
+      <button mat-icon-button aria-label="help" 
+              *ngIf="schemaName !== ''"
+              matTooltip="Description du schema" 
+              (click)="_info()">
+        <mat-icon>info</mat-icon><span></span>
+      </button>
+      <button mat-button aria-label="Rafraichir" matTooltip="Rafraichir les données" (click)="_reload()">
         <mat-icon>refresh</mat-icon><span> Rafraichir</span>
       </button>
       <span fxFlex="1 1 auto"></span>
