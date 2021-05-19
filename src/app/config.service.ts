@@ -12,19 +12,25 @@ export class ConfigService {
     {
       app: "Application Node-RED",
       icon: "assets/img/node-red-hexagon.svg",
-      href: "http://192.168.1.230:1880",
+      href: "",
+      port: "1880",
+      pathname: "",
       target: "_blank"
     },
     {
       app: "Application Grafana",
       icon: "assets/img/grafana.png",
-      href: "http://192.168.1.230:4000",
+      href: "",
+      port: "4000",
+      pathname: "",
       target: "_blank"
     },
     {
       app: "iotdb explorer",
       icon: "assets/img/loopback.svg",
-      href: "http://192.168.1.230:3000/explorer",
+      href: "",
+      port: "3000",
+      pathname: "/explorer",
       target: "_blank"
     }
   ]
@@ -63,7 +69,18 @@ export class ConfigService {
     "ihmButton[15]"
   ];
 
-  constructor() { }
+  constructor() {
+    this.APP_LINKS.forEach(link => {
+      link.href = [
+        window.location.protocol,
+        "//",
+        window.location.hostname,
+        ":",
+        link.port,
+        link.pathname
+      ].join("");
+    });
+  }
 
   getCopyrightYears() {
     const yearNow = new Date().getFullYear();
