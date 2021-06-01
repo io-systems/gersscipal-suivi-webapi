@@ -1,0 +1,40 @@
+<mat-action-list>
+    <h3 matSubheader>Générer</h3>
+
+    <mat-list-item disableRipple="true">
+        <span fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="12px">
+            <span fxFlex="1 1 auto">Sélectionner une date :</span>
+            <button fxFlex="1 1 auto" mat-raised-button color="primary" (click)="setDateToday()">Aujourd'hui</button>
+            <button fxFlex="1 1 auto" mat-raised-button color="primary" (click)="setDateYesterday()">Hier</button>
+            <mat-form-field fxFlex="1 1 auto">
+            <mat-label>Sélectionner une autre date</mat-label>
+            <input matInput type="date" placeholder="Date" [(ngModel)]="dateFilter">
+            </mat-form-field>
+            <button fxFlex="1 1 auto" 
+                mat-raised-button color="accent"
+                [disabled]="!dateFilter"
+                (click)="createCSVFile($event)">Créer le fichier</button>
+        </span>
+    </mat-list-item>
+
+    <mat-divider></mat-divider>
+    <h3 matSubheader>Liste des fichiers</h3>
+
+    <mat-list-item *ngFor="let file of files" disableRipple="true">
+        <span>{{file}}</span>
+        <span fxFlex="1 1 auto"></span>
+        <button mat-icon-button
+                color="warn"
+                matTooltip="Supprimer définitivement le fichier {{file}}"
+                (click)="deleteFile(file)">
+            <mat-icon>delete</mat-icon>
+        </button>
+        <a mat-icon-button
+            matTooltip="Télécharger le fichier {{file}}"
+            href="{{this.url}}//message-history-file/{{file}}"
+            download="{{file}}">
+            <mat-icon>download</mat-icon>
+        </a>
+    </mat-list-item>
+
+</mat-action-list>

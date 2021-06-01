@@ -5,10 +5,12 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AngularDataFilterControllerService } from './services/angular-data-filter-controller.service';
+import { CounterControllerService } from './services/counter-controller.service';
 import { FabricationOrderControllerService } from './services/fabrication-order-controller.service';
 import { HmiRecipeFileControllerService } from './services/hmi-recipe-file-controller.service';
 import { HmiRecipeControllerService } from './services/hmi-recipe-controller.service';
 import { MessageHistoryControllerService } from './services/message-history-controller.service';
+import { MessageHistoryFileControllerService } from './services/message-history-file-controller.service';
 import { MessageStandardControllerService } from './services/message-standard-controller.service';
 import { MessageStatusControllerService } from './services/message-status-controller.service';
 import { OperationControllerService } from './services/operation-controller.service';
@@ -26,10 +28,12 @@ import { WorkstationControllerService } from './services/workstation-controller.
   declarations: [],
   providers: [
     AngularDataFilterControllerService,
+    CounterControllerService,
     FabricationOrderControllerService,
     HmiRecipeFileControllerService,
     HmiRecipeControllerService,
     MessageHistoryControllerService,
+    MessageHistoryFileControllerService,
     MessageStandardControllerService,
     MessageStatusControllerService,
     OperationControllerService,

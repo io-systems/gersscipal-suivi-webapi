@@ -1,13 +1,29 @@
+<mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Outil d'export des aléas pour Divalto
+        </mat-panel-title>
+        <mat-panel-description>
+          Exporter les messages filtrés au format csv
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <app-message-history-file-manager></app-message-history-file-manager>
+
+    </mat-expansion-panel>
+</mat-accordion>
+
 <app-data-table-editor
-[dataArray]="dataArray"
-[dataCount]="dataCount"
-[displayedColumns]="displayedColumns"
-addButtonText="Ajouter un message"
-schemaName="MessageHistory"
-(more)="more()"
-(create)="create()"
-(update)="update($event)"
-(copy)="copy($event)"
-(delete)="delete($event)"
-(reload)="reload()"
-></app-data-table-editor>
+    [dataArray]="dataArray"
+    [dataCount]="dataCount"
+    [displayedColumns]="displayedColumns"
+    addButtonText="Ajouter un message"
+    schemaName="MessageHistory"
+    (more)="more()"
+    (create)="create()"
+    (update)="update($event)"
+    (copy)="copy($event)"
+    (delete)="delete($event)"
+    (reload)="reload()"
+    ></app-data-table-editor>

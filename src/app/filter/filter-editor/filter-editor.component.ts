@@ -13,6 +13,7 @@ export class FilterEditorComponent {
   filterString: string = "";
   storedFilters: any[] = [];
   filterDB: Subscription;
+  filterStringSub: Subscription;
   _where: any = {};
   get where(): any {
     return this._where;
@@ -42,10 +43,17 @@ export class FilterEditorComponent {
     this.filterDB = this._filter.filters.subscribe(
       data => this.storedFilters  = (data && data.content) ? data.content || [] : []
     );
+    this.filterStringSub = this._filter.filterString.subscribe(
+      data => {
+        this.filterString = data;
+        this.updateFilter();
+      }
+    );
   }
 
   ngOnDestroy(): void {
     if (this.filterDB) this.filterDB.unsubscribe();
+    if (this.filterStringSub) this.filterStringSub.unsubscribe();
   }
 
   // FILTER HELPER MANAGEMENT
@@ -96,7 +104,7 @@ export class FilterEditorComponent {
       tmp = this.parseFilter(filters[0]);
     }else{
       tmp = {and: []};
-      tmp.and = filters.map(fil => this.parseFilter(fil)).filter(fil => Object.keys(fil).length > 0);
+      tmp.and = filters.map(fil => this.parseFilter(fil)).filter(fil => fil && Object.keys(fil).length > 0);
       if (tmp.and.length < 2) tmp = tmp.and[0];
     }
     this.where = tmp;
@@ -159,12 +167,12 @@ export class FilterEditorComponent {
         case "AUJOURD'HUI":
         case "AUJOURDHUI":
         case 'TODAY':
-          _dateLookedUp  =new Date();
+          _dateLookedUp = new Date();
           break;
         
         case "HIER":
         case "YESTERDAY":
-          _dateLookedUp  =new Date();
+          _dateLookedUp = new Date();
           _dateLookedUp.setDate(_dateLookedUp.getDate() - 1);
           break;
 
@@ -174,12 +182,7 @@ export class FilterEditorComponent {
       return _dateLookedUp.toJSON().split("T")[0];
     }
     if (_day.length < 3 || _day[0].length < 2 || _day[1].length < 2 || _day[2].length < 4) return false;
-    const _dayReversed = [
-      _day[2],
-      _day[1],
-      _day[0]
-    ]
-    return _dayReversed.join("-");
+    return _day.reverse().join("-");
   }
   parseTime(hourString: string = ""): string | boolean {
     const _hours = hourString.split("-");

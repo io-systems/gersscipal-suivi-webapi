@@ -15,6 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
@@ -74,6 +75,7 @@ import { HmiRecipeBottomsheetFormComponent } from './hmi-recipe/hmi-recipe-botto
 import { RecipeFileManagerComponent } from './hmi-recipe/recipe-file-manager/recipe-file-manager.component';
 import { SchemaInfoComponent } from './indicators/schema-info/schema-info.component';
 import { SchemaInfoDialogComponent } from './indicators/schema-info-dialog/schema-info-dialog.component';
+import { MessageHistoryFileManagerComponent } from './message-history/message-history-file-manager/message-history-file-manager.component';
 
 @NgModule({
   declarations: [
@@ -124,6 +126,7 @@ import { SchemaInfoDialogComponent } from './indicators/schema-info-dialog/schem
     RecipeFileManagerComponent,
     SchemaInfoComponent,
     SchemaInfoDialogComponent,
+    MessageHistoryFileManagerComponent,
   ],
   imports: [
     BrowserModule,
@@ -139,6 +142,7 @@ import { SchemaInfoDialogComponent } from './indicators/schema-info-dialog/schem
     MatCardModule,
     MatDialogModule,
     MatDividerModule,
+    MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,

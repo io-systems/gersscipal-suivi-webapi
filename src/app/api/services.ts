@@ -1,8 +1,10 @@
 export { AngularDataFilterControllerService } from './services/angular-data-filter-controller.service';
+export { CounterControllerService } from './services/counter-controller.service';
 export { FabricationOrderControllerService } from './services/fabrication-order-controller.service';
 export { HmiRecipeFileControllerService } from './services/hmi-recipe-file-controller.service';
 export { HmiRecipeControllerService } from './services/hmi-recipe-controller.service';
 export { MessageHistoryControllerService } from './services/message-history-controller.service';
+export { MessageHistoryFileControllerService } from './services/message-history-file-controller.service';
 export { MessageStandardControllerService } from './services/message-standard-controller.service';
 export { MessageStatusControllerService } from './services/message-status-controller.service';
 export { OperationControllerService } from './services/operation-controller.service';

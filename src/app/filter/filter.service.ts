@@ -9,7 +9,9 @@ import { AngularDataFilterControllerService } from '../api/services/angular-data
 export class FilterService {
   public where: Subject<any> = new Subject();
   public filters: ReplaySubject<any> = new ReplaySubject();
+  public filterString: Subject<string> = new Subject();
   private _where: any;
+  private _filterString: string = "";
   private _userHash: string;
   private _storedFilters: any = {};
 
@@ -35,6 +37,10 @@ export class FilterService {
     this.filters.next(this._storedFilters);
   }
 
+  updateFilterString(fil: string = "") {
+    this._filterString = fil;
+    this.filterString.next(this._filterString);
+  }
   updateWhere(fil: any = {}): void {
     this._where = fil;
     this.where.next(this._where);

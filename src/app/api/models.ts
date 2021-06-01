@@ -1,3 +1,7 @@
+export { Counter } from './models/counter';
+export { NewCounter } from './models/new-counter';
+export { CounterWithRelations } from './models/counter-with-relations';
+export { CounterPartial } from './models/counter-partial';
 export { FabricationOrder } from './models/fabrication-order';
 export { NewFabricationOrder } from './models/new-fabrication-order';
 export { FabricationOrderWithRelations } from './models/fabrication-order-with-relations';
