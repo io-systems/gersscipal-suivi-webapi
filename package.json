@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --aot --prod --output-path ../io-suivi-api/public/",
+    "build": "ng build --aot --configuration production --output-path ../io-suivi-api/public/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
