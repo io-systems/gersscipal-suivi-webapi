@@ -81,5 +81,20 @@ export class HmiRecipeEditorComponent implements OnInit {
       () => this.refresh()
     )
   }
+  
+  async clear(event: any) {
+    if (typeof event.index === "undefined" || !Number.isInteger(event.index) || event.index < 0) return;
+    if (!confirm(`Voulez-vous vraiment supprimer le message attribué à l'adresse ${this.addresses[event.index]}`)) return;
+    if (event.hasOwnProperty('id')) {
+      await this.db.deleteById({id: event.id}).toPromise();
+    }else{
+      const index = this.recipes.findIndex(rec => rec.index === event.index);
+      if (index < 0) return;
+      this.recipes[index].operation = "";
+      this.recipes[index].alea = "";
+      this.recipes[index].label = "";
+    }
+    this.refresh();
+  }
 
 }
