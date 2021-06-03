@@ -9,5 +9,6 @@ export interface Workstation {
   id?: number;
   ipAddress?: string;
   localization?: string;
+  maxPalettePerHour?: number;
   updatedAt?: string;
 }

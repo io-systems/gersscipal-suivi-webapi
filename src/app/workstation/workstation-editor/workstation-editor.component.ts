@@ -25,6 +25,7 @@ export class WorkstationEditorComponent implements OnInit {
   //   'aleaPrefix', 
   //   'ipAddress', 
   //   'localization', 
+  //   'maxPalettePerHour',
   //   'description', 
   //   'createdAt', 
   //   'updatedAt', 
@@ -53,6 +54,10 @@ export class WorkstationEditorComponent implements OnInit {
         Validators.required,
         Validators.maxLength(this.fieldIpAddressMaxLength)
       ]),
+      maxPalettePerHour: new FormControl('', [
+        Validators.required,
+        Validators.min(0)
+      ]),
       description: new FormControl('', [
         Validators.maxLength(this.fieldDescriptionMaxLength)
       ])
@@ -62,6 +67,7 @@ export class WorkstationEditorComponent implements OnInit {
       this.workstationForm.controls.divaltoName.setValue(this.workstation.divaltoName);
       this.workstationForm.controls.aleaPrefix.setValue(this.workstation.aleaPrefix);
       this.workstationForm.controls.ipAddress.setValue(this.workstation.ipAddress);
+      this.workstationForm.controls.maxPalettePerHour.setValue(this.workstation.maxPalettePerHour);
       this.workstationForm.controls.description.setValue(this.workstation.description);
     }else{
       this.workstationForm.reset();
@@ -82,6 +88,7 @@ export class WorkstationEditorComponent implements OnInit {
       divaltoName: this.workstationForm.controls.divaltoName.value || "",
       aleaPrefix: this.workstationForm.controls.aleaPrefix.value || "",
       ipAddress: this.workstationForm.controls.ipAddress.value,
+      maxPalettePerHour: this.workstationForm.controls.maxPalettePerHour.value,
       localization: this.workstation.localization || "",
       description: this.workstationForm.controls.description.value || ""
     }
@@ -94,19 +101,19 @@ export class WorkstationEditorComponent implements OnInit {
     }
     let msg = "db lookup:";
     try{
-      const dbWorkshop = await this.db.find(params).toPromise();
+      const dbWorkstation = await this.db.find(params).toPromise();
       // contrôle du nombre d'instances
-      if (dbWorkshop.length > 1) {
+      if (dbWorkstation.length > 1) {
         this._snackBar.open("Le nom existe déjà en plusieurs exemplaires... Faites du ménage !", "X", {
           duration: 2000
         });
         return;
       }
       let dbresult: any = {};
-      if (dbWorkshop.length === 1) {
+      if (dbWorkstation.length === 1) {
         // mise à jour de l'instance
         msg = "db update:";
-        dbresult = await this.db.updateById({id: dbWorkshop[0].id, body: result}).toPromise();
+        dbresult = await this.db.updateById({id: dbWorkstation[0].id, body: result}).toPromise();
       }else{
         msg = "db create:";
         // création de l'instance

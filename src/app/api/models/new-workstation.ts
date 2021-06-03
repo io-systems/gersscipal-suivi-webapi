@@ -12,5 +12,6 @@ export interface NewWorkstation {
   divaltoName?: string;
   ipAddress?: string;
   localization?: string;
+  maxPalettePerHour?: number;
   updatedAt?: string;
 }

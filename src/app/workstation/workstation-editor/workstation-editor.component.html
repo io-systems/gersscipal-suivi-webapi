@@ -70,6 +70,20 @@
             <app-workshop-selector [selectedWorkshopName]="workstation.localization"  fxFlex="1 1 auto"
                                     (setWorkshopName)="updateLocalization($event)"></app-workshop-selector>
         </mat-list-item>
+        <mat-list-item class="margin-bottom">
+            <mat-form-field fxFlex>
+                <mat-label>Cadence maxi (unités par heure)</mat-label>
+                <input matInput placeholder="Cadence maxi" type="number" formControlName="maxPalettePerHour">
+                <mat-error *ngIf="workstationForm.get('maxPalettePerHour').errors && 
+                    workstationForm.get('maxPalettePerHour').hasError('required')">
+                    Ce champ est requis.
+                </mat-error>
+                <mat-error *ngIf="workstationForm.get('maxPalettePerHour').errors && 
+                    workstationForm.get('maxPalettePerHour').hasError('min')">
+                    La valeur doit être supérieure à 0.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
         <mat-list-item>
             <mat-form-field fxFlex>
                 <mat-label>Description</mat-label>
