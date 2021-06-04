@@ -11,6 +11,7 @@ import { FabricationOrderComponent } from './fabrication-order/fabrication-order
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MitLicenceComponent } from './mit-licence/mit-licence.component';
 import { HmiRecipeComponent } from './hmi-recipe/hmi-recipe.component';
+import { AppSetupComponent } from './app-setup/app-setup.component';
 
 const routes: Routes = [
   {path: "workshop", component: WorkshopComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: "fabrication-order", component: FabricationOrderComponent},
   {path: "licence", component: MitLicenceComponent},
   {path: "hmi-recipe", component: HmiRecipeComponent},
+  {path: "app-setup", component: AppSetupComponent},
   {path: '', redirectTo: 'message-history', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];

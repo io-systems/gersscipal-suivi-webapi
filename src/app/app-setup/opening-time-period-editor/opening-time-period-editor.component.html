@@ -1,0 +1,51 @@
+<mat-toolbar>
+    <span>Horaires production du {{timePeriod.day}}</span>
+</mat-toolbar>
+<form [formGroup]="timePeriodForm">
+    <mat-nav-list class="mat-typography">
+        <mat-list-item *ngFor="let p of timePeriod.periods; let i = index;" class="margin-bottom" disableRipple="true">
+            <p *ngIf="p.designation">{{p.designation}} : {{p.start}} - {{p.end}}</p>
+            <p *ngIf="!p.designation">{{p.start}} - {{p.end}}</p>
+            <span fxFlex="1 1 auto"></span>
+            <button mat-icon-button (click)="clearPeriod(i)">
+                <mat-icon>clear</mat-icon>
+            </button>
+        </mat-list-item>
+        <!--mat-list-item class="margin-bottom" disableRipple="true">
+            <mat-form-field fxFlex>
+                <mat-label>Désignation</mat-label>
+                <input matInput type="text" placeholder="Désignation" formControlName="designation">
+                <mat-error *ngIf="timePeriodForm.get('designation').errors && 
+                    timePeriodForm.get('designation').hasError('maxlength')">
+                    Ce champ doit compter moins de {{fieldDesignationMaxLength}} caractères.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item-->
+        <mat-list-item class="margin-bottom" disableRipple="true">
+            <mat-form-field fxFlex>
+                <mat-label>Horaire début</mat-label>
+                <input matInput type="time" placeholder="Horaire début" formControlName="start">
+                <mat-error *ngIf="timePeriodForm.get('start').errors && 
+                    timePeriodForm.get('start').hasError('required')">
+                    Ce champ est requis.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item class="margin-bottom" disableRipple="true">
+            <mat-form-field fxFlex>
+                <mat-label>Horaire fin</mat-label>
+                <input matInput type="time" placeholder="Horaire fin" formControlName="end">
+                <mat-error *ngIf="timePeriodForm.get('end').errors && 
+                    timePeriodForm.get('end').hasError('required')">
+                    Ce champ est requis.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item disableRipple="true">
+            <button mat-raised-button
+                [disabled]="timePeriodForm.invalid"
+                matTooltip="Ajouter une nouvelle période"
+                (click)="addPeriod()">Ajouter</button>
+        </mat-list-item>
+    </mat-nav-list>
+</form>

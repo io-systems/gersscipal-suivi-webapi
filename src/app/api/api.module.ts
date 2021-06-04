@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AngularDataFilterControllerService } from './services/angular-data-filter-controller.service';
+import { AppSetupControllerService } from './services/app-setup-controller.service';
 import { CounterControllerService } from './services/counter-controller.service';
 import { FabricationOrderControllerService } from './services/fabrication-order-controller.service';
 import { HmiRecipeFileControllerService } from './services/hmi-recipe-file-controller.service';
@@ -28,6 +29,7 @@ import { WorkstationControllerService } from './services/workstation-controller.
   declarations: [],
   providers: [
     AngularDataFilterControllerService,
+    AppSetupControllerService,
     CounterControllerService,
     FabricationOrderControllerService,
     HmiRecipeFileControllerService,

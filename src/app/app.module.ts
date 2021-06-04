@@ -17,6 +17,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
@@ -76,6 +77,10 @@ import { RecipeFileManagerComponent } from './hmi-recipe/recipe-file-manager/rec
 import { SchemaInfoComponent } from './indicators/schema-info/schema-info.component';
 import { SchemaInfoDialogComponent } from './indicators/schema-info-dialog/schema-info-dialog.component';
 import { MessageHistoryFileManagerComponent } from './message-history/message-history-file-manager/message-history-file-manager.component';
+import { AppSetupComponent } from './app-setup/app-setup.component';
+import { OpeningTimeSetupComponent } from './app-setup/opening-time-setup/opening-time-setup.component';
+import { OpeningTimePeriodEditorComponent } from './app-setup/opening-time-period-editor/opening-time-period-editor.component';
+import { OpeningTimePeriodBottomsheetEditorComponent } from './app-setup/opening-time-period-bottomsheet-editor/opening-time-period-bottomsheet-editor.component';
 
 @NgModule({
   declarations: [
@@ -127,6 +132,10 @@ import { MessageHistoryFileManagerComponent } from './message-history/message-hi
     SchemaInfoComponent,
     SchemaInfoDialogComponent,
     MessageHistoryFileManagerComponent,
+    AppSetupComponent,
+    OpeningTimeSetupComponent,
+    OpeningTimePeriodEditorComponent,
+    OpeningTimePeriodBottomsheetEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -144,6 +153,7 @@ import { MessageHistoryFileManagerComponent } from './message-history/message-hi
     MatDividerModule,
     MatExpansionModule,
     MatFormFieldModule,
+    MatGridListModule,
     MatIconModule,
     MatInputModule,
     MatListModule,

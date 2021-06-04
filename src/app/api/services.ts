@@ -1,4 +1,5 @@
 export { AngularDataFilterControllerService } from './services/angular-data-filter-controller.service';
+export { AppSetupControllerService } from './services/app-setup-controller.service';
 export { CounterControllerService } from './services/counter-controller.service';
 export { FabricationOrderControllerService } from './services/fabrication-order-controller.service';
 export { HmiRecipeFileControllerService } from './services/hmi-recipe-file-controller.service';
