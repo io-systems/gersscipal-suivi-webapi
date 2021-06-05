@@ -1,13 +1,16 @@
 <mat-card fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="12px">
     <mat-card *ngFor="let d of setup.value.week" fxFlex>
         <mat-card-header>
-            <mat-card-title>{{d.day}}</mat-card-title></mat-card-header>
+            <mat-card-title>{{d.day}}</mat-card-title>
+            <mat-card-subtitle>Périodes de production</mat-card-subtitle>
+        </mat-card-header>
         <mat-card-content>
-            <mat-list>
+            <mat-list *ngIf="d.periods.length > 0">
                 <mat-list-item *ngFor="let p of d.periods; let i = index">
                     <p>{{i + 1}}. {{p.start}} - {{p.end}}</p>
                 </mat-list-item>
             </mat-list>
+            <p *ngIf="d.periods.length <= 0"><i>Cliquer sur le crayon pour ajouter une ou plusieurs périodes.</i></p>
         </mat-card-content>
         <mat-card-actions>
             <button mat-icon-button (click)="editPeriod(d)">
