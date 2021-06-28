@@ -21,6 +21,9 @@ export class HmiRecipeEditorComponent implements OnInit {
     "operation",
     "alea",
     "label",
+    "btnTextFR",
+    "btnTextHU",
+    "btnTextEN",
     "function"
   ];
 

@@ -28,6 +28,24 @@
       <td mat-cell *matCellDef="let element"> {{element.label}} </td>
     </ng-container>
 
+    <!-- btnTextFR Column -->
+    <ng-container matColumnDef="btnTextFR">
+      <th mat-header-cell *matHeaderCellDef> Texte du bouton en français </th>
+      <td mat-cell *matCellDef="let element"> {{element.btnTextFR}} </td>
+    </ng-container>
+
+    <!-- btnTextHU Column -->
+    <ng-container matColumnDef="btnTextHU">
+      <th mat-header-cell *matHeaderCellDef> Texte du bouton en hongrois </th>
+      <td mat-cell *matCellDef="let element"> {{element.btnTextHU}} </td>
+    </ng-container>
+
+    <!-- btnTextEN Column -->
+    <ng-container matColumnDef="btnTextEN">
+      <th mat-header-cell *matHeaderCellDef> Texte du bouton en anglais </th>
+      <td mat-cell *matCellDef="let element"> {{element.btnTextEN}} </td>
+    </ng-container>
+
     <!-- Function Column -->
     <ng-container matColumnDef="function">
       <th mat-header-cell *matHeaderCellDef></th>

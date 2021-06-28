@@ -6,6 +6,9 @@
  */
 export interface HmiRecipeWithRelations {
   alea: string;
+  btnTextEN?: string;
+  btnTextFR?: string;
+  btnTextHU?: string;
   codem: string;
   createdAt?: string;
   id?: number;

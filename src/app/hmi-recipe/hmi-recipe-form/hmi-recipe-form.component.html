@@ -1,19 +1,68 @@
-<mat-nav-list class="mat-typography" disableRipple="true">
-  <mat-list-item disableRipple="true" style="height: auto;">
-    <app-operation-selector [(selectedOperationName)]="hmiRecipe.operation" fxFlex="1 1 auto"></app-operation-selector>
-  </mat-list-item>
-  <mat-list-item disableRipple="true" style="height: auto;">
-    <app-message-standard-selector [(selectedMessageStandardAlea)]="hmiRecipe.alea" [operation]="hmiRecipe.operation" [(label)]="hmiRecipe.label" fxFlex="1 1 auto"></app-message-standard-selector>
-  </mat-list-item>
-  <mat-list-item disableRipple="true">
-    <button mat-raised-button 
-            matTooltip="Abandonner les modifications et fermer la fenêtre"
-            (click)="_cancel()">Annuler</button>
-    <span fxFlex></span>
-    <button mat-raised-button 
-            color="primary" 
-            matTooltip="Enregistrer les modifications et fermer la fenêtre"
-            [disabled]="hmiRecipe.operation.length <= 0 || hmiRecipe.alea.length <= 0"
-            (click)="save()">Enregistrer</button>
-  </mat-list-item>
-</mat-nav-list>
+<form [formGroup]="ihmButtonFormGroup">
+  <mat-nav-list class="mat-typography" disableRipple="true">
+    <mat-list-item disableRipple="true" style="height: auto;">
+      <app-operation-selector [(selectedOperationName)]="hmiRecipe.operation" fxFlex="1 1 auto"></app-operation-selector>
+    </mat-list-item>
+    <mat-list-item disableRipple="true" style="height: auto;">
+      <app-message-standard-selector [(selectedMessageStandardAlea)]="hmiRecipe.alea" [operation]="hmiRecipe.operation" [(label)]="hmiRecipe.label" fxFlex="1 1 auto"></app-message-standard-selector>
+    </mat-list-item>
+    <span *ngIf="hmiRecipe.index > 15">
+      <mat-list-item class="margin-bottom">
+          <mat-form-field fxFlex>
+              <mat-label>Texte du bouton en français</mat-label>
+              <input matInput placeholder="Français" type="text" formControlName="btnTextFR">
+              <mat-hint>{{fieldBtnTextMaxLength}} caractères maxi</mat-hint>
+              <mat-error *ngIf="ihmButtonFormGroup.get('btnTextFR').errors && 
+                ihmButtonFormGroup.get('btnTextFR').hasError('required')">
+                  Ce champ est requis.
+              </mat-error>
+              <mat-error *ngIf="ihmButtonFormGroup.get('btnTextFR').errors && 
+                  ihmButtonFormGroup.get('btnTextFR').hasError('maxlength')">
+                  Ce champ doit compter moins de {{fieldBtnTextMaxLength}} caractères.
+              </mat-error>
+          </mat-form-field>
+      </mat-list-item>
+      <mat-list-item class="margin-bottom">
+          <mat-form-field fxFlex>
+              <mat-label>Texte du bouton en hongrois</mat-label>
+              <input matInput placeholder="Hongrois" type="text" formControlName="btnTextHU">
+              <mat-hint>{{fieldBtnTextMaxLength}} caractères maxi</mat-hint>
+              <mat-error *ngIf="ihmButtonFormGroup.get('btnTextHU').errors && 
+                ihmButtonFormGroup.get('btnTextHU').hasError('required')">
+                  Ce champ est requis.
+              </mat-error>
+              <mat-error *ngIf="ihmButtonFormGroup.get('btnTextHU').errors && 
+                  ihmButtonFormGroup.get('btnTextHU').hasError('maxlength')">
+                  Ce champ doit compter moins de {{fieldBtnTextMaxLength}} caractères.
+              </mat-error>
+          </mat-form-field>
+      </mat-list-item>
+      <mat-list-item class="margin-bottom">
+          <mat-form-field fxFlex>
+              <mat-label>Texte du bouton en anglais</mat-label>
+              <input matInput placeholder="Anglais" type="text" formControlName="btnTextEN">
+              <mat-hint>{{fieldBtnTextMaxLength}} caractères maxi</mat-hint>
+              <mat-error *ngIf="ihmButtonFormGroup.get('btnTextEN').errors && 
+                ihmButtonFormGroup.get('btnTextEN').hasError('required')">
+                  Ce champ est requis.
+              </mat-error>
+              <mat-error *ngIf="ihmButtonFormGroup.get('btnTextEN').errors && 
+                  ihmButtonFormGroup.get('btnTextEN').hasError('maxlength')">
+                  Ce champ doit compter moins de {{fieldBtnTextMaxLength}} caractères.
+              </mat-error>
+          </mat-form-field>
+      </mat-list-item>
+      <mat-list-item disableRipple="true">
+        <button mat-raised-button 
+                matTooltip="Abandonner les modifications et fermer la fenêtre"
+                (click)="_cancel()">Annuler</button>
+        <span fxFlex></span>
+        <button mat-raised-button 
+                color="primary" 
+                matTooltip="Enregistrer les modifications et fermer la fenêtre"
+                [disabled]="hmiRecipe.operation.length <= 0 || hmiRecipe.alea.length <= 0"
+                (click)="save()">Enregistrer</button>
+      </mat-list-item>
+    </span>
+  </mat-nav-list>
+</form>

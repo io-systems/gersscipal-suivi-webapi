@@ -2,6 +2,9 @@
 /* eslint-disable */
 export interface HmiRecipe {
   alea: string;
+  btnTextEN?: string;
+  btnTextFR?: string;
+  btnTextHU?: string;
   codem: string;
   createdAt?: string;
   id?: number;

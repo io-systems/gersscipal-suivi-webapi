@@ -6,6 +6,9 @@
  */
 export interface NewHmiRecipe {
   alea: string;
+  btnTextEN?: string;
+  btnTextFR?: string;
+  btnTextHU?: string;
   codem: string;
   createdAt?: string;
   index: number;
