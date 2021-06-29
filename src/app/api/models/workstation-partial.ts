@@ -5,6 +5,7 @@
  * (tsType: Partial<Workstation>, schemaOptions: { partial: true })
  */
 export interface WorkstationPartial {
+  active?: boolean;
   aleaPrefix?: string;
   codem?: string;
   createdAt?: string;
@@ -14,5 +15,6 @@ export interface WorkstationPartial {
   ipAddress?: string;
   localization?: string;
   maxPalettePerHour?: number;
+  unit?: string;
   updatedAt?: string;
 }

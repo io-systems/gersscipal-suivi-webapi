@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export interface Workstation {
+  active?: boolean;
   aleaPrefix?: string;
   codem: string;
   createdAt?: string;
@@ -10,5 +11,6 @@ export interface Workstation {
   ipAddress?: string;
   localization?: string;
   maxPalettePerHour?: number;
+  unit?: string;
   updatedAt?: string;
 }

@@ -5,6 +5,7 @@
  * (tsType: WorkstationWithRelations, schemaOptions: { includeRelations: true })
  */
 export interface WorkstationWithRelations {
+  active?: boolean;
   aleaPrefix?: string;
   codem: string;
   createdAt?: string;
@@ -14,5 +15,6 @@ export interface WorkstationWithRelations {
   ipAddress?: string;
   localization?: string;
   maxPalettePerHour?: number;
+  unit?: string;
   updatedAt?: string;
 }

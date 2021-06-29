@@ -17,6 +17,7 @@ export class WorkstationEditorComponent implements OnInit {
   fieldIpAddressMaxLength: number = 15;
   fieldLocalizationMaxLength: number = 8;
   fieldDescriptionMaxLength: number = 64;
+  fieldUnitMaxLength: number = 16;
   @Input() workstation: Workstation;
   @Output() result: EventEmitter<boolean> = new EventEmitter();
   // [
@@ -26,6 +27,8 @@ export class WorkstationEditorComponent implements OnInit {
   //   'ipAddress', 
   //   'localization', 
   //   'maxPalettePerHour',
+  //   'unit',
+  //   'active',
   //   'description', 
   //   'createdAt', 
   //   'updatedAt', 
@@ -58,6 +61,10 @@ export class WorkstationEditorComponent implements OnInit {
         Validators.required,
         Validators.min(0)
       ]),
+      unit: new FormControl('', [
+        Validators.maxLength(this.fieldUnitMaxLength)
+      ]),
+      active: new FormControl(false),
       description: new FormControl('', [
         Validators.maxLength(this.fieldDescriptionMaxLength)
       ])
@@ -68,6 +75,8 @@ export class WorkstationEditorComponent implements OnInit {
       this.workstationForm.controls.aleaPrefix.setValue(this.workstation.aleaPrefix);
       this.workstationForm.controls.ipAddress.setValue(this.workstation.ipAddress);
       this.workstationForm.controls.maxPalettePerHour.setValue(this.workstation.maxPalettePerHour);
+      this.workstationForm.controls.unit.setValue(this.workstation.unit);
+      this.workstationForm.controls.active.setValue(this.workstation.active);
       this.workstationForm.controls.description.setValue(this.workstation.description);
     }else{
       this.workstationForm.reset();
@@ -89,6 +98,8 @@ export class WorkstationEditorComponent implements OnInit {
       aleaPrefix: this.workstationForm.controls.aleaPrefix.value || "",
       ipAddress: this.workstationForm.controls.ipAddress.value,
       maxPalettePerHour: this.workstationForm.controls.maxPalettePerHour.value,
+      active: this.workstationForm.controls.active.value ? true : false,
+      unit: this.workstationForm.controls.unit.value || "",
       localization: this.workstation.localization || "",
       description: this.workstationForm.controls.description.value || ""
     }

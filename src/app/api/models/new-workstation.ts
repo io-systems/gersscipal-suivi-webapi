@@ -5,6 +5,7 @@
  * (tsType: Omit<Workstation, 'id'>, schemaOptions: { title: 'NewWorkstation', exclude: [ 'id' ] })
  */
 export interface NewWorkstation {
+  active?: boolean;
   aleaPrefix?: string;
   codem: string;
   createdAt?: string;
@@ -13,5 +14,6 @@ export interface NewWorkstation {
   ipAddress?: string;
   localization?: string;
   maxPalettePerHour?: number;
+  unit?: string;
   updatedAt?: string;
 }
