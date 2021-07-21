@@ -12,5 +12,7 @@ export { OperationControllerService } from './services/operation-controller.serv
 export { PingControllerService } from './services/ping-controller.service';
 export { ProductivityControllerService } from './services/productivity-controller.service';
 export { SchemaControllerService } from './services/schema-controller.service';
+export { ShiftScheduleControllerService } from './services/shift-schedule-controller.service';
+export { ShiftControllerService } from './services/shift-controller.service';
 export { WorkshopControllerService } from './services/workshop-controller.service';
 export { WorkstationControllerService } from './services/workstation-controller.service';

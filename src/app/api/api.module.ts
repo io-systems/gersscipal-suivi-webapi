@@ -18,6 +18,8 @@ import { OperationControllerService } from './services/operation-controller.serv
 import { PingControllerService } from './services/ping-controller.service';
 import { ProductivityControllerService } from './services/productivity-controller.service';
 import { SchemaControllerService } from './services/schema-controller.service';
+import { ShiftScheduleControllerService } from './services/shift-schedule-controller.service';
+import { ShiftControllerService } from './services/shift-controller.service';
 import { WorkshopControllerService } from './services/workshop-controller.service';
 import { WorkstationControllerService } from './services/workstation-controller.service';
 
@@ -43,6 +45,8 @@ import { WorkstationControllerService } from './services/workstation-controller.
     PingControllerService,
     ProductivityControllerService,
     SchemaControllerService,
+    ShiftScheduleControllerService,
+    ShiftControllerService,
     WorkshopControllerService,
     WorkstationControllerService,
     ApiConfiguration

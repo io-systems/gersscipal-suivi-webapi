@@ -1,0 +1,46 @@
+<mat-toolbar>
+  <span>Plage horaire</span>
+</mat-toolbar>
+<form [formGroup]="shiftModelForm">
+  <mat-nav-list class="mat-typography">
+    <mat-list-item class="margin-bottom" disableRipple="true">
+      <mat-form-field fxFlex>
+          <mat-label>Titre</mat-label>
+          <input matInput type="text" placeholder="Titre" formControlName="name">
+          <mat-error *ngIf="shiftModelForm.get('name').errors && 
+            shiftModelForm.get('name').hasError('maxlength')"
+          >
+            Ce champ doit compter moins de {{fieldNameMaxLength}} caractères.
+          </mat-error>
+          <mat-error *ngIf="shiftModelForm.get('name').errors && 
+            shiftModelForm.get('name').hasError('required')"
+          >
+            Ce champ est requis.
+          </mat-error>
+      </mat-form-field>
+    </mat-list-item>
+      <mat-list-item class="margin-bottom" disableRipple="true">
+        <mat-form-field fxFlex>
+            <mat-label>Commentaire</mat-label>
+            <input matInput type="text" placeholder="Commentaire" formControlName="description">
+            <mat-error *ngIf="shiftModelForm.get('name').errors && 
+              shiftModelForm.get('name').hasError('maxlength')"
+            >
+              Ce champ doit compter moins de {{fieldDescriptionMaxLength}} caractères.
+            </mat-error>
+        </mat-form-field>
+      </mat-list-item>
+      <mat-list-item disableRipple="true">
+        <button mat-raised-button
+          matTooltip="Fermer la fenêtre sans modification"
+          (click)="cancel()"
+        >Annuler</button>
+        <span fxFlex></span>
+        <button mat-raised-button
+          [disabled]="shiftModelForm.invalid"
+          matTooltip="Ajouter une nouvelle plage horaire"
+          (click)="addShift()"
+        >Ajouter</button>
+      </mat-list-item>
+  </mat-nav-list>
+</form>

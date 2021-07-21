@@ -82,6 +82,9 @@ import { AppSetupComponent } from './app-setup/app-setup.component';
 import { OpeningTimeSetupComponent } from './app-setup/opening-time-setup/opening-time-setup.component';
 import { OpeningTimePeriodEditorComponent } from './app-setup/opening-time-period-editor/opening-time-period-editor.component';
 import { OpeningTimePeriodBottomsheetEditorComponent } from './app-setup/opening-time-period-bottomsheet-editor/opening-time-period-bottomsheet-editor.component';
+import { ShiftEditorComponent } from './app-setup/shift-editor/shift-editor.component';
+import { ShiftModelEditorComponent } from './app-setup/shift-model-editor/shift-model-editor.component';
+import { ShiftModelBottomsheetEditorComponent } from './app-setup/shift-model-bottomsheet-editor/shift-model-bottomsheet-editor.component';
 
 @NgModule({
   declarations: [
@@ -137,6 +140,9 @@ import { OpeningTimePeriodBottomsheetEditorComponent } from './app-setup/opening
     OpeningTimeSetupComponent,
     OpeningTimePeriodEditorComponent,
     OpeningTimePeriodBottomsheetEditorComponent,
+    ShiftEditorComponent,
+    ShiftModelEditorComponent,
+    ShiftModelBottomsheetEditorComponent,
   ],
   imports: [
     BrowserModule,
