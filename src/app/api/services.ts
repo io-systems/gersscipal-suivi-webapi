@@ -10,6 +10,7 @@ export { MessageStandardControllerService } from './services/message-standard-co
 export { MessageStatusControllerService } from './services/message-status-controller.service';
 export { OperationControllerService } from './services/operation-controller.service';
 export { PingControllerService } from './services/ping-controller.service';
+export { ProductivityControllerService } from './services/productivity-controller.service';
 export { SchemaControllerService } from './services/schema-controller.service';
 export { WorkshopControllerService } from './services/workshop-controller.service';
 export { WorkstationControllerService } from './services/workstation-controller.service';
