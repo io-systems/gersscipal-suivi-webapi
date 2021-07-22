@@ -10,7 +10,8 @@ export class OpeningTimePeriodEditorComponent implements OnInit {
   timePeriodForm: FormGroup;
   fieldDesignationMaxLength: number = 32;
   @Input() timePeriod: any;
-  @Output() result: EventEmitter<boolean> = new EventEmitter();
+  @Output() timePeriodChange = new EventEmitter<any>();
+  @Output() result = new EventEmitter<boolean>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -18,9 +19,6 @@ export class OpeningTimePeriodEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.timePeriodForm = this.formBuilder.group({
-      // designation: new FormControl('', [
-      //   Validators.maxLength(this.fieldDesignationMaxLength)
-      // ]),
       start: new FormControl('', [
         Validators.required
       ]),
@@ -28,11 +26,11 @@ export class OpeningTimePeriodEditorComponent implements OnInit {
         Validators.required
       ])
     });
+    console.log(this.timePeriod);
   }
 
   addPeriod(): void {
     const tmp = {
-      // designation: this.timePeriodForm.controls.designation.value,
       start: this.timePeriodForm.controls.start.value,
       end: this.timePeriodForm.controls.end.value
     }
@@ -42,6 +40,7 @@ export class OpeningTimePeriodEditorComponent implements OnInit {
       const bt = new Date(Date.parse(`1970-01-01 ${b.start}:00`));
       return at.valueOf() - bt.valueOf();
     });
+    this.timePeriodChange.emit(this.timePeriod);
   }
   clearPeriod(i: number): void {
     if (i < 0 || i >= this.timePeriod.periods.length ||!this.timePeriod.periods[i]) return;

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { Shift, ShiftSchedule } from 'src/app/api/models';
-import { ShiftControllerService } from 'src/app/api/services';
-import { ShiftScheduleControllerService } from 'src/app/api/services';
+import { ProgressBarService } from 'src/app/progress-bar.service';
+import { Shift } from 'src/app/api/models';
+import { ShiftControllerService, ShiftScheduleControllerService } from 'src/app/api/services';
 import { ShiftModelBottomsheetEditorComponent } from '../shift-model-bottomsheet-editor/shift-model-bottomsheet-editor.component';
 
 @Component({
@@ -12,13 +12,17 @@ import { ShiftModelBottomsheetEditorComponent } from '../shift-model-bottomsheet
 })
 export class ShiftEditorComponent implements OnInit {
   shifts: Shift[] = [];
-  schedules: ShiftSchedule[] = [];
   shiftTableColumns: string[] = ['name', 'description', 'buttons'];
+  selectedShift: Shift = {
+    name: '',
+    description: '',
+  }
 
   constructor(
     private _shifts: ShiftControllerService,
-    private _shiftSchedules: ShiftScheduleControllerService,
+    private _schedules: ShiftScheduleControllerService,
     private _bottomSheet: MatBottomSheet,
+    private _progress: ProgressBarService,
   ) { }
 
   ngOnInit(): void {
@@ -26,17 +30,24 @@ export class ShiftEditorComponent implements OnInit {
   }
 
   async refresh() {
+    this._progress.setLoadingState(true);
     try {
       this.shifts = await this._shifts.find().toPromise();
-      this.schedules = await this._shiftSchedules.find().toPromise();
+      if (this.selectedShift.name === '') {
+        this.selectedShift = this.shifts[0] || {
+            name: '',
+            description: '',
+          };
+      }
     } catch (e) {
       console.log(e);
     }
+    this._progress.setLoadingState(false);
   }
 
-  addShift(event) {
+  addShift(shift) {
     const createBottomSheet = this._bottomSheet.open(ShiftModelBottomsheetEditorComponent, {
-      data: event
+      data: shift
     });
     createBottomSheet.afterDismissed().subscribe(
       data => {},
@@ -45,14 +56,26 @@ export class ShiftEditorComponent implements OnInit {
     )
   }
 
-  edit(event) {
-    console.log('edit', event);
+  edit(event, elm) {
+    event.stopPropagation();
+    this.selectedShift = elm;
+    this.addShift(this.selectedShift);
   }
-  clear(event) {
-    console.log('clear', event);
+  async clear(event, elm) {
+    console.log('clear', elm);
+    event.stopPropagation();
+    if (confirm(`Voulez-vous vraiment supprimer la plage horaire ${elm.name} ?`)) {
+      try {
+        // suppression des schedules
+        //this._schedules
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }
-  copy(event) {
-    console.log('copy', event);
+  selectShift(event, elm: Shift) {
+    event.stopPropagation();
+    this.selectedShift = elm;
   }
 
 }

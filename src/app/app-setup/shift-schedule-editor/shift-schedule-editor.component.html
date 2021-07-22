@@ -1,0 +1,24 @@
+<h3 *ngIf="!shift || !shift.name">Veuillez cliquer sur une plage horaire sur la gauche</h3>
+<span *ngIf="shift && shift.name">
+  <mat-toolbar>
+    <span>{{shift.name}}</span>
+    <span fxFlex></span>
+    <button mat-button (click)="addPeriod()" *ngIf="shiftSchedules.length <= 0">Ajouter une période</button>
+    <button mat-button (click)="editPeriod()" *ngIf="shiftSchedules.length > 0">Éditer les périodes</button>
+  </mat-toolbar>
+  <table mat-table *ngIf="shiftSchedules.length > 0" [dataSource]="shiftSchedules" style="width: 100%">
+    
+    <ng-container matColumnDef="start">
+      <th mat-header-cell *matHeaderCellDef> Début </th>
+      <td mat-cell *matCellDef="let element"> {{element.start}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="end">
+      <th mat-header-cell *matHeaderCellDef> Fin </th>
+      <td mat-cell *matCellDef="let element"> {{element.end}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+  </table>
+</span>

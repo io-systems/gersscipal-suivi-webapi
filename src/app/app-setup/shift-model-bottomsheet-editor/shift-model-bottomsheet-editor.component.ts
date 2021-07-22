@@ -11,9 +11,7 @@ export class ShiftModelBottomsheetEditorComponent {
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private _bottomSheetRef: MatBottomSheetRef<ShiftModelBottomsheetEditorComponent>
-  ) {
-    console.log(this.data);
-  }
+  ) { }
 
   processResult(result: boolean) {
     this._bottomSheetRef.dismiss();

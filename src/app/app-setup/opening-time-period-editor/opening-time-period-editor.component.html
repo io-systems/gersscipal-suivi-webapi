@@ -1,5 +1,6 @@
 <mat-toolbar>
-    <span>Horaires production du {{timePeriod.day}}</span>
+    <span *ngIf="timePeriod.day">Horaires production du {{timePeriod.day}}</span>
+    <span *ngIf="!timePeriod.day">Horaires production pour {{timePeriod.shift.name}}</span>
 </mat-toolbar>
 <form [formGroup]="timePeriodForm">
     <mat-nav-list class="mat-typography">
@@ -11,16 +12,6 @@
                 <mat-icon>clear</mat-icon>
             </button>
         </mat-list-item>
-        <!--mat-list-item class="margin-bottom" disableRipple="true">
-            <mat-form-field fxFlex>
-                <mat-label>Désignation</mat-label>
-                <input matInput type="text" placeholder="Désignation" formControlName="designation">
-                <mat-error *ngIf="timePeriodForm.get('designation').errors && 
-                    timePeriodForm.get('designation').hasError('maxlength')">
-                    Ce champ doit compter moins de {{fieldDesignationMaxLength}} caractères.
-                </mat-error>
-            </mat-form-field>
-        </mat-list-item-->
         <mat-list-item class="margin-bottom" disableRipple="true">
             <mat-form-field fxFlex>
                 <mat-label>Horaire début</mat-label>

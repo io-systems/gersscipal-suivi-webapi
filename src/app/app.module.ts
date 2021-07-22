@@ -85,6 +85,7 @@ import { OpeningTimePeriodBottomsheetEditorComponent } from './app-setup/opening
 import { ShiftEditorComponent } from './app-setup/shift-editor/shift-editor.component';
 import { ShiftModelEditorComponent } from './app-setup/shift-model-editor/shift-model-editor.component';
 import { ShiftModelBottomsheetEditorComponent } from './app-setup/shift-model-bottomsheet-editor/shift-model-bottomsheet-editor.component';
+import { ShiftScheduleEditorComponent } from './app-setup/shift-schedule-editor/shift-schedule-editor.component';
 
 @NgModule({
   declarations: [
@@ -143,6 +144,7 @@ import { ShiftModelBottomsheetEditorComponent } from './app-setup/shift-model-bo
     ShiftEditorComponent,
     ShiftModelEditorComponent,
     ShiftModelBottomsheetEditorComponent,
+    ShiftScheduleEditorComponent,
   ],
   imports: [
     BrowserModule,

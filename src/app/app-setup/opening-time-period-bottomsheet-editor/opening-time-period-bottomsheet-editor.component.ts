@@ -11,10 +11,17 @@ export class OpeningTimePeriodBottomsheetEditorComponent {
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private _bottomSheetRef: MatBottomSheetRef<OpeningTimePeriodBottomsheetEditorComponent>
-  ) { }
+  ) {
+    this._bottomSheetRef.backdropClick().subscribe(
+      (event) => {
+        event.stopPropagation();
+        this._bottomSheetRef.dismiss(this.data);
+      }
+    )
+  }
 
   processResult(result: boolean = false): void {
-    this._bottomSheetRef.dismiss();
+    this._bottomSheetRef.dismiss(this.data);
   }
 
 }

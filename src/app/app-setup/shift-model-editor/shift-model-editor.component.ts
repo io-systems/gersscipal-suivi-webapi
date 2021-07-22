@@ -18,7 +18,8 @@ export class ShiftModelEditorComponent implements OnInit {
     name: '',
     description: '',
   };
-  @Output() result: EventEmitter<boolean> = new EventEmitter();
+  @Output() modelChange = new EventEmitter<Shift>();
+  @Output() result = new EventEmitter<boolean>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,6 +38,10 @@ export class ShiftModelEditorComponent implements OnInit {
         Validators.maxLength(this.fieldDescriptionMaxLength),
       ])
     });
+    if (this.model) {
+      this.shiftModelForm.get('name').setValue(this.model.name);
+      this.shiftModelForm.get('description').setValue(this.model.description);
+    }
   }
 
   async addShift() {
@@ -60,6 +65,7 @@ export class ShiftModelEditorComponent implements OnInit {
       this._snackBar.open("Enregistré :-)", "X", {
         duration: this._setup.SNACKBAR_TIMEOUT_TIME
       });
+      this.modelChange.emit(result);
       this.result.emit(true);
     } catch (e) {
       this._snackBar.open("Erreur lors de l'enregistrement du titre ou du commentaire", "X", {

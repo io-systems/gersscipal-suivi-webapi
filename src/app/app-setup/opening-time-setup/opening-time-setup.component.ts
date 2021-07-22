@@ -75,8 +75,13 @@ export class OpeningTimeSetupComponent implements OnInit {
   }
 
   editPeriod(event) {
+    console.log(event);
     const createBottomSheet = this._bottomSheet.open(OpeningTimePeriodBottomsheetEditorComponent, {
-      data: event
+      data: {
+        day: event.day,
+        weekDay: event.weekDay,
+        periods: event.periods,
+      }
     });
     createBottomSheet.afterDismissed().subscribe(
       data => {},
