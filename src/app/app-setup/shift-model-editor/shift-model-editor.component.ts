@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfigService } from 'src/app/config.service';
 import { Shift } from 'src/app/api/models';
-import { ShiftControllerService } from 'src/app/api/services';
+import { ShiftControllerService, ShiftScheduleControllerService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-shift-model-editor',
@@ -24,6 +24,7 @@ export class ShiftModelEditorComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private db: ShiftControllerService,
+    private _schedules: ShiftScheduleControllerService,
     private _setup: ConfigService,
     private _snackBar: MatSnackBar
   ) { }
@@ -58,9 +59,83 @@ export class ShiftModelEditorComponent implements OnInit {
         })
       }).toPromise();
       if (_sh && _sh.length > 0) {
-        await this.db.updateById({id: _sh[0].id, body: result}).toPromise();
+        if (this.model.name && this.model.name !== result.name) {
+          // mise à jour des schedules
+          const sched = await this._schedules.find({
+            filter: JSON.stringify({
+              where: {
+                shift: this.model.name
+              }
+            })
+          }).toPromise();
+          if (sched && sched.length > 0) {
+            for (let sh of sched) {
+              await this._schedules.updateById({
+                id: sh.id, 
+                body: {
+                  shift: result.name,
+                  start: sh.start,
+                  end: sh.end,
+                  day: sh.day,
+                  weekDay: sh.weekDay
+                }
+              }).toPromise();
+            }
+          }
+          await this.db.updateById({
+            id: _sh[0].id, 
+            body: result
+          }).toPromise();
+
+        }else{
+          await this.db.updateById({
+            id: _sh[0].id, 
+            body: result
+          }).toPromise();
+        }
+
       }else{
-        await this.db.create({body: result}).toPromise();
+        if (this.model.name && this.model.name !== result.name) {
+          // édition d'un modèle existant : mise à jour des schedules avec
+          // recherche du modèle existant
+          const edited = await this.db.find({
+            filter: JSON.stringify({
+              where: {
+                name: this.model.name
+              }
+            })
+          }).toPromise();
+          // mise à jour des schedules
+          const sched = await this._schedules.find({
+            filter: JSON.stringify({
+              where: {
+                shift: this.model.name
+              }
+            })
+          }).toPromise();
+          if (sched && sched.length > 0) {
+            for (let sh of sched) {
+              await this._schedules.updateById({
+                id: sh.id, 
+                body: {
+                  shift: result.name,
+                  start: sh.start,
+                  end: sh.end,
+                  day: sh.day,
+                  weekDay: sh.weekDay
+                }
+              }).toPromise();
+            }
+          }
+          await this.db.create({body: result}).toPromise();
+          if (edited && edited.length > 0) {
+            for (let mod of edited) {
+              await this.db.deleteById({id: mod.id}).toPromise();
+            }
+          }
+        }else{
+          await this.db.create({body: result}).toPromise();
+        }
       }
       this._snackBar.open("Enregistré :-)", "X", {
         duration: this._setup.SNACKBAR_TIMEOUT_TIME
@@ -68,6 +143,7 @@ export class ShiftModelEditorComponent implements OnInit {
       this.modelChange.emit(result);
       this.result.emit(true);
     } catch (e) {
+      console.log(e);
       this._snackBar.open("Erreur lors de l'enregistrement du titre ou du commentaire", "X", {
         duration: this._setup.SNACKBAR_TIMEOUT_TIME
       });

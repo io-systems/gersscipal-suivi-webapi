@@ -33,7 +33,7 @@ export class ShiftEditorComponent implements OnInit {
     this._progress.setLoadingState(true);
     try {
       this.shifts = await this._shifts.find().toPromise();
-      if (this.selectedShift.name === '') {
+      if (this.selectedShift.name === '' || this.shifts.findIndex((sh) => sh.name === this.selectedShift.name) < 0) {
         this.selectedShift = this.shifts[0] || {
             name: '',
             description: '',
@@ -62,15 +62,42 @@ export class ShiftEditorComponent implements OnInit {
     this.addShift(this.selectedShift);
   }
   async clear(event, elm) {
-    console.log('clear', elm);
     event.stopPropagation();
     if (confirm(`Voulez-vous vraiment supprimer la plage horaire ${elm.name} ?`)) {
       try {
         // suppression des schedules
-        //this._schedules
+        const scheds = await this._schedules.find({
+          filter: JSON.stringify({
+            where: {
+              shift: elm.name
+            }
+          })
+        }).toPromise();
+        if (scheds && scheds.length > 0) {
+          for (let sh of scheds) {
+            await this._schedules.deleteById({id: sh.id}).toPromise();
+          }
+        }
+        if (elm.id) {
+          await this._shifts.deleteById({id: elm.id}).toPromise();
+        }else{
+          const tmp = await this._shifts.find({
+            filter: JSON.stringify({
+              where: {
+                name: elm.name
+              }
+            })
+          }).toPromise();
+          if (tmp && tmp.length > 0) {
+            for (let sh of tmp) {
+              await this._shifts.deleteById({id: sh.id}).toPromise();
+            }
+          }
+        }
       } catch (e) {
         console.log(e);
       }
+      this.refresh();
     }
   }
   selectShift(event, elm: Shift) {

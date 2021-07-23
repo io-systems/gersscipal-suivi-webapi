@@ -47,7 +47,6 @@ export class ShiftScheduleEditorComponent implements OnInit, OnChanges {
             }
           })
         }).toPromise();
-        console.log(this.shiftSchedules);
       }
     } catch (e) {
       console.log(e);
@@ -57,7 +56,6 @@ export class ShiftScheduleEditorComponent implements OnInit, OnChanges {
 
   async updateDB() {
     try{
-      console.log(this.shiftSchedules);
       for (let sched of this.shiftSchedules) {
         await this.db.create({body: sched}).toPromise();
       }
