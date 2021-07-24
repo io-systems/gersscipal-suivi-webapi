@@ -79,7 +79,6 @@ import { SchemaInfoComponent } from './indicators/schema-info/schema-info.compon
 import { SchemaInfoDialogComponent } from './indicators/schema-info-dialog/schema-info-dialog.component';
 import { MessageHistoryFileManagerComponent } from './message-history/message-history-file-manager/message-history-file-manager.component';
 import { AppSetupComponent } from './app-setup/app-setup.component';
-import { OpeningTimeSetupComponent } from './app-setup/opening-time-setup/opening-time-setup.component';
 import { OpeningTimePeriodEditorComponent } from './app-setup/opening-time-period-editor/opening-time-period-editor.component';
 import { OpeningTimePeriodBottomsheetEditorComponent } from './app-setup/opening-time-period-bottomsheet-editor/opening-time-period-bottomsheet-editor.component';
 import { ShiftEditorComponent } from './app-setup/shift-editor/shift-editor.component';
@@ -138,7 +137,6 @@ import { ShiftScheduleEditorComponent } from './app-setup/shift-schedule-editor/
     SchemaInfoDialogComponent,
     MessageHistoryFileManagerComponent,
     AppSetupComponent,
-    OpeningTimeSetupComponent,
     OpeningTimePeriodEditorComponent,
     OpeningTimePeriodBottomsheetEditorComponent,
     ShiftEditorComponent,
