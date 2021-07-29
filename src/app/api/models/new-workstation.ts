@@ -14,6 +14,7 @@ export interface NewWorkstation {
   ipAddress?: string;
   localization?: string;
   maxPalettePerHour?: number;
+  recordingRate?: number;
   unit?: string;
   updatedAt?: string;
 }

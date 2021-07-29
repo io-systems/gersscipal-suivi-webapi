@@ -28,6 +28,7 @@ export class WorkstationEditorComponent implements OnInit {
   //   'localization', 
   //   'maxPalettePerHour',
   //   'unit',
+  //   'recordingPeriod',
   //   'active',
   //   'description', 
   //   'createdAt', 
@@ -64,6 +65,10 @@ export class WorkstationEditorComponent implements OnInit {
       unit: new FormControl('', [
         Validators.maxLength(this.fieldUnitMaxLength)
       ]),
+      recordingRate: new FormControl('', [
+        Validators.required,
+        Validators.min(0)
+      ]),
       active: new FormControl(false),
       description: new FormControl('', [
         Validators.maxLength(this.fieldDescriptionMaxLength)
@@ -76,6 +81,7 @@ export class WorkstationEditorComponent implements OnInit {
       this.workstationForm.controls.ipAddress.setValue(this.workstation.ipAddress);
       this.workstationForm.controls.maxPalettePerHour.setValue(this.workstation.maxPalettePerHour);
       this.workstationForm.controls.unit.setValue(this.workstation.unit);
+      this.workstationForm.controls.recordingRate.setValue(this.workstation.recordingRate);
       this.workstationForm.controls.active.setValue(this.workstation.active);
       this.workstationForm.controls.description.setValue(this.workstation.description);
     }else{
@@ -98,8 +104,9 @@ export class WorkstationEditorComponent implements OnInit {
       aleaPrefix: this.workstationForm.controls.aleaPrefix.value || "",
       ipAddress: this.workstationForm.controls.ipAddress.value,
       maxPalettePerHour: this.workstationForm.controls.maxPalettePerHour.value,
-      active: this.workstationForm.controls.active.value ? true : false,
       unit: this.workstationForm.controls.unit.value || "",
+      recordingRate: this.workstationForm.controls.recordingRate.value,
+      active: this.workstationForm.controls.active.value ? true : false,
       localization: this.workstation.localization || "",
       description: this.workstationForm.controls.description.value || ""
     }

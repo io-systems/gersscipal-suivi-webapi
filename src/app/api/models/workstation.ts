@@ -11,6 +11,7 @@ export interface Workstation {
   ipAddress?: string;
   localization?: string;
   maxPalettePerHour?: number;
+  recordingRate?: number;
   unit?: string;
   updatedAt?: string;
 }

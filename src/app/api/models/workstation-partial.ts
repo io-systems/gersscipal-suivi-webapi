@@ -15,6 +15,7 @@ export interface WorkstationPartial {
   ipAddress?: string;
   localization?: string;
   maxPalettePerHour?: number;
+  recordingRate?: number;
   unit?: string;
   updatedAt?: string;
 }

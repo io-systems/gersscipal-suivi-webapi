@@ -17,7 +17,7 @@ import { ProgressBarService } from '../progress-bar.service';
 })
 export class WorkstationComponent implements OnInit {
   dataArray: Workstation[] = [];
-  displayedColumns: string[] = ['codem', 'divaltoName', 'aleaPrefix', 'ipAddress', 'localization', 'maxPalettePerHour', 'unit', 'active', 'description', 'createdAt', 'updatedAt', 'functions'];
+  displayedColumns: string[] = ['codem', 'divaltoName', 'aleaPrefix', 'ipAddress', 'localization', 'maxPalettePerHour', 'unit', 'recordingRate', 'active', 'description', 'createdAt', 'updatedAt', 'functions'];
   filter: any = {
     offset: 0,
     limit: 25,

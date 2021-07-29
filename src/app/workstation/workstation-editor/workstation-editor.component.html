@@ -96,6 +96,20 @@
             </mat-form-field>
         </mat-list-item>
         <mat-list-item class="margin-bottom">
+            <mat-form-field fxFlex>
+                <mat-label>Temps entre deux enregistrements des compteurs (s)</mat-label>
+                <input matInput placeholder="Cadence d'enregistrement des compteurs" type="number" formControlName="recordingRate">
+                <mat-error *ngIf="workstationForm.get('recordingRate').errors && 
+                    workstationForm.get('recordingRate').hasError('required')">
+                    Ce champ est requis.
+                </mat-error>
+                <mat-error *ngIf="workstationForm.get('recordingRate').errors && 
+                    workstationForm.get('recordingRate').hasError('min')">
+                    La valeur doit être supérieure à 0.
+                </mat-error>
+            </mat-form-field>
+        </mat-list-item>
+        <mat-list-item class="margin-bottom">
             <mat-checkbox formControlName="active">Active</mat-checkbox>
         </mat-list-item>
         <mat-list-item>
