@@ -10,6 +10,7 @@ import { ApiConfiguration } from './api/api-configuration';
 })
 export class AppComponent {
   title = 'GSP - Suivi de production';
+  shortTitle = 'GSP - Suivi prod';
   sideNavOpened = true;
   copyrightYears: string = "";
   
@@ -29,5 +30,7 @@ export class AppComponent {
       ':',
       (window.location.port === "4200") ? "3000" : window.location.port
     ].join("");
+    this.title = config.APP_NAME ? `${config.APP_NAME} - Suivi de production` : 'Suivi de production';
+    this.shortTitle = config.APP_NICKNAME ? `${config.APP_NICKNAME} - Suivi prod` : 'Suivi prod';
   }
 }

@@ -5,8 +5,8 @@
     <button mat-icon-button aria-label="menu" (click)="sideNavOpened = !sideNavOpened" fxShow fxHide.lt-sm>
       <mat-icon>menu</mat-icon>
    </button>
-    <span fxShow fxHide.lt-sm>Gers Sci Pal - Suivi de production</span>
-    <span fxHide fxShow.lt-sm>GSP - Suivi prod</span>
+   <span fxShow fxHide.lt-sm>{{title}}</span>
+   <span fxHide fxShow.lt-sm>{{shortTitle}}</span>
     <span fxFlex="1 1 auto"></span>
     <app-links fxShow fxHide.lt-sm></app-links>
   </mat-toolbar>

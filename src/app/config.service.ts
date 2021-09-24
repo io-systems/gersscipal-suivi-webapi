@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ConfigService {
+  public APP_NAME = 'Gers Sci Pal';
+  public APP_NICKNAME = 'GSP';
   public REQUEST_LIMIT: number = 25;
   public PROGRESS_TIMEOUT_TIME: number = 1600;
   public SNACKBAR_TIMEOUT_TIME: number = 1600;
